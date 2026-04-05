@@ -1,6 +1,22 @@
-# Arquitectura de Agentes
+# Arquitectura de Agentes de IA
 
-Sistema de agentes para una Software Factory completa. Cubre el ciclo de vida end-to-end: desde el backlog hasta el deploy en producción.
+Un sistema open source de agentes especializados para equipos de desarrollo. En lugar de darle contexto a una IA cada vez que arrancás una tarea, tenés agentes pre-configurados con roles claros — PM, arquitecto, dev, tester, data engineer, BI — que ya saben cómo trabajar, qué estándares seguir y cuándo escalar.
+
+Funciona en Claude Code, OpenCode y Claude.ai. Compatible con cualquier proyecto, independiente del stack.
+
+**¿Para qué sirve?**
+- Estandarizar el código y los flujos de trabajo en todo el equipo
+- Reducir el tiempo que se pierde explicándole contexto a la IA en cada sesión
+- Bajar costos al usar el agente correcto para cada tarea
+- Lograr equipos más consistentes y predecibles, sin importar quién ejecuta la tarea
+
+---
+
+## Contribuir
+
+Este proyecto es colaborativo. Si usás IA en tu equipo de desarrollo, tu experiencia tiene valor acá. Todo aporte es bienvenido: nuevos agentes, mejoras a los existentes, adaptaciones para otros stacks, o simplemente abrir un issue con lo que no funcionó.
+
+La comunidad de desarrolladores que trabaja con IA está construyendo las mejores prácticas en tiempo real. Este repositorio es un intento de documentar eso y ponerlo a disposición de todos.
 
 ---
 
