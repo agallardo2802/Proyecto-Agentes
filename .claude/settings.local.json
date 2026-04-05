@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for f:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Users/aleja/Documents/Proyectos Base/Arquitectura de Agentes/**)",
+      "Bash(done)",
+      "mcp__plugin_engram_engram__mem_save",
+      "mcp__plugin_engram_engram__mem_session_summary"
+    ]
+  }
+}
