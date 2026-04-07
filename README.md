@@ -51,16 +51,33 @@ Arquitectura de Agentes/
 │   │   ├── ux/                 → Usabilidad, fricción, experiencia del usuario
 │   │   └── ui/                 → Consistencia visual, design system, deuda visual
 │   │
-│   └── devops/                 → Orquestador del área de DevOps
-│       ├── pr/                 → Orquestador de Pull Requests (reglas base)
-│       │   ├── github/         → PRs en GitHub (labels, branch protection, gh cli)
-│       │   └── bitbucket/      → PRs en Bitbucket (smart commits, tasks, permisos)
-│       ├── cicd/               → Orquestador de CI/CD (estructura base de pipeline)
-│       │   ├── github-actions/ → Workflows YAML, secrets, environments, artefactos
-│       │   └── azure-devops/   → Pipelines YAML, variable groups, approvals
-│       └── board/              → Orquestador de tableros (jerarquía y reglas base)
-│           ├── jira/           → Jira Cloud: JQL, smart commits, campos por tipo
-│           └── azure-boards/   → Azure Boards: jerarquía, AB#, queries, capacity
+│   ├── devops/                 → Orquestador del área de DevOps
+│   │   ├── pr/                 → Orquestador de Pull Requests (reglas base)
+│   │   │   ├── github/         → PRs en GitHub (labels, branch protection, gh cli)
+│   │   │   └── bitbucket/      → PRs en Bitbucket (smart commits, tasks, permisos)
+│   │   ├── cicd/               → Orquestador de CI/CD (estructura base de pipeline)
+│   │   │   ├── github-actions/ → Workflows YAML, secrets, environments, artefactos
+│   │   │   └── azure-devops/   → Pipelines YAML, variable groups, approvals
+│   │   └── board/              → Orquestador de tableros (jerarquía y reglas base)
+│   │       ├── jira/           → Jira Cloud: JQL, smart commits, campos por tipo
+│   │       └── azure-boards/   → Azure Boards: jerarquía, AB#, queries, capacity
+│   │
+│   └── datos/                  → Orquestador del área de Datos
+│       ├── analista-datos/     → KPIs, métricas, traducción negocio → datos
+│       ├── bi-reporting/       → Dashboards, Power BI, visualización
+│       └── data-engineering/   → ETL, integración de datos, datasets
+│
+├── guilds/                     → Estándares por tecnología — se inyectan junto al dev agent
+│   ├── backend-dotnet/         → Clean Arch, manejo de errores, logging, async en .NET
+│   ├── frontend-angular/       → Lazy loading, Signals, OnPush, sin any
+│   ├── data-sqlserver/         → Normalización, índices, sin SELECT *, queries eficientes
+│   ├── integraciones/          → Retry, circuit breaker, correlation ID, timeouts
+│   ├── arquitectura/           → Validación transversal, ADR obligatorio, sin deuda silenciosa
+│   └── datos/                  → Guilds de datos
+│       ├── powerbi/            → Star schema, DAX estándar, performance de reportes
+│       ├── modelado-datos/     → Naming conventions, 3NF, migrations versionadas
+│       ├── kpis-negocio/       → Catálogo oficial de KPIs, proceso de alta, consistencia
+│       └── data-governance/    → System of record, clasificación PII, linaje de datos
 │
 ├── reglas/                     → Conocimiento técnico granular inyectable en cualquier agente
 │   ├── naming-conventions/     → Variables, funciones, archivos, componentes
@@ -83,7 +100,7 @@ Arquitectura de Agentes/
 └── templates/                  → Plantillas para crear nuevos agentes
     ├── nuevo-agente/           → Template base para un agente nuevo
     ├── modificar-agente/       → Guía para actualizar un agente existente
-    └── skill_estilo_corporativo_el_cuatro/ → Ejemplo de skill con estilo corporativo
+    └── base_reporte_corporativo/    → Template de reporte con estilo corporativo
 ```
 
 ---
