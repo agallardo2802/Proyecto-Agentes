@@ -18,6 +18,8 @@ Este proyecto es colaborativo. Si usás IA en tu equipo de desarrollo, tu experi
 
 La comunidad de desarrolladores que trabaja con IA está construyendo las mejores prácticas en tiempo real. Este repositorio es un intento de documentar eso y ponerlo a disposición de todos.
 
+→ Leé [CONTRIBUTING.md](CONTRIBUTING.md) para ver cómo aportar.
+
 ---
 
 ## Árbol completo
@@ -80,7 +82,8 @@ Arquitectura de Agentes/
 │
 └── templates/                  → Plantillas para crear nuevos agentes
     ├── nuevo-agente/           → Template base para un agente nuevo
-    └── modificar-agente/       → Guía para actualizar un agente existente
+    ├── modificar-agente/       → Guía para actualizar un agente existente
+    └── skill_estilo_corporativo_el_cuatro/ → Ejemplo de skill con estilo corporativo
 ```
 
 ---
@@ -332,7 +335,7 @@ Crear `.opencode/agents.md` con el contenido del orchestrator y la config del pr
 ```markdown
 # Sistema de agentes — {PROYECTO}
 
-Sos un sistema de agentes de software factory. Antes de responder cualquier
+Sos un sistema de Arquitectura de Agentes de IA. Antes de responder cualquier
 tarea, identificá qué agente aplica según el contexto.
 
 ---
@@ -453,7 +456,7 @@ git commit -m "chore: actualizar instrucciones de agentes en opencode"
 | equipo/diseno | 3 (1 orq + 2 hoja) | ✅ Completo |
 | equipo/desarrollo | 2 (1 orq + 1 hoja) | ✅ Completo |
 | equipo/testing | 7 (1 orq + 6 hoja) | ✅ Completo |
-| equipo/devops | 7 (3 orq + 4 hoja) | ✅ Completo |
+| equipo/devops | 10 (4 orq + 6 hoja) | ✅ Completo |
 | equipo/datos | 4 (1 orq + 3 hoja) | ✅ Completo |
 | guilds | 10 (1 orq + 9 guild) | ✅ Completo |
 | reglas | 11 | ✅ Completo |
