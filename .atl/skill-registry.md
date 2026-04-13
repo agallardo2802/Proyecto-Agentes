@@ -1,12 +1,13 @@
 # Skill Registry - Arquitectura de Agentes
 
-**Version**: 2.0
+**Version**: 3.0
 **Updated**: 2026-04-13
 **Author**: aleja
+** Stack **: El Cuatro (.NET 8, React, React Native, RabbitMQ, Grafana)
 
-## Estructura de Agentes
+---
 
-### Equipo (32 agentes)
+## Equipo (32 agentes)
 
 | Agente | Trigger | Descripcion |
 |--------|---------|------------|
@@ -41,7 +42,9 @@
 | `equipo/diseno/ux` | Diseno UX | UX Design |
 | `equipo/diseno` | Diseno general | Equipo diseno |
 
-### Reglas (11 reglas)
+---
+
+## Reglas (12 reglas)
 
 | Regla | Trigger | Descripcion |
 |--------|---------|------------|
@@ -56,13 +59,21 @@
 | `reglas/css-arquitectura` | CSS | CSS Architecture |
 | `reglas/javascript-async` | JS async | JavaScript async |
 | `reglas/performance-web` | Performance | Web performance |
+| `reglas/yarp-gateway` | API Gateway | Configuracion YARP |
 
-### Guilds (13 guilds)
+---
+
+## Guilds (18 guilds)
 
 | Guild | Trigger | Descripcion |
 |-------|---------|------------|
+| `guilds/backend-dotnet-8` | .NET 8 proyectos | .NET 8 LTS, CQRS, MediatR |
+| `guilds/backend-dotnet` | .NET projects | .NET general |
+| `guilds/frontend-react-nextjs` | React/Next.js | React 18+, Next.js 14, Tailwind |
 | `guilds/frontend-angular` | Angular projects | Angular |
-| `guilds/backend-dotnet` | .NET projects | .NET |
+| `guilds/mobile-react-native` | Apps移动 | React Native + Expo |
+| `guilds/messaging-rabbitmq` | Colas asincronas | RabbitMQ, workers |
+| `guilds/observabilidad-grafana` | Logging, metricas | Grafana, Loki, Prometheus |
 | `guilds/arquitectura` | Arquitectura | Architecture patterns |
 | `guilds/datos` | Datos | Guild de datos |
 | `guilds/datos/modelado-datos` | Data modeling | Data modeling |
@@ -73,7 +84,9 @@
 | `guilds/integraciones` | Integraciones | Integrations |
 | `guilds/AGENT.md` | Guilds general | Guilds overview |
 
-### Skills SDD (9 fases)
+---
+
+## Skills SDD (9 fases)
 
 | Skill | Trigger | Descripcion |
 |-------|---------|------------|
@@ -88,21 +101,54 @@
 | `sdd-verify` | `/sdd-verify` | Verify |
 | `sdd-archive` | `/sdd-archive` | Archive |
 
+---
+
+## Stack El Cuatro (v2.0)
+
+| Capa | Tecnologia | Guild asociado |
+|------|-----------|--------------|
+| Backend | .NET 8 | `guilds/backend-dotnet-8` |
+| Frontend | React + Next.js | `guilds/frontend-react-nextjs` |
+| Mobile | React Native | `guilds/mobile-react-native` |
+| Mensajeria | RabbitMQ | `guilds/messaging-rabbitmq` |
+| API Gateway | YARP | `reglas/yarp-gateway` |
+| Observabilidad | Grafana + Loki | `guilds/observabilidad-grafana` |
+| Datos | SQL Server 2022 | `guilds/data-sqlserver` |
+
+---
+
 ## Inyeccion Automatica por Contexto
 
 | Contexto | Reglas/Agentes inyectados |
-|---------|------------------------|
+|---------|--------------------------|
+| Backend .NET 8 | `guilds/backend-dotnet-8` + `reglas/yarp-gateway` |
+| Frontend React | `guilds/frontend-react-nextjs` |
+| Mobile | `guilds/mobile-react-native` |
+| Colas async | `guilds/messaging-rabbitmq` |
+| Observabilidad | `guilds/observabilidad-grafana` |
 | Tareas con AC | `equipo/desarrollo/dev` + `reglas/code-review` |
 | Bugs | `equipo/desarrollo/dev` + `reglas/debugging` |
 | PR review | `equipo/devops/pr/*` + `reglas/code-review` |
 | Testing | `equipo/testing/*` + `reglas/error-handling` |
 | Seguridad | `reglas/seguridad-web` |
-| Datos | `guilds/datos/*` + `equipo/datos/*` |
-| Frontend | `guilds/frontend-angular/*` |
-| Backend | `guilds/backend-dotnet/*` |
+
+---
+
+## Metodologia
+
+**SDD + TDD** (definido en Arquitectura Tecnologica 2026)
+
+1. Analisis → Spec
+2. Diseno → Design
+3. implementacion → TDD (red → green → refactor)
+4. PR Review obligatorio
+5. Deploy
+
+---
 
 ## Notas
 
 - Todos los agentes tienen `{PROYECTO}` como placeholder
 - Los agentes soportan adaptacion via la seccion `adapt:` en frontmatter
-- El trigger "cuando dice X" activa automaticamente el agente
+- **REGLA**: Ningun agente evoluciona sin PR aprobado por el equipo
+- Stack definido en: `Stack Tecnológico/Arquitectura Tecnológica 2026.html`
