@@ -1,0 +1,59 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Frontend — Next.js (local dev)",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "C:\\Users\\aleja\\.claude\\start-nextjs.cmd"],
+      "port": 3000
+    },
+    {
+      "name": "Docker — Stack Completo",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "-d"],
+      "port": 80
+    },
+    {
+      "name": "Docker — Ollama (Motor IA)",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "ollama", "-d"],
+      "port": 11434
+    },
+    {
+      "name": "Docker — n8n (Workflows ETL)",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "n8n", "-d"],
+      "port": 5678
+    },
+    {
+      "name": "Docker — API .NET (con dependencias)",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "api", "sqlserver", "redis", "rabbitmq", "ollama", "-d"],
+      "port": 5000
+    },
+    {
+      "name": "Docker — SQL Server",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "sqlserver", "-d"],
+      "port": 1433
+    },
+    {
+      "name": "Docker — RabbitMQ (management UI)",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "rabbitmq", "-d"],
+      "port": 15672
+    },
+    {
+      "name": "Docker — Grafana",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "grafana", "prometheus", "-d"],
+      "port": 3002
+    },
+    {
+      "name": "Docker — Prometheus",
+      "runtimeExecutable": "docker",
+      "runtimeArgs": ["compose", "-f", "C:/Users/aleja/Documents/ElCuatro/Proyecto IA/01-infra/docker-compose.yml", "up", "prometheus", "-d"],
+      "port": 9090
+    }
+  ]
+}
