@@ -2,13 +2,39 @@
 
 Un sistema open source de agentes especializados para equipos de desarrollo. En lugar de darle contexto a una IA cada vez que arrancás una tarea, tenés agentes pre-configurados con roles claros — PM, arquitecto, dev, tester, data engineer, BI — que ya saben cómo trabajar, qué estándares seguir y cuándo escalar.
 
-Funciona en Claude Code, OpenCode y Claude.ai. Compatible con cualquier proyecto, independiente del stack.
+Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto, independiente del stack.
 
 **¿Para qué sirve?**
 - Estandarizar el código y los flujos de trabajo en todo el equipo
 - Reducir el tiempo que se pierde explicándole contexto a la IA en cada sesión
 - Bajar costos al usar el agente correcto para cada tarea
 - Lograr equipos más consistentes y predecibles, sin importar quién ejecuta la tarea
+
+---
+
+## El Cuatro - Canal 4
+
+Este repositorio incluye una configuración específica para **El Cuatro** con el stack definido en `Stack Tecnológico/Arquitectura Tecnológica 2026.html`.
+
+| Componente | Skill/Guild | Propósito |
+|-----------|------------|----------|
+| **SDD específico** | `sdd-c4` | Workflow SDD + TDD para El Cuatro |
+| **Dev especializado** | `dev-c4` | Dev senior que conoce el stack completo |
+| **Guild .NET 8** | `guilds/backend-dotnet-8` | Patrones CQRS, MediatR |
+| **Guild React** | `guilds/frontend-react-nextjs` | Patrones React + Next.js |
+| **Guild Mobile** | `guilds/mobile-react-native` | Patrones React Native + Expo |
+| **Guild RabbitMQ** | `guilds/messaging-rabbitmq` | Colas async |
+| **Guild Observabilidad** | `guilds/observabilidad-grafana` | Grafana + Loki |
+| **Regla YARP** | `reglas/yarp-gateway` | API Gateway |
+
+### Cómo usar para El Cuatro
+
+```
+> sdd-c4
+> necesito agregar autenticación JWT al portal
+```
+
+El skill `sdd-c4` automáticamente carga los guilds correctos según el tipo de cambio.
 
 ---
 
@@ -26,7 +52,7 @@ La comunidad de desarrolladores que trabaja con IA está construyendo las mejore
 
 ```
 Arquitectura de Agentes/
-│
+|
 ├── orchestrator/               → Punto de entrada único. Siempre se carga primero.
 │
 ├── equipo/                     → Todos los agentes organizados por área
@@ -41,7 +67,8 @@ Arquitectura de Agentes/
 │   │   └── ui/                 → Componentes, design system, consistencia visual
 │   │
 │   ├── desarrollo/             → Orquestador del área de Desarrollo
-│   │   └── dev/                → TDD, ramas por tarea, código limpio, SOLID
+│   │   ├── dev/                → TDD, ramas por tarea, código limpio, SOLID
+│   │   └── dev-c4/             → Dev especializado para El Cuatro (stack 2026)
 │   │
 │   ├── testing/                → Orquestador del área de Testing
 │   │   ├── unitario/           → TDD, unit tests, lógica aislada
@@ -51,18 +78,41 @@ Arquitectura de Agentes/
 │   │   ├── ux/                 → Usabilidad, fricción, experiencia del usuario
 │   │   └── ui/                 → Consistencia visual, design system, deuda visual
 │   │
-│   └── devops/                 → Orquestador del área de DevOps
-│       ├── pr/                 → Orquestador de Pull Requests (reglas base)
-│       │   ├── github/         → PRs en GitHub (labels, branch protection, gh cli)
-│       │   └── bitbucket/      → PRs en Bitbucket (smart commits, tasks, permisos)
-│       ├── cicd/               → Orquestador de CI/CD (estructura base de pipeline)
-│       │   ├── github-actions/ → Workflows YAML, secrets, environments, artefactos
-│       │   └── azure-devops/   → Pipelines YAML, variable groups, approvals
-│       └── board/              → Orquestador de tableros (jerarquía y reglas base)
-│           ├── jira/           → Jira Cloud: JQL, smart commits, campos por tipo
-│           └── azure-boards/   → Azure Boards: jerarquía, AB#, queries, capacity
+│   ├── devops/                 → Orquestador del área de DevOps
+│   │   ├── pr/                 → Orquestador de Pull Requests (reglas base)
+│   │   │   ├── github/         → PRs en GitHub (labels, branch protection, gh cli)
+│   │   │   └── bitbucket/      → PRs en Bitbucket (smart commits, tasks, permisos)
+│   │   ├── cicd/               → Orquestador de CI/CD (estructura base de pipeline)
+│   │   │   ├── github-actions/ → Workflows YAML, secrets, environments, artefactos
+│   │   │   └── azure-devops/   → Pipelines YAML, variable groups, approvals
+│   │   └── board/              → Orquestador de tableros (jerarquía y reglas base)
+│   │       ├── jira/           → Jira Cloud: JQL, smart commits, campos por tipo
+│   │       └── azure-boards/   → Azure Boards: jerarquía, AB#, queries, capacity
+│   │
+│   └── datos/                  → Orquestador del área de Datos
+│       ├── analista-datos/     → KPIs, métricas, traducción negocio → datos
+│       ├── bi-reporting/       → Dashboards, Power BI, visualización
+│       └── data-engineering/   → ETL, integración de datos, datasets
+│
+├── guilds/                     → Estándares por tecnología — se inyectan junto al dev agent
+│   ├── backend-dotnet-8/       → .NET 8 LTS, CQRS, MediatR, Clean Arch
+│   ├── backend-dotnet/         → Clean Arch, manejo de errores, logging, async en .NET
+│   ├── frontend-react-nextjs/   → React 18, Next.js 14, TanStack Query, Tailwind
+│   ├── frontend-angular/       → Lazy loading, Signals, OnPush, sin any
+│   ├── mobile-react-native/     → React Native + Expo, shared library
+│   ├── messaging-rabbitmq/    → RabbitMQ, async workers, retry, DLQ
+│   ├── observabilidad-grafana/ → Grafana, Loki, Prometheus
+│   ├── data-sqlserver/         → Normalización, índices, sin SELECT *, queries eficientes
+│   ├── integraciones/          → Retry, circuit breaker, correlation ID, timeouts
+│   ├── arquitectura/           → Validación transversal, ADR obligatorio, sin deuda silenciosa
+│   └── datos/                  → Guilds de datos
+│       ├── powerbi/            → Star schema, DAX estándar, performance de reportes
+│       ├── modelado-datos/     → Naming conventions, 3NF, migrations versionadas
+│       ├── kpis-negocio/       → Catálogo oficial de KPIs, proceso de alta, consistencia
+│       └── data-governance/    → System of record, clasificación PII, linaje de datos
 │
 ├── reglas/                     → Conocimiento técnico granular inyectable en cualquier agente
+│   ├── yarp-gateway/         → YARP API Gateway, JWT, rate limiting
 │   ├── naming-conventions/     → Variables, funciones, archivos, componentes
 │   ├── code-review/            → Cómo dar y recibir feedback en reviews
 │   ├── css-arquitectura/       → BEM, tokens, especificidad, sin !important
@@ -70,7 +120,7 @@ Arquitectura de Agentes/
 │   ├── documentacion/          → Qué documentar y cómo (JSDoc, README, ADR)
 │   ├── error-handling/         → Sin empty catch, logging, feedback al usuario
 │   ├── git-avanzado/           → Rebase, cherry-pick, bisect, stash
-│   ├── javascript-async/       → Promises, async/await, race conditions
+│   ├��─ javascript-async/       → Promises, async/await, race conditions
 │   ├── onboarding/             → Setup de entorno para nuevos integrantes
 │   ├── performance-web/        → Renders innecesarios, bundle size, lazy loading
 │   └── seguridad-web/          → XSS, CSRF, secretos, validación de input
@@ -80,11 +130,32 @@ Arquitectura de Agentes/
 │   └── proyectos/
 │       └── ejemplo.config.md   → Template para configurar un proyecto concreto
 │
+├── templates/                  → Plantillas para crear nuevos agentes
+│   ├── nuevo-agente/           → Template base para un agente nuevo
+│   ├── modificar-agente/       → Guía para actualizar un agente existente
+│   └── base_reporte_corporativo/    → Template de reporte con estilo corporativo
+│
+├── GUIAS/
+│   └── EQUIPO/
+│       └── Guia-Equipo-El-Cuatro.md → Guía para el equipo de desarrollo
+│
+└── .atl/
+    └── skill-registry.md       → Índice de todos los agentes disponibles
 └── templates/                  → Plantillas para crear nuevos agentes
     ├── nuevo-agente/           → Template base para un agente nuevo
     ├── modificar-agente/       → Guía para actualizar un agente existente
     └── skill_estilo_corporativo_el_cuatro/ → Ejemplo de skill con estilo corporativo
 ```
+
+---
+
+## Skills SDD Disponibles
+
+| Skill | Trigger | Propósito |
+|-------|---------|----------|
+| `sdd-c4` | "sdd c4", "sdd el cuatro" | SDD completo para El Cuatro |
+| `sdd-elcuatro` | "sdd elcuatro", "mi sdd" | SDD genérico con mis agentes |
+| `sdd-init` | `/sdd-init` | Inicializar contexto SDD |
 
 ---
 
@@ -95,7 +166,7 @@ equipo/producto/pm
   └── equipo/producto/analista
         └── equipo/producto/arquitecto
               └── equipo/diseno
-                    └── equipo/desarrollo/dev
+                    └── equipo/desarrollo/dev (o dev-c4 para C4)
                           └── equipo/testing
                                 └── equipo/devops/pr
                                       └── merge → main
@@ -105,6 +176,28 @@ equipo/producto/pm
 ---
 
 ## Cómo usar este sistema
+
+### Para El Cuatro - Uso recomendado
+
+**1. Usar el skill `sdd-c4`:**
+```
+> sdd-c4
+> necesito agregar sistema de cobros con Mercado Pago
+```
+
+El skill automáticamente:
+- Detecta el tipo de cambio → elige los guilds adecuados
+- Genera spec con Given/When/Then
+- Crea tests primero (TDD)
+- Usa CQRS con MediatR para backend
+- Configura RabbitMQ para procesos async
+
+**2. O usar desarrollo directo:**
+```
+> usar dev-c4 para esta tarea
+```
+
+Carga el agente especializado con el stack de El Cuatro.
 
 ### Paso 1 — Configurar el proyecto
 
@@ -123,6 +216,7 @@ Cada `AGENT.md` tiene una sección `adapt:` en el frontmatter que indica qué pl
 
 ---
 
+## Uso en OpenCode / Gentle.ai
 ## Uso en Claude (claude.ai)
 
 Claude.ai tiene la funcionalidad de **Proyectos** que permite mantener archivos de instrucciones persistentes. Es la forma más directa de usar este sistema.
@@ -342,64 +436,28 @@ tarea, identificá qué agente aplica según el contexto.
 
 [pegar contenido de orchestrator/AGENT.md]
 
----
-
-[pegar contenido de config/proyectos/{mi-proyecto}.config.md]
-```
-
-OpenCode carga todos los archivos `.md` del directorio `.opencode/` al iniciar la sesión.
-
-**4. Crear un archivo de instrucciones por área**
-
-Mantener los agentes separados por área facilita el mantenimiento. Actualizar cada archivo cuando cambie el AGENT.md fuente:
+### Para El Cuatro - skill sdd-c4
 
 ```
-.opencode/
-  agents.md       ← orchestrator + config del proyecto
-  producto.md     ← equipo/producto/pm + analista + arquitecto
-  desarrollo.md   ← equipo/desarrollo/dev + guild del stack + reglas clave
-  testing.md      ← equipo/testing/* concatenados
-  devops.md       ← pr + cicd + board de la plataforma del proyecto
-  datos.md        ← equipo/datos/* + guilds de datos (si aplica)
+# Activation
+sdd-c4
+
+# Ejemplo de uso
+> Quiero agregar autenticación JWT al portal de ventas
+> Usar el cuatro para este desarrollo
 ```
 
-Ejemplo de `.opencode/desarrollo.md`:
+El skill `sdd-c4` está disponible en:
+- `~/.config/opencode/skills/equipo/sdd-c4/`
 
-```markdown
-[pegar contenido de equipo/desarrollo/dev/AGENT.md]
-
----
-
-[pegar contenido de guilds/backend-dotnet/AGENT.md]
-
----
-
-[pegar contenido de reglas/naming-conventions/AGENT.md]
-
----
-
-[pegar contenido de reglas/error-handling/AGENT.md]
-```
-
-**5. Referenciar archivos del proyecto con `@`**
-
-Dentro de la sesión de OpenCode, usar `@` para incluir archivos del repo en el contexto:
+### Cargar agentes manualmente
 
 ```
-@src/auth/auth.service.ts @src/auth/auth.controller.ts
-Revisá estos archivos con el guild de backend .NET y las reglas de error-handling.
-```
+@guilds/backend-dotnet-8
+@equipo/desarrollo/dev-c4
+@reglas/code-review
 
-**6. Mantener los archivos `.opencode/` sincronizados**
-
-Los archivos en `.opencode/` son copias del contenido de los AGENT.md. Cuando actualices un agente en este repositorio, actualizar el archivo correspondiente en `.opencode/` del proyecto.
-
-Recomendación: agregar `.opencode/` al `.gitignore` si los agentes son sensibles, o commitearlo si el equipo completo debe tener las mismas instrucciones.
-
-```bash
-# Commitear las instrucciones del equipo
-git add .opencode/
-git commit -m "chore: actualizar instrucciones de agentes en opencode"
+Implementar autenticación JWT según el ticket...
 ```
 
 ---
@@ -411,8 +469,9 @@ git commit -m "chore: actualizar instrucciones de agentes en opencode"
 | Crear épica o historia | `equipo/producto/pm` | — |
 | Escribir AC | `equipo/producto/analista` | — |
 | Diseñar arquitectura | `equipo/producto/arquitecto` | `reglas/documentacion` |
-| Diseñar flujo de usuario | `equipo/diseno/ux` | — |
-| Diseñar componente UI | `equipo/diseno/ui` | `reglas/css-arquitectura` |
+| Diseño flujo de usuario | `equipo/diseno/ux` | — |
+| Diseño componente UI | `equipo/diseno/ui` | `reglas/css-arquitectura` |
+| Implementar (El Cuatro) | `dev-c4` + `guilds/backend-dotnet-8` | `reglas/naming-conventions` |
 | Implementar feature | `equipo/desarrollo/dev` + guild del stack | `reglas/naming-conventions`, `reglas/error-handling` |
 | Escribir tests unitarios | `equipo/testing/unitario` | — |
 | Revisar un PR | `reglas/code-review` + `reglas/seguridad-web` | `reglas/performance-web` |
@@ -424,29 +483,6 @@ git commit -m "chore: actualizar instrucciones de agentes en opencode"
 
 ---
 
-## Navegar por área
-
-| Quiero... | Ir a... |
-|-----------|---------|
-| Crear épicas, historias o bugs | `equipo/producto/` |
-| Diseñar una pantalla o flujo | `equipo/diseno/` |
-| Implementar una feature | `equipo/desarrollo/` |
-| Escribir o revisar tests | `equipo/testing/` |
-| Hacer un PR, deploy o gestionar tickets | `equipo/devops/` |
-| Trabajar con datos, KPIs o dashboards | `equipo/datos/` |
-| Consultar una regla técnica | `reglas/` |
-
----
-
-## Dos capas de conocimiento
-
-| Capa | Dónde | Para qué |
-|------|-------|----------|
-| **Agentes de rol** | `equipo/` | Saben QUÉ hacer y CUÁNDO. Orquestan el trabajo. |
-| **Reglas técnicas** | `reglas/` | Saben CÓMO hacer algo específico. Se inyectan en los agentes de rol. |
-
----
-
 ## Estado del sistema
 
 | Área | Agentes | Estado |
@@ -455,11 +491,12 @@ git commit -m "chore: actualizar instrucciones de agentes en opencode"
 | equipo/producto | 4 (1 orq + 3 hoja) | ✅ Completo |
 | equipo/diseno | 3 (1 orq + 2 hoja) | ✅ Completo |
 | equipo/desarrollo | 2 (1 orq + 1 hoja) | ✅ Completo |
+| equipo/desarrollo (C4) | 1 | ✅ Nuevo: dev-c4 |
 | equipo/testing | 7 (1 orq + 6 hoja) | ✅ Completo |
 | equipo/devops | 10 (4 orq + 6 hoja) | ✅ Completo |
 | equipo/datos | 4 (1 orq + 3 hoja) | ✅ Completo |
-| guilds | 10 (1 orq + 9 guild) | ✅ Completo |
-| reglas | 11 | ✅ Completo |
+| guilds | 18 | ✅ Actualizado con stack C4 |
+| reglas | 12 | ✅ Actualizado |
 
 ---
 
@@ -479,3 +516,32 @@ Transversales a todos los agentes:
 10. Mobile-first: diseñar para 375px, escalar hacia arriba
 11. Sin deploy manual: todo pasa por CI/CD
 12. Sin feature sin AC definidos
+13. **Para El Cuatro**: NUNCA acceso directo a Calipso — siempre por API propia
+
+---
+
+## Guía para el equipo
+
+Consultar `GUIAS/EQUIPO/Guia-Equipo-El-Cuatro.md` para:
+- Instalación de herramientas
+- Conexión a VM de desarrollo
+- Flujo SDD + TDD
+- Agentes por tarea
+- Seguridad
+- Cómo subir PR
+
+---
+
+## Stack El Cuatro (2026)
+
+Definido en `Stack Tecnológico/Arquitectura Tecnológica 2026.html`
+
+| Capa | Tecnología |
+|------|-----------|
+| Backend | .NET 8 LTS |
+| Frontend | React 18 + Next.js 14 |
+| Mobile | React Native + Expo |
+| Datos | SQL Server 2022 |
+| Mensajería | RabbitMQ |
+| API Gateway | YARP |
+| Observabilidad | Grafana + Loki |

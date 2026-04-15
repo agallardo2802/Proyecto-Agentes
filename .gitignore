@@ -1,0 +1,32 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+
+# Build outputs
+node_modules/
+dist/
+bin/
+obj/
+
+# Temp
+tmp/
+temp/
+*.tmp
+
+# Claudia/OpenCode agent files (if local config)
+.claude/settings.local.json
+.claude/launch.json
+.opencode/
