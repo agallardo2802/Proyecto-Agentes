@@ -40,7 +40,7 @@ Write-Host "Cloning repository..." -ForegroundColor Yellow
 git clone $RepoUrl $SkillsDir
 
 # Copiar skill SDD a la raíz de skills para que esté disponible en autocomplete
-$RootSkillDir = Join-Path $ConfigDir "sdd-ggs"
+$RootSkillDir = Join-Path $ConfigDir "Sdd-GGS"
 if (!(Test-Path $RootSkillDir)) {
     New-Item -ItemType Directory -Path $RootSkillDir -Force | Out-Null
 }

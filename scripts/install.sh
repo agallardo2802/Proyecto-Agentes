@@ -65,7 +65,7 @@ else
 fi
 
 # Copiar skill SDD a la raíz de skills para que esté disponible en autocomplete
-ROOT_SKILL_DIR="$CONFIG_DIR/sdd-ggs"
+ROOT_SKILL_DIR="$CONFIG_DIR/Sdd-GGS"
 mkdir -p "$ROOT_SKILL_DIR"
 cp "$SKILLS_DIR/equipo/sdd-ggs/SKILL.md" "$ROOT_SKILL_DIR/SKILL.md"
 
