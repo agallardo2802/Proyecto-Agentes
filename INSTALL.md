@@ -1,187 +1,62 @@
-# Instalación — Sistema de Agentes
+# GGS - Installation Guide
 
-Guía de instalación para usar estos agentes en tu entorno local.
+## Quick Install
 
----
-
-## Requisitos
-
-Elegí la plataforma que vas a usar:
-
-| Plataforma | Para qué sirve |
-|-----------|----------------|
-| **Claude Code** | Cliente de terminal oficial de Anthropic |
-| **OpenCode** | Cliente de terminal open source (multi-modelo) |
-| **Claude.ai** | Interfaz web — no requiere instalación |
-
----
-
-## Claude Code (terminal oficial de Anthropic)
-
-### Windows
-
+### OpenCode (Windows)
 ```powershell
-# 1. Instalar Node.js (si no lo tenés)
-winget install OpenJS.NodeJS.LTS
-
-# 2. Instalar Claude Code
-npm install -g @anthropic-ai/claude-code
-
-# 3. Verificar instalación
-claude --version
+irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex
 ```
 
-### macOS
-
+### OpenCode (Linux/macOS)
 ```bash
-# 1. Instalar Node.js (si no lo tenés)
-brew install node
-
-# 2. Instalar Claude Code
-npm install -g @anthropic-ai/claude-code
-
-# 3. Verificar instalación
-claude --version
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash
 ```
-
-### Linux
-
-```bash
-# 1. Instalar Node.js (si no lo tenés)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# 2. Instalar Claude Code
-npm install -g @anthropic-ai/claude-code
-
-# 3. Verificar instalación
-claude --version
-```
-
-### Configurar cuenta
-
-```bash
-claude login
-```
-
-Requiere cuenta en [claude.ai](https://claude.ai) con plan Pro o Team.
-
-Documentación oficial: https://claude.ai/code
-
----
-
-## OpenCode (terminal open source)
-
-### Windows
-
-```powershell
-# Opción A — con npm
-npm install -g opencode-ai
-
-# Opción B — con Scoop
-scoop install opencode
-
-# Verificar instalación
-opencode --version
-```
-
-### macOS
-
-```bash
-# Opción A — con npm
-npm install -g opencode-ai
-
-# Opción B — con Homebrew
-brew install sst/tap/opencode
-
-# Verificar instalación
-opencode --version
-```
-
-### Linux
-
-```bash
-# Con npm
-npm install -g opencode-ai
-
-# Verificar instalación
-opencode --version
-```
-
-### Configurar modelo
-
-OpenCode soporta múltiples proveedores. Al primer arranque te pide configurar el modelo:
-
-```bash
-opencode
-```
-
-Recomendado: Claude (Anthropic) o GPT-4o (OpenAI). Necesitás una API key del proveedor que elijas.
-
-Documentación oficial: https://opencode.ai/docs
-
----
-
-## Claude.ai (web — sin instalación)
-
-1. Ir a [claude.ai](https://claude.ai)
-2. Crear cuenta (plan Free disponible, Pro recomendado)
-3. Ir a **Projects** → **New project**
-4. Seguir el paso a paso en el [README](README.md)
-
----
-
-## Clonar este repositorio
-
-Una vez que tenés la plataforma instalada, cloná el repositorio:
-
-```bash
-git clone https://github.com/tu-usuario/tu-repo-agentes.git
-cd tu-repo-agentes
-```
-
----
-
-## Primeros pasos después de instalar
 
 ### Claude Code
-
 ```bash
-# Entrar al directorio del proyecto donde vas a trabajar
-cd /ruta/a/tu/proyecto
-
-# Crear el CLAUDE.md apuntando al repositorio de agentes
-# (ver README.md sección "Uso en Claude Code")
-echo "# Agentes\n@/ruta/a/tu-repo/agentes/orchestrator/AGENT.md" > CLAUDE.md
-
-# Abrir Claude Code
-claude
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash -s claude
 ```
+
+## Manual Installation
 
 ### OpenCode
-
 ```bash
-# Entrar al directorio del proyecto donde vas a trabajar
-cd /ruta/a/tu/proyecto
-
-# Inicializar OpenCode (crea .opencode/ automáticamente)
-opencode
-
-# Luego crear .opencode/agents.md con el contenido del orchestrator
-# (ver README.md sección "Uso en OpenCode")
+# Clone el repositorio
+git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.config/opencode/skills/ggs
 ```
 
-### Claude.ai
+### Claude Code
+```bash
+git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.claude/skills/ggs
+```
 
-Ver el paso a paso completo en la sección **Uso en Claude (claude.ai)** del [README](README.md).
+## Usage
 
----
+Una vez instalado, simplemente escribí:
 
-## Problemas comunes
+```
+> sdd
+> necesito agregar autenticación JWT
+```
 
-| Problema | Solución |
-|----------|----------|
-| `claude: command not found` | Cerrar y reabrir la terminal después de instalar |
-| `npm: permission denied` (Linux/Mac) | Usar `sudo npm install -g` o configurar npm prefix |
-| `claude login` no abre el browser | Copiar la URL manualmente desde la terminal |
-| OpenCode no encuentra el modelo | Verificar que la API key esté configurada correctamente |
+O usá un agente específico:
+
+```
+@equipo/desarrollo/dev
+@equipo/producto/pm
+@guilds/backend-dotnet
+```
+
+## Estructura de archivos
+
+El sistema se instala en:
+- OpenCode: `~/.config/opencode/skills/ggs/`
+- Claude: `~/.claude/skills/ggs/`
+- Cursor: `~/.cursor/skills/ggs/`
+
+Dentro encontrás:
+- `orchestrator/AGENT.md` — punto de entrada
+- `equipo/` — todos los agentes
+- `guilds/` — estándares por tecnología
+- `reglas/` — reglas técnicas
+- `equipo/sdd-ggs/SKILL.md` — skill SDD

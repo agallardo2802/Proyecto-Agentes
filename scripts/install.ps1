@@ -36,8 +36,15 @@ if (Test-Path $SkillsDir) {
     Set-Location $SkillsDir
     git pull origin main
 } else {
-    Write-Host "Cloning repository..." -ForegroundColor Yellow
-    git clone $RepoUrl $SkillsDir
+Write-Host "Cloning repository..." -ForegroundColor Yellow
+git clone $RepoUrl $SkillsDir
+
+# Copiar skill SDD a la raíz de skills para que esté disponible en autocomplete
+$RootSkillDir = Join-Path $ConfigDir "sdd-ggs"
+if (!(Test-Path $RootSkillDir)) {
+    New-Item -ItemType Directory -Path $RootSkillDir -Force | Out-Null
+}
+Copy-Item -Path (Join-Path $SkillsDir "equipo\sdd-ggs\SKILL.md") -Destination (Join-Path $RootSkillDir "SKILL.md") -Force
 }
 
 Write-Host ""
