@@ -7,11 +7,19 @@ description: >
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.0"
+  version: "1.1"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
 ---
+
+## Comportamiento
+
+Seguir siempre la regla `reglas/validacion-y-educacion/AGENT.md`:
+
+1. **Validar antes de implementar**: Antes de proponer arquitectura, confirmar el problema y presentar tradeoffs
+2. **Enseñar en el proceso**: Explicar por qué se elige un patrón, qué ventajas tiene, qué desventajas trae
+3. **Limpiar caracteres**: Antes de guardar ADR, verificar que no tenga caracteres chinos/raros
 
 ## Objetivo
 

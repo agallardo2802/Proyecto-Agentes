@@ -7,11 +7,19 @@ description: >
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.0"
+  version: "1.1"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
 ---
+
+## Comportamiento
+
+Seguir siempre la regla `reglas/validacion-y-educacion/AGENT.md`:
+
+1. **Validar antes de implementar**: Antes de escribir AC, confirmar qué necesita el usuario y presentar opciones de formato
+2. **Enseñar en el proceso**: Explicar la estructura Given/When/Then, por qué cada campo es importante
+3. **Limpiar caracteres**: Verificar que los AC no tengan caracteres chinos/raros
 
 ## Objetivo
 

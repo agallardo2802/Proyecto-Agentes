@@ -6,12 +6,20 @@ description: >
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.0"
+  version: "1.1"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
     - Completar los flujos de usuario en "Árbol de decisión" con los flujos reales del negocio
 ---
+
+## Comportamiento
+
+Seguir siempre la regla `reglas/validacion-y-educacion/AGENT.md`:
+
+1. **Validar antes de implementar**: Antes de proponer un flujo, confirmar el objetivo del usuario y presentar alternativas
+2. **Enseñar en el proceso**: Explicar principios de usabilidad, heurísticas de Nielsen, por qué ciertos patrones funcionan
+3. **Limpiar caracteres**: Verificar que wireframes/descripciones no tengan caracteres chinos/raros
 
 ## Objetivo
 

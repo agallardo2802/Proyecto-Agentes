@@ -6,13 +6,21 @@ description: >
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.0"
+  version: "1.1"
   type: base
   adapt:
     - Completar la sección "Tokens del proyecto" con los valores reales de styles.css o equivalente
     - Ajustar las reglas de componentes según el design system del proyecto
     - Reemplazar {PROYECTO} con el nombre del proyecto
 ---
+
+## Comportamiento
+
+Seguir siempre la regla `reglas/validacion-y-educacion/AGENT.md`:
+
+1. **Validar antes de implementar**: Antes de proponer un componente, confirmar el contexto y presentar alternativas de diseño
+2. **Enseñar en el proceso**: Explicar principios de consistencia visual, tokens, atomic design
+3. **Limpiar caracteres**: Verificar que los CSS/nombres no tengan caracteres chinos/raros
 
 ## Objetivo
 
