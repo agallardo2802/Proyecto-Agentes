@@ -1,13 +1,12 @@
 ---
-name: sdd-elcuatro
+name: sdd-ggs
 description: >
-  Inicia el workflow SDD de gentle-ai combinado con tus agentes personalizados de Arquitectura de Agentes.
-  Cuando dice "sdd elcuatro", "sdd-elcuatro", "sdd-el4", "mi sdd", "sdd con mis agentes", "iniciar SDD completo con mis agentes".
-  Alias: sdd-ggsoluciones (compatible hacia atrás).
+  Inicia el workflow SDD combinado con agentes personalizados GGS.
+  Cuando dice "sdd", "mi sdd", "iniciar SDD", "sdd completo".
   Incluye: detección robusta de stack, strict TDD mode, skill registry, persistencia configurable.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "2.0"
 ---
 
@@ -386,9 +385,9 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 ### Inicialización (necesaria una vez por proyecto)
 ```
 > /sdd-init
-> sdd elcuatro
+> sdd
 > mi sdd
-> iniciar SDD completo con mis agentes
+> iniciar SDD completo
 ```
 
 ### Desarrollo completo con TDD

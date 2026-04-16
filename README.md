@@ -1,4 +1,4 @@
-# Arquitectura de Agentes de IA
+# GGS - Generic Generic System
 
 Un sistema open source de agentes especializados para equipos de desarrollo. En lugar de darle contexto a una IA cada vez que arrancás una tarea, tenés agentes pre-configurados con roles claros — PM, arquitecto, dev, tester, data engineer, BI — que ya saben cómo trabajar, qué estándares seguir y cuándo escalar.
 
@@ -12,29 +12,9 @@ Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto
 
 ---
 
-## El Cuatro - Canal 4
+## Getting Started
 
-Este repositorio incluye una configuración específica para **El Cuatro** con el stack definido en `Stack Tecnológico/Arquitectura Tecnológica 2026.html`.
-
-| Componente | Skill/Guild | Propósito |
-|-----------|------------|----------|
-| **SDD específico** | `sdd-c4` | Workflow SDD + TDD para El Cuatro |
-| **Dev especializado** | `dev-c4` | Dev senior que conoce el stack completo |
-| **Guild .NET 8** | `guilds/backend-dotnet-8` | Patrones CQRS, MediatR |
-| **Guild React** | `guilds/frontend-react-nextjs` | Patrones React + Next.js |
-| **Guild Mobile** | `guilds/mobile-react-native` | Patrones React Native + Expo |
-| **Guild RabbitMQ** | `guilds/messaging-rabbitmq` | Colas async |
-| **Guild Observabilidad** | `guilds/observabilidad-grafana` | Grafana + Loki |
-| **Regla YARP** | `reglas/yarp-gateway` | API Gateway |
-
-### Cómo usar para El Cuatro
-
-```
-> sdd-c4
-> necesito agregar autenticación JWT al portal
-```
-
-El skill `sdd-c4` automáticamente carga los guilds correctos según el tipo de cambio.
+Este es un proyecto base configurable para cualquier equipo. Clone el repositorio y personalice según su stack.
 
 ---
 
@@ -68,7 +48,7 @@ Arquitectura de Agentes/
 │   │
 │   ├── desarrollo/             → Orquestador del área de Desarrollo
 │   │   ├── dev/                → TDD, ramas por tarea, código limpio, SOLID
-│   │   └── dev-c4/             → Dev especializado para El Cuatro (stack 2026)
+│   │   └── dev/                → TDD, ramas por tarea, código limpio, SOLID
 │   │
 │   ├── testing/                → Orquestador del área de Testing
 │   │   ├── unitario/           → TDD, unit tests, lógica aislada
@@ -153,8 +133,6 @@ Arquitectura de Agentes/
 
 | Skill | Trigger | Propósito |
 |-------|---------|----------|
-| `sdd-c4` | "sdd c4", "sdd el cuatro" | SDD completo para El Cuatro |
-| `sdd-elcuatro` | "sdd elcuatro", "mi sdd" | SDD genérico con mis agentes |
 | `sdd-init` | `/sdd-init` | Inicializar contexto SDD |
 
 ---
@@ -166,7 +144,7 @@ equipo/producto/pm
   └── equipo/producto/analista
         └── equipo/producto/arquitecto
               └── equipo/diseno
-                    └── equipo/desarrollo/dev (o dev-c4 para C4)
+                    └── equipo/desarrollo/dev
                           └── equipo/testing
                                 └── equipo/devops/pr
                                       └── merge → main
@@ -177,27 +155,20 @@ equipo/producto/pm
 
 ## Cómo usar este sistema
 
-### Para El Cuatro - Uso recomendado
+### Para proyectos específicos - Uso recomendado
 
-**1. Usar el skill `sdd-c4`:**
+**1. Usar el skill SDD:**
 ```
-> sdd-c4
-> necesito agregar sistema de cobros con Mercado Pago
-```
-
-El skill automáticamente:
-- Detecta el tipo de cambio → elige los guilds adecuados
-- Genera spec con Given/When/Then
-- Crea tests primero (TDD)
-- Usa CQRS con MediatR para backend
-- Configura RabbitMQ para procesos async
-
-**2. O usar desarrollo directo:**
-```
-> usar dev-c4 para esta tarea
+> sdd-init
+> necesito agregar sistema de cobros
 ```
 
-Carga el agente especializado con el stack de El Cuatro.
+**2. O desarrollo directo:**
+```
+> usar dev para esta tarea
+```
+
+Carga el agente dev con los guilds del stack.
 
 ### Paso 1 — Configurar el proyecto
 
@@ -436,25 +407,24 @@ tarea, identificá qué agente aplica según el contexto.
 
 [pegar contenido de orchestrator/AGENT.md]
 
-### Para El Cuatro - skill sdd-c4
+### Skill SDD
+
+El skill `sdd-ggs` está disponible para inicializar el contexto SDD:
 
 ```
 # Activation
-sdd-c4
+sdd
 
 # Ejemplo de uso
-> Quiero agregar autenticación JWT al portal de ventas
-> Usar el cuatro para este desarrollo
+> Quiero agregar autenticación JWT al portal
+> iniciar SDD completo
 ```
-
-El skill `sdd-c4` está disponible en:
-- `~/.config/opencode/skills/equipo/sdd-c4/`
 
 ### Cargar agentes manualmente
 
 ```
-@guilds/backend-dotnet-8
-@equipo/desarrollo/dev-c4
+@guilds/backend-dotnet
+@equipo/desarrollo/dev
 @reglas/code-review
 
 Implementar autenticación JWT según el ticket...
@@ -471,7 +441,6 @@ Implementar autenticación JWT según el ticket...
 | Diseñar arquitectura | `equipo/producto/arquitecto` | `reglas/documentacion` |
 | Diseño flujo de usuario | `equipo/diseno/ux` | — |
 | Diseño componente UI | `equipo/diseno/ui` | `reglas/css-arquitectura` |
-| Implementar (El Cuatro) | `dev-c4` + `guilds/backend-dotnet-8` | `reglas/naming-conventions` |
 | Implementar feature | `equipo/desarrollo/dev` + guild del stack | `reglas/naming-conventions`, `reglas/error-handling` |
 | Escribir tests unitarios | `equipo/testing/unitario` | — |
 | Revisar un PR | `reglas/code-review` + `reglas/seguridad-web` | `reglas/performance-web` |
@@ -491,11 +460,10 @@ Implementar autenticación JWT según el ticket...
 | equipo/producto | 4 (1 orq + 3 hoja) | ✅ Completo |
 | equipo/diseno | 3 (1 orq + 2 hoja) | ✅ Completo |
 | equipo/desarrollo | 2 (1 orq + 1 hoja) | ✅ Completo |
-| equipo/desarrollo (C4) | 1 | ✅ Nuevo: dev-c4 |
 | equipo/testing | 7 (1 orq + 6 hoja) | ✅ Completo |
 | equipo/devops | 10 (4 orq + 6 hoja) | ✅ Completo |
 | equipo/datos | 4 (1 orq + 3 hoja) | ✅ Completo |
-| guilds | 18 | ✅ Actualizado con stack C4 |
+| guilds | 18 | ✅ Completo |
 | reglas | 12 | ✅ Actualizado |
 
 ---
@@ -516,32 +484,9 @@ Transversales a todos los agentes:
 10. Mobile-first: diseñar para 375px, escalar hacia arriba
 11. Sin deploy manual: todo pasa por CI/CD
 12. Sin feature sin AC definidos
-13. **Para El Cuatro**: NUNCA acceso directo a Calipso — siempre por API propia
 
 ---
 
 ## Guía para el equipo
 
-Consultar `GUIAS/EQUIPO/Guia-Equipo-El-Cuatro.md` para:
-- Instalación de herramientas
-- Conexión a VM de desarrollo
-- Flujo SDD + TDD
-- Agentes por tarea
-- Seguridad
-- Cómo subir PR
-
----
-
-## Stack El Cuatro (2026)
-
-Definido en `Stack Tecnológico/Arquitectura Tecnológica 2026.html`
-
-| Capa | Tecnología |
-|------|-----------|
-| Backend | .NET 8 LTS |
-| Frontend | React 18 + Next.js 14 |
-| Mobile | React Native + Expo |
-| Datos | SQL Server 2022 |
-| Mensajería | RabbitMQ |
-| API Gateway | YARP |
-| Observabilidad | Grafana + Loki |
+Consultar las guías disponibles en `GUIAS/EQUIPO/` para más detalles. |

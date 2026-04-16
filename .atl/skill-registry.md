@@ -1,9 +1,9 @@
-# Skill Registry - Arquitectura de Agentes
+# Skill Registry - GGS Agentes
 
 **Version**: 3.0
-**Updated**: 2026-04-13
-**Author**: aleja
-** Stack **: El Cuatro (.NET 8, React, React Native, RabbitMQ, Grafana)
+**Updated**: 2026-04-15
+**Author**: Alejandro Gallardo
+**Stack**: Genérico (.NET, React, React Native, RabbitMQ, Grafana)
 
 ---
 
@@ -90,7 +90,7 @@
 
 | Skill | Trigger | Descripcion |
 |-------|---------|------------|
-| `sdd-elcuatro` | "sdd elcuatro", "mi sdd" | SDD completo con mis agentes (v2.0) |
+| `sdd-ggs` | "sdd", "mi sdd", "sdd completo" | SDD completo con agentes GGS |
 | `sdd-init` | `/sdd-init` | Initialize SDD |
 | `sdd-explore` | `/sdd-explore` | Explore |
 | `sdd-propose` | `/sdd-propose` | Propose |
@@ -103,7 +103,7 @@
 
 ---
 
-## Stack El Cuatro (v2.0)
+## Stack Genérico
 
 | Capa | Tecnologia | Guild asociado |
 |------|-----------|--------------|
@@ -113,7 +113,7 @@
 | Mensajeria | RabbitMQ | `guilds/messaging-rabbitmq` |
 | API Gateway | YARP | `reglas/yarp-gateway` |
 | Observabilidad | Grafana + Loki | `guilds/observabilidad-grafana` |
-| Datos | SQL Server 2022 | `guilds/data-sqlserver` |
+| Datos | SQL Server | `guilds/data-sqlserver` |
 
 ---
 
@@ -136,7 +136,7 @@
 
 ## Metodologia
 
-**SDD + TDD** (definido en Arquitectura Tecnologica 2026)
+**SDD + TDD**
 
 1. Analisis → Spec
 2. Diseno → Design
@@ -151,4 +151,4 @@
 - Todos los agentes tienen `{PROYECTO}` como placeholder
 - Los agentes soportan adaptacion via la seccion `adapt:` en frontmatter
 - **REGLA**: Ningun agente evoluciona sin PR aprobado por el equipo
-- Stack definido en: `Stack Tecnológico/Arquitectura Tecnológica 2026.html`
+- Stack configurable según las necesidades del proyecto

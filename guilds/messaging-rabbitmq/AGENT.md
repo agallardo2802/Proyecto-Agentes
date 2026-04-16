@@ -5,10 +5,9 @@ description: >
   Trigger: procesos asíncronos, workers, messaging.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
   stack: RabbitMQ 3.12+, .NET 8
-  proyecto: El Cuatro
 ---
 
 ## Propósito

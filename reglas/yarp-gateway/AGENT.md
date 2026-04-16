@@ -5,10 +5,9 @@ description: >
   Trigger: configuración de API Gateway.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
   stack: YARP 1.x, .NET 8
-  proyecto: El Cuatro
 ---
 
 ## Propósito

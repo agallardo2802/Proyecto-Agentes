@@ -5,10 +5,9 @@ description: >
   Trigger: logging, métricas, alertas.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
   stack: Grafana, Loki, Prometheus
-  proyecto: El Cuatro
 ---
 
 ## Stack

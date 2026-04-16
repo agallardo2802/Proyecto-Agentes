@@ -2,14 +2,12 @@
 name: backend-dotnet-8
 description: >
   Guild para proyectos Backend con .NET 8, CQRS, MediatR y patrones de Clean Architecture.
-  Especializado para El Cuatro - Canal 4 / TV Music House.
-  Trigger: cuando se trabaja en APIs .NET 8, servicios backend, o integración con SQL Server.
+  Trigger: cuando se trabaja en APIs .NET 8, servicios backend, o integración con bases de datos.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
-  stack: .NET 8, CQRS, MediatR, SQL Server 2022, RabbitMQ
-  proyecto: El Cuatro
+  stack: .NET 8, CQRS, MediatR, SQL Server, RabbitMQ
 ---
 
 ## Propósito

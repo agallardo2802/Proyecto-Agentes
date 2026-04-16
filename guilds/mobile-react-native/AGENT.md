@@ -6,10 +6,9 @@ description: >
   Trigger: apps móviles iOS/Android.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
   stack: React Native 0.74+, Expo SDK 50+, TypeScript 5+
-  proyecto: El Cuatro
 ---
 
 ## Stack Definido

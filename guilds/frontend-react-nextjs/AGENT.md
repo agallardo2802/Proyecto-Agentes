@@ -2,14 +2,12 @@
 name: frontend-react-nextjs
 description: >
   Guild para proyectos Frontend con React, TypeScript, Next.js y Tailwind CSS.
-  Especializado para El Cuatro - Canal 4 / TV Music House.
   Trigger: cuando se trabaja en interfaces web, portales o backoffice.
 license: MIT
 metadata:
-  author: aleja
+  author: Alejandro Gallardo
   version: "1.0"
   stack: React 18+, TypeScript 5+, Next.js 14+, Tailwind CSS 3+
-  proyecto: El Cuatro
 ---
 
 ## Propósito

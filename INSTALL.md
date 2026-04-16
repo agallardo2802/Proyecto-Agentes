@@ -136,8 +136,8 @@ Documentación oficial: https://opencode.ai/docs
 Una vez que tenés la plataforma instalada, cloná el repositorio:
 
 ```bash
-git clone https://github.com/agallardo2802/Proyecto-Agentes.git
-cd Proyecto-Agentes
+git clone https://github.com/tu-usuario/tu-repo-agentes.git
+cd tu-repo-agentes
 ```
 
 ---
@@ -152,7 +152,7 @@ cd /ruta/a/tu/proyecto
 
 # Crear el CLAUDE.md apuntando al repositorio de agentes
 # (ver README.md sección "Uso en Claude Code")
-echo "# Agentes\n@/ruta/a/Proyecto-Agentes/orchestrator/AGENT.md" > CLAUDE.md
+echo "# Agentes\n@/ruta/a/tu-repo/agentes/orchestrator/AGENT.md" > CLAUDE.md
 
 # Abrir Claude Code
 claude

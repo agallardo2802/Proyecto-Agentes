@@ -88,8 +88,8 @@ cp "Agentes base/fundamentos/error-handling/AGENT.md" \
 
 | Placeholder | Reemplazar por |
 |-------------|---------------|
-| `{PROYECTO}` | Nombre del proyecto (ej: "Portal Ventas El Cuatro") |
-| `{REPO}` | owner/repo (ej: "agallardo2802/portal-ventas-elcuatro") |
+| `{PROYECTO}` | Nombre del proyecto (ej: "Portal Ventas") |
+| `{REPO}` | owner/repo (ej: "mi-usuario/mi-proyecto") |
 | `{STACK}` | Stack tecnológico (ej: "Vanilla JS / HTML / CSS") |
 | `{valor}` | Valor real del token o configuración |
 | `type: base` | `type: proyecto` |

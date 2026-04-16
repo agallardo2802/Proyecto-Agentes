@@ -6,12 +6,13 @@ description: >
   Trigger: siempre — cargar antes que cualquier otro agente.
 license: Apache-2.0
 metadata:
-  author: Alejandro Gallardo
+  author: GGS Team
   version: "4.0"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
     - Cargar config/proyectos/{proyecto}.config.md para herramientas y URLs
+    - Personalizar este archivo según el stack del proyecto
 ---
 
 ## Objetivo

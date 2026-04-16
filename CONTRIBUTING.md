@@ -1,4 +1,4 @@
-# Contribuir a Arquitectura de Agentes de IA
+# Contribuir a GGS - Agentes de IA
 
 Gracias por querer aportar. Este proyecto crece con la experiencia de quienes usan IA en equipos reales — tu perspectiva tiene valor acá.
 
@@ -16,20 +16,14 @@ Gracias por querer aportar. Este proyecto crece con la experiencia de quienes us
 
 ---
 
-## Para El Cuatro - Stack 2026
+## Getting Started
 
-Este repositorio incluye configuración específica para **El Cuatro - Canal 4** con el stack definido en `Stack Tecnológico/Arquitectura Tecnológica 2026.html`:
+Para adaptar este proyecto a tu equipo:
 
-| Componente | Archivo | Propósito |
-|-----------|---------|----------|
-| Skill SDD C4 | `equipo/sdd-c4/SKILL.md` | Workflow SDD + TDD específico |
-| Dev C4 | `equipo/desarrollo/dev-c4/AGENT.md` | Dev especializado con stack |
-| Guild .NET 8 | `guilds/backend-dotnet-8/AGENT.md` | Patrones CQRS, MediatR |
-| Guild React | `guilds/frontend-react-nextjs/AGENT.md` | React + Next.js |
-| Guild Mobile | `guilds/mobile-react-native/AGENT.md` | React Native + Expo |
-| Guild RabbitMQ | `guilds/messaging-rabbitmq/AGENT.md` | Colas async |
-| Guild Grafana | `guilds/observabilidad-grafana/AGENT.md` | Métricas y logs |
-| Regla YARP | `reglas/yarp-gateway/AGENT.md` | API Gateway |
+1. Configurá tu stack en `config/proyectos/tu-proyecto.config.md`
+2. Seleccioná los guilds que correspondan a tu tecnología
+3. Personalizá las reglas según tus estándares
+4. Leé las guías en `GUIAS/EQUIPO/`
 
 ---
 
@@ -39,9 +33,9 @@ Este repositorio incluye configuración específica para **El Cuatro - Canal 4**
 2. Esperá feedback antes de escribir código — así evitamos trabajo duplicado
 3. Forkea el repo y trabajá en una rama con nombre descriptivo:
    - `feat/guild-react-nextjs`
-   - `improve/dev-c4`
+   - `improve/dev-agent`
    - `fix/testing-unitario`
-   - `docs/guia-el-cuatro`
+   - `docs/new-guide`
 
 ---
 
@@ -136,6 +130,5 @@ Abrí un issue con el tag `question` o `discussion`. Todo feedback es bienvenido
 ## Recursos
 
 - README principal: [README.md](README.md)
-- Guía del equipo: [GUIAS/EQUIPO/Guia-Equipo-El-Cuatro.md](GUIAS%20EQUIPO/Guia-Equipo-El-Cuatro.md)
-- Stack completo: `Stack Tecnológico/Arquitectura Tecnológica 2026.html`
+- Guía del equipo: [GUIAS/EQUIPO/](GUIAS/EQUIPO/)
 - Índice de agentes: [.atl/skill-registry.md](.atl%2Fskill-registry.md)
