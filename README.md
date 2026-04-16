@@ -1,4 +1,4 @@
-# GGS - Generic Generic System
+# GGS - GGSoluciones
 
 Un sistema open source de agentes especializados para equipos de desarrollo. En lugar de darle contexto a una IA cada vez que arrancás una tarea, tenés agentes pre-configurados con roles claros — PM, arquitecto, dev, tester, data engineer, BI — que ya saben cómo trabajar, qué estándares seguir y cuándo escalar.
 
@@ -83,7 +83,7 @@ La comunidad de desarrolladores que trabaja con IA está construyendo las mejore
 ## Árbol completo
 
 ```
-Arquitectura de Agentes/
+GGS Agentes/
 |
 ├── orchestrator/               → Punto de entrada único. Siempre se carga primero.
 │
@@ -132,7 +132,7 @@ Arquitectura de Agentes/
 │   ├── frontend-react-nextjs/   → React 18, Next.js 14, TanStack Query, Tailwind
 │   ├── frontend-angular/       → Lazy loading, Signals, OnPush, sin any
 │   ├── mobile-react-native/     → React Native + Expo, shared library
-│   ├── messaging-rabbitmq/    → RabbitMQ, async workers, retry, DLQ
+│   ├── messaging-rabbitmq/      → RabbitMQ, async workers, retry, DLQ
 │   ├── observabilidad-grafana/ → Grafana, Loki, Prometheus
 │   ├── data-sqlserver/         → Normalización, índices, sin SELECT *, queries eficientes
 │   ├── integraciones/          → Retry, circuit breaker, correlation ID, timeouts
@@ -144,7 +144,7 @@ Arquitectura de Agentes/
 │       └── data-governance/    → System of record, clasificación PII, linaje de datos
 │
 ├── reglas/                     → Conocimiento técnico granular inyectable en cualquier agente
-│   ├── yarp-gateway/         → YARP API Gateway, JWT, rate limiting
+│   ├── yarp-gateway/           → YARP API Gateway, JWT, rate limiting
 │   ├── naming-conventions/     → Variables, funciones, archivos, componentes
 │   ├── code-review/            → Cómo dar y recibir feedback en reviews
 │   ├── css-arquitectura/       → BEM, tokens, especificidad, sin !important
@@ -152,7 +152,7 @@ Arquitectura de Agentes/
 │   ├── documentacion/          → Qué documentar y cómo (JSDoc, README, ADR)
 │   ├── error-handling/         → Sin empty catch, logging, feedback al usuario
 │   ├── git-avanzado/           → Rebase, cherry-pick, bisect, stash
-│   ├��─ javascript-async/       → Promises, async/await, race conditions
+│   ├── javascript-async/       → Promises, async/await, race conditions
 │   ├── onboarding/             → Setup de entorno para nuevos integrantes
 │   ├── performance-web/        → Renders innecesarios, bundle size, lazy loading
 │   └── seguridad-web/          → XSS, CSRF, secretos, validación de input
@@ -164,19 +164,14 @@ Arquitectura de Agentes/
 │
 ├── templates/                  → Plantillas para crear nuevos agentes
 │   ├── nuevo-agente/           → Template base para un agente nuevo
-│   ├── modificar-agente/       → Guía para actualizar un agente existente
-│   └── base_reporte_corporativo/    → Template de reporte con estilo corporativo
+│   └── modificar-agente/        → Guía para actualizar un agente existente
 │
 ├── GUIAS/
-│   └── EQUIPO/
-│       └── Guia-Equipo-El-Cuatro.md → Guía para el equipo de desarrollo
+│   └── comunicacion/
+│       └── ESTILO.md           → Guía de estilo de comunicación
 │
 └── .atl/
     └── skill-registry.md       → Índice de todos los agentes disponibles
-└── templates/                  → Plantillas para crear nuevos agentes
-    ├── nuevo-agente/           → Template base para un agente nuevo
-    ├── modificar-agente/       → Guía para actualizar un agente existente
-    └── skill_estilo_corporativo_el_cuatro/ → Ejemplo de skill con estilo corporativo
 ```
 
 ---
@@ -185,6 +180,7 @@ Arquitectura de Agentes/
 
 | Skill | Trigger | Propósito |
 |-------|---------|----------|
+| `sdd-ggs` | "sdd", "mi sdd", "sdd completo" | SDD completo con agentes GGS |
 | `sdd-init` | `/sdd-init` | Inicializar contexto SDD |
 
 ---
@@ -240,6 +236,7 @@ Cada `AGENT.md` tiene una sección `adapt:` en el frontmatter que indica qué pl
 ---
 
 ## Uso en OpenCode / Gentle.ai
+
 ## Uso en Claude (claude.ai)
 
 Claude.ai tiene la funcionalidad de **Proyectos** que permite mantener archivos de instrucciones persistentes. Es la forma más directa de usar este sistema.
@@ -297,7 +294,7 @@ Tengo el ticket PROJ-42 con los siguientes AC: [...]
 
 **6. Inyectar reglas adicionales en la conversación**
 
-Las reglas no están en el conocimiento del proyecto por defecto — se inyectan en el momento que son relevantes. Simplemente pegá el contenido del archivo en el chat:
+Las reglas no están en el conocimiento del proyecto por defecto — se injectan en el momento que son relevantes. Simplemente pegá el contenido del archivo en el chat:
 
 ```
 [contenido de reglas/error-handling/AGENT.md]
@@ -371,7 +368,7 @@ Claude Code lee los archivos referenciados y los incorpora al contexto de la con
 
 **5. Cargar reglas en el momento que son relevantes**
 
-Las reglas se inyectan durante la conversación cuando la tarea las requiere:
+Las reglas se injectan durante la conversación cuando la tarea las requiere:
 
 ```
 @/ruta/a/agentes/reglas/error-handling/AGENT.md
@@ -541,4 +538,4 @@ Transversales a todos los agentes:
 
 ## Guía para el equipo
 
-Consultar las guías disponibles en `GUIAS/EQUIPO/` para más detalles. |
+Consultar las guías disponibles en `GUIAS/` para más detalles.
