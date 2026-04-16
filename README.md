@@ -47,14 +47,65 @@ git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.config/openco
 
 ## Uso
 
-Una vez instalado, simplemente escribí en tu agente:
+### Dos modos disponibles
+
+Al instalar tenés dos opciones en el dropdown de OpenCode:
+
+| Modo | Nombre | Cuándo usarlo |
+|------|--------|-------------|
+| **Sdd-Ggs Orchestrator** | Automatic | Valida, propone alternativas y espera OK antes de actuar |
+| **Sdd-GGS-Skills** | Manual | Querés controlar cada paso |
+
+---
+
+#### Sdd-Ggs Orchestrator (Automático)
+
+Elegilo del dropdown y el agente:
+
+1. Explora el codebase
+2. Propone soluciones
+3. Escribe los specs
+4. Diseña la solución
+5. Implementa
+6. Verifica
+
+**SIEMPRE indicá el agente que participa** al inicio de cada respuesta:
 
 ```
-> sdd
-> necesito agregar autenticación JWT al portal
+[Agente: Explorador (equipo/desarrollo/dev)] - Analizando el código de auth
+[Agente: Analista (equipo/producto/analista)] - Proponiendo soluciones para el bug
+[Agente: Dev (equipo/desarrollo/dev)] - Implementando la solución
 ```
 
-O invocá un agente específico:
+**Vos**: Solo mirás y decís "sí" o "no, cambiá esto".
+
+```
+> Elegí "Sdd-Ggs Orchestrator" del dropdown
+> Fix el bug de login que no valida la contraseña
+```
+
+---
+
+#### Sdd-GGS-Skills (Manual)
+
+Elegilo del dropdown y el agente carga los skills. **Vos decidís cada paso**:
+
+1. **"Explorá el código de auth"** → carga `sdd-explore`
+2. **"Escribí la spec"** → carga `sdd-spec`
+3. **"Aplicá la solution"** → carga `sdd-apply`
+
+```
+> Elegí "Sdd-GGS-Skills" del dropdown
+> Explorá el código actual de auth → explorá
+> Escribí la spec → escribila
+> Aplicá → implementá
+```
+
+Cada fase es controlada por vos.
+
+---
+
+### invoke manual de agents
 
 ```
 @equipo/desarrollo/dev
