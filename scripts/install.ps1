@@ -48,97 +48,78 @@ if (!(Test-Path $RootSkillDir)) {
 Copy-Item -Path (Join-Path $SkillsDir "equipo\sdd-ggs\SKILL.md") -Destination (Join-Path $RootSkillDir "SKILL.md") -Force
 
 # ============================================
-# REGISTRAR AGENTE EN OPENCODE SELECTOR
+# REGISTRAR AGENTES EN OPENCODE SELECTOR
 # ============================================
 if ($Agent.ToLower() -eq "opencode") {
     Write-Host ""
-    Write-Host "Registering sdd-ggs in OpenCode selector..." -ForegroundColor Cyan
+    Write-Host "Registering GGS agents in OpenCode selector..." -ForegroundColor Cyan
 
     $OpenCodeConfig = "$env:USERPROFILE\.config\opencode"
-    $AgentsDir = Join-Path $OpenCodeConfig "agents\custom\sdd-ggs"
     $OpenCodeJson = Join-Path $OpenCodeConfig "opencode.json"
 
-    # Crear directorio del agente
-    if (!(Test-Path $AgentsDir)) {
-        New-Item -ItemType Directory -Path $AgentsDir -Force | Out-Null
+    # -------------------------------------------------------
+    # LIMPIEZA: Borrar carpetas antiguas de agents/custom/
+    # para evitar duplicados con prefijo "Custom/" en el dropdown
+    # -------------------------------------------------------
+    $CustomAgentsDir = Join-Path $OpenCodeConfig "agents\custom"
+    $AgentsToClean = @("sdd-ggs", "Sdd-Ggs-Orchestrator", "Sdd-GGS-Orchestrator", "Sdd-GGS-Skills")
+    foreach ($agentFolder in $AgentsToClean) {
+        $path = Join-Path $CustomAgentsDir $agentFolder
+        if (Test-Path $path) {
+            Remove-Item -Recurse -Force $path
+            Write-Host "  - Removed old agent/custom/$agentFolder" -ForegroundColor Gray
+        }
     }
 
-    # Copiar agent.md
-    $AgentMdSource = Join-Path $SkillsDir "equipo\sdd-ggs\agent.md"
-    $AgentMdDest = Join-Path $AgentsDir "agent.md"
-
-    # Si no existe agent.md en el repo, crear uno básico
-    if (!(Test-Path $AgentMdSource)) {
-        $AgentMdContent = @"
-# Agente SDD-GGS
-
-## System Prompt
-
-Eres **sdd-ggs**, un agente de desarrollo y procesos especializado en Spec-Driven Development (SDD) con enfoque de mejora continua.
-
-## Regla Fundamental: VALIDAR ANTES DE ACTUAR
-
-**NUNCA ejecutés directamente — siempre validá, dalle alternativas, y esperá aprobación.**
-
-## Principios
-
-- CONCEPTOS > CÓDIGO
-- MEJORA CONTINUA
-- CLARIDAD OPERATIVA
-- MEDIBLE
-"@
-        Set-Content -Path $AgentMdDest -Value $AgentMdContent
-    } else {
-        Copy-Item -Path $AgentMdSource -Destination $AgentMdDest -Force
-    }
-
-    # Actualizar opencode.json
+    # -------------------------------------------------------
+    # REGISTRAR EN opencode.json
+    # Los agent.md viven en skills/ggs/agents/ (parte del repo)
+    # para que OpenCode no los auto-descubra como Custom/*
+    # -------------------------------------------------------
     if (Test-Path $OpenCodeJson) {
         $json = Get-Content $OpenCodeJson -Raw | ConvertFrom-Json
 
-        # Verificar si ya existe sdd-ggs
-        $exists = $json.agent.PSObject.Properties.Name -contains "sdd-ggs"
-
-        if (!$exists) {
-            # Agregar agente
-            $newAgent = @{
-                name = "sdd-ggs"
-                description = "Agente de desarrollo y procesos GGS - SDD con mejora continua"
-                mode = "primary"
-                model = "opencode/minimax-m2.5-free"
-                prompt = "{file:./agents/custom/sdd-ggs/agent.md}"
-                tools = @{
-                    read = $true
-                    edit = $true
-                    write = $true
-                    bash = $true
-                    glob = $true
-                    grep = $true
-                }
-            }
-
-            # Convertir a JSON y agregar al inicio del agent
-            $json.agent | Add-Member -NotePropertyName "sdd-ggs" -NotePropertyValue $newAgent -Force
-
-            # Reordenar para que aparezca primero
-            $agentOrder = @("sdd-ggs") + ($json.agent.PSObject.Properties.Name | Where-Object { $_ -ne "sdd-ggs" })
-            $newAgentObj = [ordered]@{}
-            foreach ($a in $agentOrder) {
-                $newAgentObj[$a] = $json.agent.$a
-            }
-            $json.agent = $newAgentObj
-
-            # Guardar
-            $json | ConvertTo-Json -Depth 10 | Set-Content -Path $OpenCodeJson
-            Write-Host "  - Registered sdd-ggs in opencode.json" -ForegroundColor Green
-        } else {
-            Write-Host "  - sdd-ggs already registered" -ForegroundColor Yellow
+        # --- sdd-ggs (hidden — motor interno) ---
+        $sddGgsAgent = @{
+            name        = "sdd-ggs"
+            description = "Agente de desarrollo y procesos GGS - SDD con mejora continua"
+            hidden      = $true
+            mode        = "primary"
+            model       = "opencode/minimax-m2.5-free"
+            prompt      = "{file:./skills/ggs/equipo/sdd-ggs/agent.md}"
+            tools       = @{ read = $true; edit = $true; write = $true; bash = $true; glob = $true; grep = $true }
         }
+        $json.agent | Add-Member -NotePropertyName "sdd-ggs" -NotePropertyValue $sddGgsAgent -Force
+
+        # --- Sdd-GGS-Orchestrator (modo automático) ---
+        $orchestratorAgent = @{
+            name        = "Sdd-GGS-Orchestrator"
+            description = "SDD automático - valida, propone alternativas y espera OK antes de actuar"
+            mode        = "primary"
+            model       = "opencode/minimax-m2.5-free"
+            prompt      = "{file:./skills/ggs/agents/Sdd-GGS-Orchestrator/agent.md}"
+            tools       = @{ read = $true; edit = $true; write = $true; bash = $true; glob = $true; grep = $true }
+        }
+        $json.agent | Add-Member -NotePropertyName "Sdd-GGS-Orchestrator" -NotePropertyValue $orchestratorAgent -Force
+
+        # --- Sdd-GGS-Skills (modo manual) ---
+        $skillsAgent = @{
+            name        = "Sdd-GGS-Skills"
+            description = "SDD manual - carga los skills y vos controlás cada paso del workflow"
+            mode        = "primary"
+            model       = "opencode/minimax-m2.5-free"
+            prompt      = "{file:./skills/ggs/agents/Sdd-GGS-Skills/agent.md}"
+            tools       = @{ read = $true; edit = $true; write = $true; bash = $true; glob = $true; grep = $true }
+        }
+        $json.agent | Add-Member -NotePropertyName "Sdd-GGS-Skills" -NotePropertyValue $skillsAgent -Force
+
+        # Guardar
+        $json | ConvertTo-Json -Depth 10 | Set-Content -Path $OpenCodeJson
+        Write-Host "  - Registered Sdd-GGS-Orchestrator in opencode.json" -ForegroundColor Green
+        Write-Host "  - Registered Sdd-GGS-Skills in opencode.json" -ForegroundColor Green
     } else {
         Write-Host "  - opencode.json not found, skipping registration" -ForegroundColor Yellow
     }
-
-    Write-Host "  - Agent files copied to: $AgentsDir" -ForegroundColor Gray
 }
 
 Write-Host ""
@@ -146,7 +127,7 @@ Write-Host "GGS Agents installed successfully!" -ForegroundColor Green
 Write-Host ""
 Write-Host "To use:" -ForegroundColor White
 Write-Host "  1. Open $Agent (restart if already open)" -ForegroundColor Gray
-Write-Host "  2. Select 'sdd-ggs' from the mode selector" -ForegroundColor Gray
+Write-Host "  2. Select 'Sdd-GGS-Orchestrator' or 'Sdd-GGS-Skills' from the selector" -ForegroundColor Gray
 Write-Host "  3. Or type: sdd" -ForegroundColor Gray
 Write-Host ""
 Write-Host "For more info, see: $SkillsDir\README.md" -ForegroundColor Gray

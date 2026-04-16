@@ -23,7 +23,7 @@ esac
 echo "Detected: $OS-$ARCH"
 
 # Determine config directory based on agent
-AGENT="${1:-opencode}"  # Default to opencode, can be claude, cursor, etc.
+AGENT="${1:-opencode}"
 
 case "$AGENT" in
   opencode)
@@ -69,12 +69,37 @@ ROOT_SKILL_DIR="$CONFIG_DIR/sdd-ggs"
 mkdir -p "$ROOT_SKILL_DIR"
 cp "$SKILLS_DIR/equipo/sdd-ggs/SKILL.md" "$ROOT_SKILL_DIR/SKILL.md"
 
+# ============================================
+# REGISTRAR AGENTES EN OPENCODE SELECTOR
+# ============================================
+if [ "$AGENT" = "opencode" ]; then
+  echo ""
+  echo "Registering GGS agents in OpenCode selector..."
+
+  OPENCODE_CONFIG="$HOME/.config/opencode"
+  OPENCODE_JSON="$OPENCODE_CONFIG/opencode.json"
+  CUSTOM_AGENTS_DIR="$OPENCODE_CONFIG/agents/custom"
+
+  # -------------------------------------------------------
+  # LIMPIEZA: Borrar carpetas antiguas de agents/custom/
+  # para evitar duplicados con prefijo "Custom/" en el dropdown
+  # -------------------------------------------------------
+  for agent_folder in "sdd-ggs" "Sdd-Ggs-Orchestrator" "Sdd-GGS-Orchestrator" "Sdd-GGS-Skills"; do
+    if [ -d "$CUSTOM_AGENTS_DIR/$agent_folder" ]; then
+      rm -rf "$CUSTOM_AGENTS_DIR/$agent_folder"
+      echo "  - Removed old agents/custom/$agent_folder"
+    fi
+  done
+
+  echo "  - Agent files live in skills/ggs/agents/ (no Custom/ duplicates)"
+fi
+
 echo ""
-echo "✅ GGS Agents installed successfully!"
+echo "GGS Agents installed successfully!"
 echo ""
 echo "To use:"
-echo "  1. Open $AGENT"
-echo "  2. Type: sdd"
-echo "  3. Or use: @equipo/desarrollo/dev"
+echo "  1. Open $AGENT (restart if already open)"
+echo "  2. Select 'Sdd-GGS-Orchestrator' or 'Sdd-GGS-Skills' from the selector"
+echo "  3. Or type: sdd"
 echo ""
 echo "For more info, see: $SKILLS_DIR/README.md"
