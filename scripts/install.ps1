@@ -32,7 +32,6 @@ if (!(Test-Path $ConfigDir)) {
 $SkillsDir = Join-Path $ConfigDir "ggs"
 
 if (Test-Path $SkillsDir) {
-    if (Test-Path $SkillsDir) {
     Write-Host "Updating existing installation..." -ForegroundColor Yellow
     Set-Location $SkillsDir
     git pull origin main
