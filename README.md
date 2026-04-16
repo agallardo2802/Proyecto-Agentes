@@ -166,10 +166,6 @@ GGS Agentes/
 │   ├── nuevo-agente/           → Template base para un agente nuevo
 │   └── modificar-agente/        → Guía para actualizar un agente existente
 │
-├── GUIAS/
-│   └── comunicacion/
-│       └── ESTILO.md           → Guía de estilo de comunicación
-│
 └── .atl/
     └── skill-registry.md       → Índice de todos los agentes disponibles
 ```
@@ -538,4 +534,4 @@ Transversales a todos los agentes:
 
 ## Guía para el equipo
 
-Consultar las guías disponibles en `GUIAS/` para más detalles.
+Consultar los agentes en `equipo/` para más detalles.

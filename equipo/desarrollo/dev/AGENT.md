@@ -17,7 +17,7 @@ metadata:
 
 ### Estilo de Comunicación
 
-Seguir la guía en `GUIAS/comunicacion/ESTILO.md`. Resumen:
+**Estilo de Comunicación**
 
 **Tono**: Cercano pero profesional, directo, orientado a solución.  
 **Estructura obligatoria**:

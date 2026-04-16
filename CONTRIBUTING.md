@@ -23,7 +23,7 @@ Para adaptar este proyecto a tu equipo:
 1. Configurá tu stack en `config/proyectos/tu-proyecto.config.md`
 2. Seleccioná los guilds que correspondan a tu tecnología
 3. Personalizá las reglas según tus estándares
-4. Leé las guías en `GUIAS/EQUIPO/`
+4. Leé los agentes en `equipo/` para entender el flujo
 
 ---
 
@@ -130,5 +130,5 @@ Abrí un issue con el tag `question` o `discussion`. Todo feedback es bienvenido
 ## Recursos
 
 - README principal: [README.md](README.md)
-- Guía del equipo: [GUIAS/EQUIPO/](GUIAS/EQUIPO/)
+- Guía del equipo: [equipo/](equipo/)
 - Índice de agentes: [.atl/skill-registry.md](.atl%2Fskill-registry.md)
