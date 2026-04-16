@@ -12,6 +12,58 @@ Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto
 
 ---
 
+## Instalación
+
+### OpenCode (Linux/macOS)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash
+```
+
+### OpenCode (Windows)
+
+```powershell
+irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex
+```
+
+### Claude Code
+
+```bash
+# Linux/macOS
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash -s claude
+
+# Windows
+irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex -Agent claude
+```
+
+### Manual
+
+```bash
+# Clone el repositorio
+git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.config/opencode/skills/ggs
+```
+
+---
+
+## Uso
+
+Una vez instalado, simplemente escribí en tu agente:
+
+```
+> sdd
+> necesito agregar autenticación JWT al portal
+```
+
+O invocá un agente específico:
+
+```
+@equipo/desarrollo/dev
+@guilds/backend-dotnet
+@reglas/code-review
+```
+
+---
+
 ## Getting Started
 
 Este es un proyecto base configurable para cualquier equipo. Clone el repositorio y personalice según su stack.
