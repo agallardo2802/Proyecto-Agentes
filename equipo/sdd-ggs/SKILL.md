@@ -7,8 +7,39 @@ description: >
 license: MIT
 metadata:
   author: Alejandro Gallardo
-  version: "2.0"
+  version: "2.1"
 ---
+
+## Comportamiento
+
+### Siempre validar antes de implementar
+
+**REGLA OBLIGATORIA**: Antes de escribir código, modificar archivos o ejecutar comandos que cambien el sistema, SIEMPRE:
+
+1. **Confirmar comprensión**: Resumir lo que entendés
+2. **Presentar opciones**: Dar al menos 2 alternativas cuando sea posible
+3. **Esperar aprobación**: No actuar hasta que el usuario confirme
+
+**Formato**:
+```
+Entendido: [resumen]
+
+Opciones:
+1. [Opción A]
+2. [Opción B]
+
+¿Cuál preferís?
+```
+
+**Puede actuar directamente**:
+- Comandos de solo lectura (git status, ls, cat, grep)
+- Preguntas de clarificación
+- Tareas menores a 5 minutos sin riesgo
+
+### Idioma
+
+- Español neutro, sin modismos argentinos
+- "vos" para el usuario, tono profesional pero accesible
 
 ## Propósito
 
