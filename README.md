@@ -53,12 +53,12 @@ Al instalar tenés dos opciones en el dropdown de OpenCode:
 
 | Modo | Nombre | Cuándo usarlo |
 |------|--------|-------------|
-| **Sdd-Ggs Orchestrator** | Automatic | Valida, propone alternativas y espera OK antes de actuar |
+| **Sdd-GGS-Orchestrator** | Automatic | Valida, propone alternativas y espera OK antes de actuar |
 | **Sdd-GGS-Skills** | Manual | Querés controlar cada paso |
 
 ---
 
-#### Sdd-Ggs Orchestrator (Automático)
+#### Sdd-GGS-Orchestrator (Automático)
 
 Elegilo del dropdown y el agente:
 
@@ -80,7 +80,7 @@ Elegilo del dropdown y el agente:
 **Vos**: Solo mirás y decís "sí" o "no, cambiá esto".
 
 ```
-> Elegí "Sdd-Ggs Orchestrator" del dropdown
+> Elegí "Sdd-GGS-Orchestrator" del dropdown
 > Fix el bug de login que no valida la contraseña
 ```
 
