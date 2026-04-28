@@ -7,10 +7,32 @@ description: >
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.2"
+  version: "1.3"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
+---
+
+## Ejemplos de uso
+
+**Fix simple:**
+```
+> el auth no valida la contraseña, arreglalo
+```
+→ Cargo reglas/debugging → escribo test → fijo → PR
+
+**Feature:**
+```
+> necesito agregar logout con invalidación de sesión
+```
+→ /sdd-init → exploratory → spec → design → apply
+
+**Refactor:**
+```
+> hay código duplicado en los services de user y customer
+```
+→ muestro las opciones → esperamos OK → aplico
+
 ---
 
 ## Comportamiento
