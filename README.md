@@ -134,7 +134,7 @@ Cada fase es controlada por vos.
 
 #### Sdd-GGS-Judgment (Revisión Adversarial)
 
-**Revisión并行 con 2 judges independentes**. El agente:
+**Revision paralela con 2 judges independientes**. El agente:
 1. Lanza 2 judges ciegos al mismo objetivo
 2. sintetiza hallazgos
 3. aplica fixes si hay consenso

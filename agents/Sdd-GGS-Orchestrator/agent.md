@@ -603,6 +603,47 @@ Debés seguir strict-tdd.md. NO caer en Standard Mode.
 
 ---
 
+## Persistence Mode
+
+> Elegí el modo de persistencia según tus necesidades.
+
+Al iniciar un proyecto, podés elegir el modo:
+
+| Modo | Cuándo usarlo | Archivo trail |
+|-----|--------------|---------------|
+| **engram** | Desarrollo solo, rápido | No crea archivos |
+| **openspec** | Equipo, compartible | `openspec/` con todo |
+| **hybrid** | Ambos beneficios | both + recovery |
+| **none** | Solo prueba | Ninguno |
+
+### Cómo elegir
+
+**Opción 1: Preguntar al usuario**
+```
+Entendido: nuevo proyecto en mi-repo
+
+Opciones de persistencia:
+1. engram    - Rápido, solo local
+2. openspec  - Archivos en openspec/, git-friendly
+3. hybrid    - Ambos beneficios
+4. none      - Sin persistencia
+
+¿Cuál preferís? (1/2/3/4)
+```
+
+**Opción 2: via config**
+En `openspec/config.yaml`:
+```yaml
+persistence_mode: openspec
+```
+
+**Opción 3: Default**
+- Si existe `openspec/` → openspec
+- Si hay test runner → engram
+- Default: engram
+
+---
+
 ## Model Assignments (gentle-ai)
 
 > Asignación de modelos por fase. Leer desde `opencode.json` si existe.

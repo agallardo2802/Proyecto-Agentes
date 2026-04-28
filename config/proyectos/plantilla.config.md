@@ -108,7 +108,7 @@ guilds:
 
 1. **Copiar**: `cp config/proyectos/ejemplo.config.md config/proyectos/mi-proyecto.config.md`
 2. **Editar**: Reemplazar los valores con los de tu proyecto
-3. **使用时**: Los agentes lo cargan automáticamente desde `/sdd-init`
+3. **Utilizar**: Los agentes lo cargan automaticamente desde `/sdd-init`
 
 ```bash
 > /sdd-init

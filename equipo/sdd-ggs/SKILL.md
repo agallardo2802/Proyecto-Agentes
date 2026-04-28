@@ -73,14 +73,33 @@ a menos que hits un blocker real que debe reportarse upstream.
 
 ## Modo de Persistencia
 
-Este skill soporta múltiples modos de persistencia (igual que gentle-ai):
+Este skill soporta múltiples modos de persistencia. Elegí el que mejor se adapte a tu needs:
 
-- **`engram`**: Rápido, sin archivos. Artefactos vivos en Engram. Ideal para desarrollo solo.
-- **`openspec`**: Basado en archivos. Carpeta `openspec/` con trail completo. Compartible, git-friendly.
-- **`hybrid`**: Ambos — archivos para compartir + Engram para recovery. Mayor costo en tokens.
-- **`none`**: Solo retorna inline, sin persistencia.
+| Modo | Cuándo usarlo | Pros | Contras |
+|-----|--------------|------|---------|
+| **`engram`** | Desarrollo solo, sin compartir | Rápido, sin archivos | No compartible |
+| **`openspec`** | Equipo, git-friendly | Trail completo, compartible | Más archivos |
+| **`hybrid`** | Ambos mundos | Compartible + recovery | Costo en tokens |
+| **`none`** | Solo prueba, sin guardar | Ligero | Se pierde todo |
 
-El modo se resuelve en tiempo de inicialización (`/sdd-init`).
+### Cómo elegir
+
+Al correr `/sdd-init`, el sistema detecta automáticamente. Para elegir manualmente:
+
+```
+> /sdd-init
+> Quiero usar openspec para compartir con el equipo
+```
+
+O en el archivo `openspec/config.yaml`:
+
+```yaml
+persistence_mode: openspec
+```
+
+### Engram Cloud (futuro)
+
+Próximamente: sincronización cross-device via Engram cloud.
 
 ## Flujo Integrado
 

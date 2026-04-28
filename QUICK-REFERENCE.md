@@ -4,7 +4,7 @@
 
 ---
 
-##激活 agentes (en chat)
+## Activos agentes (en chat)
 
 | Tarea | Comando |
 |------|---------|
