@@ -12,6 +12,88 @@ Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto
 
 ---
 
+## ¿Por qué usar SDD, TDD y OpenSpec?
+
+### SDD (Spec-Driven Development)
+
+SDD es un flujo estructurado para desarrollo sustancial. En lugar de decir "escribí código", el agente:
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| **Menor scope** | Primero se explora, propone, diseña |
+| **Specs como fuente de verdad** | Todo código se verifica contra specs |
+| **No más rework** | Se Valida el diseño antes de implementar |
+| **Trail auditable** | Cada decisión queda documentada |
+
+```
+Sin SDD: "escribí auth"          → 5 horas de trabajo + rework
+Con SDD: explore → propose → spec → design → apply → 1 hora + correcto
+```
+
+**Cuándo usar SDD**: Features, refactors, bugs complejos.
+
+---
+
+### TDD (Test-Driven Development)
+
+TDD asegura que cada línea de código tenga un test. El flujo RED-GREEN-REFACTOR:
+
+| Fase | Qué hacés |
+|------|-----------|
+| **RED** | Escribís un test que falla |
+| **GREEN** | Minimum código para que pase |
+| **REFACTOR** | Mejorás sin romper tests |
+
+| Beneficio | Descripción |
+|-----------|-------------|
+| **Tests desde el día 1** | No hay código sin test |
+| **Coverage garantizado** | Cada feature tiene tests |
+| **Refactor seguro** | Si rompe, lo sabés inmediatamente |
+| **Documentación viva** | Tests = documentación ejecutable |
+
+```
+Con TDD: implementás mirando el test fallar → pasarlo → refactor
+Sin TDD: escribís código → después test → "me olvidé"
+```
+
+**Cuándo usar TDD**: Lógica de negocio, APIs, utilities.
+
+---
+
+### OpenSpec (Persistencia)
+
+OpenSpec guarda todo el proceso en archivos. Elegí el modo según tu needs:
+
+| Modo | Cuándo usarlo | Pros | Contras |
+|-----|--------------|------|---------|
+| **engram** | Desarrollo solo | Rápido, sin archivos | No compartible |
+| **openspec** | Equipo | Trail completo, git-friendly | Más archivos |
+| **hybrid** | Ambos | Compartible + recovery | Costo en tokens |
+| **none** | Solo prueba | Ligero | Se pierde todo |
+
+| Beneficio openspec | Descripción |
+|-------------------|-------------|
+| **Git-friendly** | Todo en `openspec/` → versionable |
+| **Audit trail** | Cada cambio tiene specs, design, tasks |
+| **Compartir** | Clonás y otro tiene el contexto |
+| **Post-mortem** | Revisás qué se decidió y por qué |
+
+```
+openspec/
+├── config.yaml
+├── specs/
+│   └── auth-spec.md
+├── changes/
+│   └── feature-login/
+│       ├── proposal.md
+│       ├── spec.md
+│       ├── design.md
+│       ├── tasks.md
+│       └── archive.md
+```
+
+---
+
 ## Instalación
 
 ### Con instalador automático (recomendado)

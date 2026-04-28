@@ -31,7 +31,7 @@ Todo proyecto nuevo en frontend sigue estos patrones.
 
 ### 1. Componentes Presentacionales
 
-分离 UI de lógica:
+Separate UI de logica:
 ```
 components/
 ├── ui/           # Buttons, Inputs, Cards (sin lógica de negocio)

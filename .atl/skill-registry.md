@@ -71,7 +71,7 @@
 | `guilds/backend-dotnet` | .NET projects | .NET general |
 | `guilds/frontend-react-nextjs` | React/Next.js | React 18+, Next.js 14, Tailwind |
 | `guilds/frontend-angular` | Angular projects | Angular |
-| `guilds/mobile-react-native` | Apps移动 | React Native + Expo |
+| `guilds/mobile-react-native` | Apps moviles | React Native + Expo |
 | `guilds/messaging-rabbitmq` | Colas asincronas | RabbitMQ, workers |
 | `guilds/observabilidad-grafana` | Logging, metricas | Grafana, Loki, Prometheus |
 | `guilds/arquitectura` | Arquitectura | Architecture patterns |
