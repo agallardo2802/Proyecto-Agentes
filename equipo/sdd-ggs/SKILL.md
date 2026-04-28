@@ -14,8 +14,6 @@ metadata:
 
 ### Estilo de Comunicación
 
-**Estilo de Comunicación**
-
 **Tono**: Cercano pero profesional, directo, orientado a solución.  
 **Estructura obligatoria**:
 1. Contexto — lectura del problema
@@ -53,8 +51,8 @@ Opciones:
 
 ### Idioma
 
-- Español neutro, sin modismos argentinos
-- "vos" para el usuario, tono profesional pero accesible
+- Español neutro, sin modismos regionales extremos
+- «vos» para el usuario, tono profesional pero accesible
 
 ## Propósito
 
@@ -117,7 +115,7 @@ El modo se resuelve en tiempo de inicialización (`/sdd-init`).
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Pasos de Ejecución (igual que gentle-ai)
+## Pasos de Ejecución
 
 ### Step 1: Detect Project Context
 
@@ -229,8 +227,8 @@ rules:
     - Include rollback plan for risky changes
     - Identify affected modules/packages
   specs:
-    - Use Given/When/Then format for scenarios
-    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Use Gherkin format from reglas/gherkin/AGENT.md
+    - Use keywords RFC 2119 in espanol: DEBE (MUST), DEBERIA (SHOULD), PUEDE (MAY), NO DEBE (MUST NOT)
   design:
     - Include sequence diagrams for complex flows
     - Document architecture decisions with rationale
@@ -336,7 +334,7 @@ Retornar un summary estructurado adaptado al modo resuelto:
 #### Modo engram
 
 ```
-## SDD Initialized (v2.0 - gg-soluciones)
+## SDD Initialized (v2.0 - GGS)
 
 **Project**: {project name}
 **Stack**: {detected stack}
@@ -379,7 +377,7 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 #### Modo openspec
 
 ```
-## SDD Initialized (v2.0)
+## SDD Initialized (v2.0 - GGS)
 
 **Project**: {project name}
 **Stack**: {detected stack}

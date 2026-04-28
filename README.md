@@ -14,27 +14,38 @@ Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto
 
 ## Instalación
 
-### OpenCode (Linux/macOS)
+### Con instalador automático (recomendado)
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash
-```
-
-### OpenCode (Windows)
-
-```powershell
-irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex
-```
-
-### Claude Code
+El instalador detecta automáticamente las dependencias y guía paso a paso:
 
 ```bash
 # Linux/macOS
-curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash -s claude
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash
 
-# Windows
-irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex -Agent claude
+# Windows (PowerShell)
+irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex
 ```
+
+**El instalador:**
+- Detecta: Git, Go, Python, Node.js, OpenCode, Engram
+- Permite seleccionar plataforma objetivo (OpenCode, Claude Code, Cursor, Windsurf)
+- Registra los 4 agentes en el dropdown automáticamente
+- Limpia duplicados de instalaciones anteriores
+
+### TUI Interactiva (Go)
+
+También hay una **TUI en Go** para instalación visual:
+
+```bash
+cd cmd/sdd-tui
+go build -o sdd-tui.exe .
+./sdd-tui.exe
+```
+
+**Pantallas:**
+- Instalar/Actualizar (detecta plataformas, muestra changelog)
+- Ver Agentes (explorador de archivos)
+- Desinstalar
 
 ### Manual
 
@@ -47,14 +58,16 @@ git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.config/openco
 
 ## Uso
 
-### Dos modos disponibles
+### Tres modos disponibles
 
-Al instalar tenés dos opciones en el dropdown de OpenCode:
+Al instalar tenés **tres opciones** en el dropdown de OpenCode:
 
-| Modo | Nombre | Cuándo usarlo |
+| Modo |Nombre| Cuándo usarlo |
 |------|--------|-------------|
-| **Sdd-GGS-Orchestrator** | Automatic | Valida, propone alternativas y espera OK antes de actuar |
-| **Sdd-GGS-Skills** | Manual | Querés controlar cada paso |
+| **Sdd-GGS-Orchestrator** | Automático | Valida, propone alternativas y espera OK antes de actuar |
+| **Sdd-GGS-Plan** | Solo análisis | Solo arquitectura, specs y diseño. Sin código. Para cargar tablero |
+| **Sdd-GGS-Skills** | Manual | Querés controlar cada fase manualmente |
+| **Sdd-GGS-Judgment** | Revisión | Revisión adversarial con 2 judges |
 
 ---
 
@@ -86,6 +99,20 @@ Elegilo del dropdown y el agente:
 
 ---
 
+#### Sdd-GGS-Plan (Solo Análisis)
+
+Elegilo cuando **no necesitás código**: solo аналитографиico, diseño o carga de tablero. El agentehace todo el workflow SDD **excepto** implementación.
+
+```
+> Elegí "Sdd-GGS-Plan" del dropdown
+> Diseñar la arquitectura del módulo de cobros
+> Escribir las specs en Gherkin
+```
+
+El agente propone, disena y crea specs. Al final, deriva a Orchestrator o Skills para implementar.
+
+---
+
 #### Sdd-GGS-Skills (Manual)
 
 Elegilo del dropdown y el agente carga los skills. **Vos decidís cada paso**:
@@ -102,6 +129,29 @@ Elegilo del dropdown y el agente carga los skills. **Vos decidís cada paso**:
 ```
 
 Cada fase es controlada por vos.
+
+---
+
+#### Sdd-GGS-Judgment (Revisión Adversarial)
+
+**Revisión并行 con 2 judges independentes**. El agente:
+1. Lanza 2 judges ciegos al mismo objetivo
+2. sintetiza hallazgos
+3. aplica fixes si hay consenso
+4. re-juzga hasta pass o escala
+
+```
+> Elegí "Sdd-GGS-Judgment" del dropdown
+> Revisar el PR #42
+```
+
+**Criterios Judge 1 (Arquitectura)**:
+- Clean Architecture, SOLID, patrones del stack
+- naming-conventions, acoplamiento
+
+**Criterios Judge 2 (Edge Cases)**:
+- Null handling, error handling, validaciones
+- Performance (N+1 queries), seguridad (XSS, secretos)
 
 ---
 
@@ -552,6 +602,7 @@ Implementar autenticación JWT según el ticket...
 
 | Área | Agentes | Estado |
 |------|---------|--------|
+| **Agentes principales** | 4 (Orchestrator, Plan, Skills, Judgment) | ✅ Nuevo |
 | orchestrator | 1 | ✅ Completo |
 | equipo/producto | 4 (1 orq + 3 hoja) | ✅ Completo |
 | equipo/diseno | 3 (1 orq + 2 hoja) | ✅ Completo |
@@ -559,8 +610,19 @@ Implementar autenticación JWT según el ticket...
 | equipo/testing | 7 (1 orq + 6 hoja) | ✅ Completo |
 | equipo/devops | 10 (4 orq + 6 hoja) | ✅ Completo |
 | equipo/datos | 4 (1 orq + 3 hoja) | ✅ Completo |
+| equipo/seguridad | 1 | ✅ Nuevo |
 | guilds | 18 | ✅ Completo |
 | reglas | 12 | ✅ Actualizado |
+
+---
+
+## Novedades v3.0
+
+- **4 agentes** en dropdown (Orchestrator + Plan + Skills + Judgment)
+- **TUI Go** interactivapara instalar/desinstalar
+- **Instalador v3.0** con detección automática de dependencias
+- **Equipo Seguridad** (AppSec)
+- **Judgment Day** - revisión adversarial con 2 judges
 
 ---
 
