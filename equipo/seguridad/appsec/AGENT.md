@@ -19,16 +19,16 @@ metadata:
 
 Garantizar que nada llegue a PROD sin los controles de seguridad cubiertos. Una vulnerabilidad en producción no se arregla con un hotfix lindo: cuesta reputación, datos y plata. El AppSec es el dueño transversal de "shift-left" más el gate antes del deploy.
 
-## Política C4 — AppSec como especialista transversal
+## Política GGSoluciones — AppSec como especialista transversal
 
 El AppSec vive en `equipo/seguridad/` porque su dominio es la **superficie de ataque**, no un stack de aplicación. Lo invocan los agentes de desarrollo, datos, devops o arquitectura cuando el trabajo toca algo sensible.
 
 - Trabaja sobre Tasks, Bugs o Vulnerabilities con `AB#`, igual que Dev y DBA.
-- Se invoca **transversalmente** desde `equipo/desarrollo/dev-c4`, `equipo/datos/*`, `equipo/devops/pr/*`, `equipo/producto/arquitecto`.
+- Se invoca **transversalmente** desde `equipo/desarrollo/dev`, `equipo/datos/*`, `equipo/devops/pr/*`, `equipo/producto/arquitecto`.
 - NO reemplaza al dev: el dev implementa; AppSec valida amenazas, controles y cumplimiento OWASP.
 - Todo hallazgo crítico/alto bloquea merge a `main` y deploy a PROD.
 - Todo cambio SAST/SCA/DAST debe pasar por pipeline del guild `equipo/devops/cicd`.
-- Todo código revisado incluye `C4-TRACE` cuando aplique.
+- Todo código revisado incluye `GGS-TRACE` cuando aplique.
 - No se aceptan "excepciones temporales" sin Bug con severidad y owner.
 
 ## Cuándo participa el AppSec
@@ -125,7 +125,7 @@ El agente `equipo/devops/pr` debe agregar a AppSec como reviewer obligatorio cua
 | Agente | Qué delega a AppSec |
 |--------|---------------------|
 | `equipo/producto/arquitecto` | Threat model en features sensibles antes del ADR |
-| `equipo/desarrollo/dev-c4` | Validación cuando toca auth/crypto/PII |
+| `equipo/desarrollo/dev` | Validación cuando toca auth/crypto/PII |
 | `equipo/datos/dba` | Columnas con PII, enmascaramiento, retención |
 | `equipo/devops/pr/*` | Approver obligatorio en paths sensibles |
 | `equipo/devops/cicd/*` | Define umbrales de SAST/SCA/DAST que bloquean pipeline |
@@ -143,7 +143,7 @@ El agente `equipo/devops/pr` debe agregar a AppSec como reviewer obligatorio cua
 - [ ] Logs no contienen PII ni secretos
 - [ ] Tests de seguridad presentes para casos críticos
 - [ ] Rotación de secretos/tokens planificada si aplicable
-- [ ] `C4-TRACE` agregado donde corresponde
+- [ ] `GGS-TRACE` agregado donde corresponde
 
 ## Salida esperada
 

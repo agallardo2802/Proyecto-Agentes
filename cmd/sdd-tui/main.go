@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/agallardo2802/Proyecto-Agentes/cmd/sdd-tui/internal/tui"
 	"github.com/charmbracelet/bubbletea"
-	"github.com/elcuatro/sdd-tui/internal/tui"
 )
 
 func main() {

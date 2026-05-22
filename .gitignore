@@ -26,6 +26,9 @@ tmp/
 temp/
 *.tmp
 
+# Generated caches
+.atl/.skill-registry.cache.json
+
 # Claudia/OpenCode agent files (if local config)
 .claude/settings.local.json
 .claude/launch.json

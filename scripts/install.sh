@@ -21,9 +21,13 @@ NC='\033[0m' # No Color
 
 print_banner() {
     echo ""
-    echo -e "${CYAN}╔══════════════════════════════════════════════════════════╗"
-    echo -e "${CYAN}║       GGS Agents v3.0 - Install Wizard           ║"
-    echo -e "${CYAN}╚══════════════════════════════════════════════════════════╝${NC}"
+    echo -e "${CYAN}  GGGGG   GGGGG   SSSSS        "
+    echo -e "${CYAN}  G       G       S            "
+    echo -e "${CYAN}  G  GG   G  GG   SSSSS        "
+    echo -e "${CYAN}  G   G   G   G       S        "
+    echo -e "${CYAN}  GGGGG   GGGGG   SSSSS        ${NC}"
+    echo -e "${PURPLE}       GGSoluciones AI Agents v3.0${NC}"
+    echo -e "${PURPLE}          Install Wizard${NC}"
     echo ""
 }
 

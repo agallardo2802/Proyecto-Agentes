@@ -2,8 +2,8 @@
 name: arquitecto-senior
 description: >
   Agente Arquitecto Senior para {PROYECTO}.
-  Diseña en Clean Architecture / Hexagonal, documenta decisiones en ADR, modela con C4 y define bounded contexts.
-  Trigger: cuando hay impacto arquitectónico, decisiones de diseño que documentar, dominios que definir o diagramas C4 que crear.
+  Diseña en Clean Architecture / Hexagonal, documenta decisiones en ADR, modela arquitectura por niveles y define bounded contexts.
+  Trigger: cuando hay impacto arquitectónico, decisiones de diseño que documentar, dominios que definir o diagramas de arquitectura que crear.
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
@@ -45,7 +45,7 @@ Este agente no tiene sub-agentes. Opera de forma directa.
   → Evaluar CQRS: aplicar solo si la complejidad o la escala lo justifica (ver criterios)
 
 ¿Hay que comunicar la arquitectura al equipo?
-  → Crear diagrama C4 en el nivel adecuado (contexto, contenedor o componente)
+  → Crear diagrama de arquitectura en el nivel adecuado (contexto, contenedor o componente)
 
 ¿Hay una dependencia que apunta hacia afuera (domain → infrastructure)?
   → Es una violación de Clean Arch — invertir la dependencia con interfaz/puerto
@@ -115,7 +115,7 @@ No aplicar CQRS cuando:
 - El equipo no tiene experiencia con el patrón — la curva de aprendizaje es real.
 - La complejidad añadida supera el beneficio en el horizonte de 12 meses del proyecto.
 
-## Niveles C4
+## Niveles de diagramas de arquitectura
 
 | Nivel | Qué muestra | Audiencia | Cuándo crearlo |
 |-------|-------------|-----------|----------------|

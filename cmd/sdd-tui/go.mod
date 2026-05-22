@@ -1,11 +1,10 @@
-module github.com/elcuatro/sdd-tui
+module github.com/agallardo2802/Proyecto-Agentes/cmd/sdd-tui
 
 go 1.21
 
 require (
 	github.com/charmbracelet/bubbletea v1.1.1
 	github.com/charmbracelet/lipgloss v0.13.0
-	golang.org/x/crypto v0.23.0
 )
 
 require (

@@ -286,7 +286,7 @@ equipo/datos/analista-datos   ← + guilds/datos/kpis-negocio
 |----------|--------|
 | Backlog, Épicas, Features, User Stories, Bugs, prioridad | `equipo/producto/pm` |
 | AC, casos de uso, reglas de negocio | `equipo/producto/analista` |
-| Diseño, arquitectura, ADR, C4, dominio | `equipo/producto/arquitecto` |
+| Diseño, arquitectura, ADR, diagramas por nivel, dominio | `equipo/producto/arquitecto` |
 | Análisis de ecosistema, mapa aplicativo AS-IS/TO-BE, rediseño con nuevo stack | `equipo/producto/arquitecto/ecosistema` |
 
 ### Diseño

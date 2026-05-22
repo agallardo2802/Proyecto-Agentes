@@ -23,7 +23,7 @@ Coordinar el área de Producto de {PROYECTO}. Garantizar que ninguna historia ll
 |------------|------|-----------------|
 | PM | `equipo/producto/pm/` | Backlog, épicas, historias, tareas técnicas, bugs |
 | Analista | `equipo/producto/analista/` | AC en Gherkin, casos de uso, reglas de negocio |
-| Arquitecto | `equipo/producto/arquitecto/` | Clean Arch, CQRS, ADR, C4, dominios y bounded contexts |
+| Arquitecto | `equipo/producto/arquitecto/` | Clean Arch, CQRS, ADR, diagramas por nivel, dominios y bounded contexts |
 
 ## Árbol de decisión
 

@@ -113,7 +113,7 @@ Qué agentes carga automáticamente según el contexto.
 
 ```
 feat: agregar nuevo guild React Native
-fix: corregir tree de decisión en dev-c4
+fix: corregir tree de decisión en dev
 docs: actualizar guía del equipo
 refactor: extraer lógica común a regla compartida
 chore: actualizar dependencias

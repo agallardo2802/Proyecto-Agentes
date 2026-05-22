@@ -7,9 +7,9 @@ import (
 )
 
 type Config struct {
-	RepoURL    string `json:"repo_url"`
-	PAT        string `json:"pat"`
-	Project    string `json:"project"`
+	RepoURL      string `json:"repo_url"`
+	PAT          string `json:"pat"`
+	Project      string `json:"project"`
 	Organization string `json:"organization"`
 }
 
@@ -21,7 +21,7 @@ func GetConfigPath() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	configDir := filepath.Join(home, ".config", "elcuatro-tui")
+	configDir := filepath.Join(home, ".config", "ggsoluciones-tui")
 	return filepath.Join(configDir, configFileName), nil
 }
 

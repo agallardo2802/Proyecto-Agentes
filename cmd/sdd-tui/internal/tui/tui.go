@@ -18,14 +18,14 @@ import (
 type Screen int
 
 const (
-	ScreenMainMenu Screen = iota
-	ScreenInstallMenu      // elegir instalar todos o seleccionar
-	ScreenInstallSelect // seleccionar plataformas específicas
-	ScreenChangelog    // mostrar changelog antes de instalar
-	ScreenInstallURL   // legacy - ya no se usa para opencode
+	ScreenMainMenu      Screen = iota
+	ScreenInstallMenu          // elegir instalar todos o seleccionar
+	ScreenInstallSelect        // seleccionar plataformas específicas
+	ScreenChangelog            // mostrar changelog antes de instalar
+	ScreenInstallURL           // legacy - ya no se usa para opencode
 	ScreenInstallProgress
 	ScreenInstallDone
-	ScreenUninstallMenu  // NEW: seleccionar plataformas para desinstalar
+	ScreenUninstallMenu // NEW: seleccionar plataformas para desinstalar
 	ScreenUninstallProgress
 	ScreenAgentTree
 	ScreenAgentView
@@ -33,14 +33,14 @@ const (
 
 // Styles
 var (
-	menuStyle      = lipgloss.NewStyle().Foreground(lipgloss.Color("white")).Background(lipgloss.Color("blue")).Padding(1, 2)
+	menuStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("white")).Background(lipgloss.Color("blue")).Padding(1, 2)
 	itemStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("white"))
 	selectedStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("black")).Background(lipgloss.Color("green")).Padding(0, 1)
-	titleStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("cyan")).Bold(true)
-	errorStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("red"))
-	dimStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
-	inputStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("yellow")).Background(lipgloss.Color("black"))
-	successStyle = lipgloss.NewStyle().Foreground(lipgloss.Color("green"))
+	titleStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("cyan")).Bold(true)
+	errorStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("red"))
+	dimStyle      = lipgloss.NewStyle().Foreground(lipgloss.Color("240"))
+	inputStyle    = lipgloss.NewStyle().Foreground(lipgloss.Color("yellow")).Background(lipgloss.Color("black"))
+	successStyle  = lipgloss.NewStyle().Foreground(lipgloss.Color("green"))
 )
 
 // State holds all application state
@@ -51,38 +51,38 @@ type State struct {
 	MenuSelected int
 
 	// Install
-	RepoURL      string
-	InputText   string
-	CursorPos   int
-	InstallLog  []string
-	CloneError  string
-	CloneDone   bool
-	InstallChoice int  // 0=menu, 1=default, 2=custom
-	PlatformTree []platformInfo // Plataformas detectadas
-	PlatformCursor int // Cursor para navegar menu de plataformas
+	RepoURL           string
+	InputText         string
+	CursorPos         int
+	InstallLog        []string
+	CloneError        string
+	CloneDone         bool
+	InstallChoice     int             // 0=menu, 1=default, 2=custom
+	PlatformTree      []platformInfo  // Plataformas detectadas
+	PlatformCursor    int             // Cursor para navegar menu de plataformas
 	SelectedPlatforms map[string]bool // Plataformas seleccionadas
-	InstallMode int // 0=menu principal, 1=todos, 2=seleccionar individually
-	CurrentVersion string // Version actual instalada
-	RemoteVersion string // Version remota (del repo)
-	Changelog string // Cambios entre versiones
-	PlatformToInstall string // Plataforma seleccionada para changelog
-	ForceInstall bool // Forzar instalación sin verificar cambios
+	InstallMode       int             // 0=menu principal, 1=todos, 2=seleccionar individually
+	CurrentVersion    string          // Version actual instalada
+	RemoteVersion     string          // Version remota (del repo)
+	Changelog         string          // Cambios entre versiones
+	PlatformToInstall string          // Plataforma seleccionada para changelog
+	ForceInstall      bool            // Forzar instalación sin verificar cambios
 
 	// Agent tree
 	Agents        []AgentItem
-	AgentCursor  int
+	AgentCursor   int
 	SelectedAgent string
-	MaxLines     int  // Cuantas lineas mostrar
+	MaxLines      int // Cuantas lineas mostrar
 
 	// Form
 	FormInput string
-	FormType string
+	FormType  string
 }
 
 // Platform represents an AI coding platform
 type Platform struct {
-	Name    string
-	SkillDir string // Where skills would be installed
+	Name        string
+	SkillDir    string // Where skills would be installed
 	CheckParent string // Parent directory to check if platform exists
 }
 
@@ -93,9 +93,9 @@ var platforms = []Platform{
 	{Name: "Codex", SkillDir: ".codex/skills", CheckParent: ".codex"},
 }
 
-	// AgentItem represents a node in the agent tree
+// AgentItem represents a node in the agent tree
 type AgentItem struct {
-	Name    string
+	Name   string
 	Path   string
 	IsDir  bool
 	Indent int
@@ -108,7 +108,10 @@ type Model struct {
 
 // loadAgentTree carga el árbol real de agentes desde el filesystem
 func (s *State) loadAgentTree() {
-	basePath := "D:/workspace/elcuatro/projects/elcuatro-agentes"
+	basePath, err := os.Getwd()
+	if err != nil {
+		basePath = "."
+	}
 	dirs := []string{"agents", "guilds", "reglas", "templates"}
 
 	s.Agents = []AgentItem{}
@@ -116,9 +119,9 @@ func (s *State) loadAgentTree() {
 	for _, dir := range dirs {
 		// Agregar carpeta padre
 		s.Agents = append(s.Agents, AgentItem{
-			Name:    dir,
-			Path:    dir + "/",
-			IsDir:   true,
+			Name:   dir,
+			Path:   dir + "/",
+			IsDir:  true,
 			Indent: 0,
 		})
 
@@ -132,9 +135,9 @@ func (s *State) loadAgentTree() {
 			if item.IsDir() {
 				// Agregar subcarpeta
 				s.Agents = append(s.Agents, AgentItem{
-					Name:    "  " + item.Name(),
-					Path:    dir + "/" + item.Name() + "/",
-					IsDir:   true,
+					Name:   "  " + item.Name(),
+					Path:   dir + "/" + item.Name() + "/",
+					IsDir:  true,
 					Indent: 1,
 				})
 
@@ -143,9 +146,9 @@ func (s *State) loadAgentTree() {
 				for _, subItem := range subItems {
 					if strings.HasSuffix(subItem.Name(), ".md") {
 						s.Agents = append(s.Agents, AgentItem{
-							Name:    "    " + subItem.Name(),
-							Path:    dir + "/" + item.Name() + "/" + subItem.Name(),
-							IsDir:   false,
+							Name:   "    " + subItem.Name(),
+							Path:   dir + "/" + item.Name() + "/" + subItem.Name(),
+							IsDir:  false,
 							Indent: 2,
 						})
 					}
@@ -153,9 +156,9 @@ func (s *State) loadAgentTree() {
 			} else if strings.HasSuffix(item.Name(), ".md") {
 				// Archivo directo en la carpeta
 				s.Agents = append(s.Agents, AgentItem{
-					Name:    "  " + item.Name(),
-					Path:    dir + "/" + item.Name(),
-					IsDir:   false,
+					Name:   "  " + item.Name(),
+					Path:   dir + "/" + item.Name(),
+					IsDir:  false,
 					Indent: 1,
 				})
 			}
@@ -171,9 +174,9 @@ func New() Model {
 			MenuSelected: 0,
 			Agents: []AgentItem{
 				{Name: "agents", Path: "agents/", IsDir: true, Indent: 0},
-				{Name: "  Sdd-C4-Orchestrator", Path: "agents/Sdd-C4-Orchestrator/AGENT.md", IsDir: false, Indent: 1},
-				{Name: "  Sdd-C4-Skills", Path: "agents/Sdd-C4-Skills/AGENT.md", IsDir: false, Indent: 1},
-				{Name: "  Sdd-C4-Plan", Path: "agents/Sdd-C4-Plan/AGENT.md", IsDir: false, Indent: 1},
+				{Name: "  Sdd-GGS-Orchestrator", Path: "agents/Sdd-GGS-Orchestrator/agent.md", IsDir: false, Indent: 1},
+				{Name: "  Sdd-GGS-Skills", Path: "agents/Sdd-GGS-Skills/agent.md", IsDir: false, Indent: 1},
+				{Name: "  Sdd-GGS-Plan", Path: "agents/Sdd-GGS-Plan/agent.md", IsDir: false, Indent: 1},
 				{Name: "guilds", Path: "guilds/", IsDir: true, Indent: 0},
 				{Name: "  backend-dotnet", Path: "guilds/backend-dotnet/AGENT.md", IsDir: false, Indent: 1},
 				{Name: "  frontend-react-nextjs", Path: "guilds/frontend-react-nextjs/AGENT.md", IsDir: false, Indent: 1},
@@ -282,7 +285,7 @@ func (s *State) handleUp() {
 		} else if s.InstallChoice > 0 {
 			s.InstallChoice--
 		}
-case ScreenAgentTree:
+	case ScreenAgentTree:
 		if s.AgentCursor > 0 {
 			s.AgentCursor--
 		}
@@ -451,7 +454,7 @@ func (s *State) doClone() {
 
 	repoURL := s.RepoURL
 	if repoURL == "" {
-		repoURL = "https://dev.azure.com/elcuatro/Proyectos%20IT/_git/elcuatro-agentes"
+		repoURL = "https://github.com/agallardo2802/Proyecto-Agentes.git"
 	}
 
 	parts := strings.Split(repoURL, "/")
@@ -524,13 +527,13 @@ func (s *State) doClone() {
 	skippedCount := 0
 	remoteVersion := s.checkRemoteVersion(repoPath)
 	s.RemoteVersion = remoteVersion
-	
+
 	for _, p := range s.PlatformTree {
 		if !p.Active || !s.SelectedPlatforms[p.Name] {
 			continue
 		}
 		destPath := filepath.Join(p.BaseDir, p.SkillDir)
-		
+
 		// Check if there are changes (skip if not force install)
 		shouldInstall := s.ForceInstall
 		if !s.ForceInstall {
@@ -541,13 +544,13 @@ func (s *State) doClone() {
 				shouldInstall = hasChanges
 			}
 		}
-		
+
 		if !shouldInstall {
 			s.InstallLog = append(s.InstallLog, "     [-] "+p.Name+": sin cambios ("+p.Version+")")
 			skippedCount++
 			continue
 		}
-		
+
 		// Install (or force install)
 		if err := s.copyDir(repoPath, destPath); err != nil {
 			s.InstallLog = append(s.InstallLog, "     [!] "+p.Name+": error - "+err.Error())
@@ -575,8 +578,8 @@ func (s *State) doClone() {
 	s.InstallLog = append(s.InstallLog, " COMO USAR LOS AGENTES:")
 	s.InstallLog = append(s.InstallLog, "================================")
 	s.InstallLog = append(s.InstallLog, "")
-	s.InstallLog = append(s.InstallLog, " OpenCode: sdd c4 plan")
-	s.InstallLog = append(s.InstallLog, " Claude:   @elcuatro/desarrollo/dev-c4")
+	s.InstallLog = append(s.InstallLog, " OpenCode: sdd ggs plan")
+	s.InstallLog = append(s.InstallLog, " Claude:   @ggsoluciones/desarrollo/dev")
 	s.InstallLog = append(s.InstallLog, " Cursor:   usa los comandos del agente")
 	s.InstallLog = append(s.InstallLog, "")
 	s.CloneDone = true
@@ -585,12 +588,12 @@ func (s *State) doClone() {
 }
 
 type platformInfo struct {
-	Name     string
-	SkillDir string
-	BaseDir  string
-	Active   bool
-	Version  string // Version actual instalada
-	HasUpdate bool // Hay actualizacion disponible
+	Name      string
+	SkillDir  string
+	BaseDir   string
+	Active    bool
+	Version   string // Version actual instalada
+	HasUpdate bool   // Hay actualizacion disponible
 }
 
 func (s *State) detectAndBuildTree() []platformInfo {
@@ -603,17 +606,17 @@ func (s *State) detectAndBuildTree() []platformInfo {
 		if _, err := os.Stat(parentPath); err == nil {
 			platformExists = true
 		}
-		
+
 		// Full path where skills would be
 		fullPath := filepath.Join(home, p.SkillDir)
-		
+
 		active := false
 		version := "(no instalada)"
-		
-		// Check if C4 skills are installed - SIEMPRE marcar como activa si la plataforma existe
+
+		// Check if GGS skills are installed - SIEMPRE marcar como activa si la plataforma existe
 		if platformExists {
 			hasContent := false
-			possibleFolders := []string{"equipo", "guilds", "reglas", "agents", "sdd-c4"}
+			possibleFolders := []string{"equipo", "guilds", "reglas", "agents", "sdd-ggs"}
 			for _, folder := range possibleFolders {
 				if _, err := os.Stat(filepath.Join(fullPath, folder)); err == nil {
 					hasContent = true
@@ -625,7 +628,7 @@ func (s *State) detectAndBuildTree() []platformInfo {
 				version = s.getInstalledVersion(fullPath)
 			} else {
 				// Plataforma existe pero sin skills - mostrar como disponible para instalar
-				active = true  // Enables installation
+				active = true // Enables installation
 				version = "(lista para instalar)"
 			}
 		}
@@ -646,12 +649,12 @@ func (s *State) checkRemoteVersion(repoPath string) string {
 	if _, err := os.Stat(gitDir); err != nil {
 		return "(sin git)"
 	}
-	
+
 	cmd := exec.Command("git", "-C", repoPath, "describe", "--always", "--dirty")
 	if out, err := cmd.Output(); err == nil {
 		return strings.TrimSpace(string(out))
 	}
-	
+
 	return "(desconocido)"
 }
 
@@ -660,21 +663,21 @@ func (s *State) hasChanges(localPath, remotePath string) (bool, error) {
 		// No existe local, hay cambios
 		return true, nil
 	}
-	
+
 	// Get local commit
 	localCmd := exec.Command("git", "-C", localPath, "rev-parse", "HEAD")
 	localOut, localErr := localCmd.Output()
 	localCommit := strings.TrimSpace(string(localOut))
-	
+
 	// Get remote commit
 	remoteCmd := exec.Command("git", "-C", remotePath, "rev-parse", "HEAD")
 	remoteOut, remoteErr := remoteCmd.Output()
 	remoteCommit := strings.TrimSpace(string(remoteOut))
-	
+
 	if localErr != nil || remoteErr != nil {
 		return true, nil // Si hay error, actualiza
 	}
-	
+
 	return localCommit != remoteCommit, nil
 }
 
@@ -710,7 +713,7 @@ func (s *State) getInstalledVersion(path string) string {
 		}
 	}
 
-return "(desconocido)"
+	return "(desconocido)"
 }
 
 func (s *State) getTempDir() string {
@@ -765,22 +768,22 @@ func (s *State) copyDir(src, dst string) error {
 
 func (s *State) getChangelog(localPath, remotePath string) string {
 	// Get commits between local and remote
-	cmd := exec.Command("git", "-C", remotePath, "log", 
-		localPath+".."+remotePath, 
-		"--oneline", 
+	cmd := exec.Command("git", "-C", remotePath, "log",
+		localPath+".."+remotePath,
+		"--oneline",
 		"-20",
 		"--pretty=format:%h %s")
-	
+
 	out, err := cmd.Output()
 	if err != nil {
 		return "No se pudo obtener changelog"
 	}
-	
+
 	lines := strings.Split(strings.TrimSpace(string(out)), "\n")
 	if len(lines) == 0 || (len(lines) == 1 && lines[0] == "") {
 		return "Sin cambios"
 	}
-	
+
 	// Filter empty lines
 	var validLines []string
 	for _, line := range lines {
@@ -788,16 +791,16 @@ func (s *State) getChangelog(localPath, remotePath string) string {
 			validLines = append(validLines, line)
 		}
 	}
-	
+
 	if len(validLines) == 0 {
 		return "Sin cambios"
 	}
-	
+
 	// Limit to 15 lines for display
 	if len(validLines) > 15 {
 		validLines = validLines[:15]
 	}
-	
+
 	return strings.Join(validLines, "\n")
 }
 
@@ -835,16 +838,16 @@ func (s *State) showChangelog() {
 	// Build changelog for all selected platforms
 	var logLines []string
 	tempDir := s.getTempDir()
-	repoPath := filepath.Join(tempDir, "elcuatro-agentes")
+	repoPath := filepath.Join(tempDir, "Proyecto-Agentes")
 
 	for _, p := range s.PlatformTree {
 		if !p.Active || !s.SelectedPlatforms[p.Name] {
 			continue
 		}
 		destPath := filepath.Join(p.BaseDir, p.SkillDir)
-		
+
 		logLines = append(logLines, "=== "+p.Name+" ("+p.Version+" -> nueva) ===")
-		
+
 		// Get changelog between local and remote
 		changelog := s.getChangelog(destPath, repoPath)
 		if changelog == "Sin cambios" || changelog == "No se pudo obtener changelog" {
@@ -893,12 +896,12 @@ func (m Model) View() string {
 
 func (s *State) viewMainMenu() string {
 	const arrow = ">"
-	output := titleStyle.Render("SDD-TUI - Agentes C4") + "\n\n"
+	output := titleStyle.Render("SDD-TUI - Agentes GGSoluciones") + "\n\n"
 	output += dimStyle.Render("Gestor de agentes para IA coding") + "\n\n"
 	output += dimStyle.Render("Seleccione una opcion:") + "\n\n"
 
 	items := []string{
-		"1. Instalar / Actualizar (desde Azure DevOps)",
+		"1. Instalar / Actualizar (desde GitHub)",
 		"2. Ver Agentes (explorar archivos)",
 		"3. Desinstalar (borrar agentes)",
 	}
@@ -919,7 +922,7 @@ func (s *State) viewInstallMenu() string {
 	const arrow = ">"
 	output := titleStyle.Render("Instalar / Actualizar Agentes") + "\n\n"
 
-	output += dimStyle.Render("Fuente: Azure DevOps (elcuatro-agentes)") + "\n"
+	output += dimStyle.Render("Fuente: GitHub (Proyecto-Agentes)") + "\n"
 
 	// Contar activas
 	activeCount := 0
@@ -991,12 +994,12 @@ func (s *State) viewInstallSelect() string {
 func (s *State) viewChangelog() string {
 	output := titleStyle.Render("Changelog") + "\n\n"
 	output += dimStyle.Render(s.PlatformToInstall+": "+s.CurrentVersion+" -> "+s.RemoteVersion) + "\n\n"
-	
+
 	lines := strings.Split(s.Changelog, "\n")
 	for _, line := range lines {
 		output += dimStyle.Render("  "+line) + "\n"
 	}
-	
+
 	output += "\n" + dimStyle.Render("Enter para instalar | Escape para volver")
 	return output
 }
@@ -1067,7 +1070,7 @@ func (s *State) doUninstall() {
 			continue
 		}
 		destPath := filepath.Join(p.BaseDir, p.SkillDir)
-		
+
 		if err := os.RemoveAll(destPath); err != nil {
 			s.InstallLog = append(s.InstallLog, "     [!] "+p.Name+": error - "+err.Error())
 		} else {
@@ -1128,7 +1131,7 @@ func (s *State) viewInstall() string {
 	output += dimStyle.Render("Seleccione una opcion:") + "\n\n"
 
 	options := []string{
-		"1. Instalar elcuatro-agentes (default)",
+		"1. Instalar Proyecto-Agentes (default)",
 		"2. Instalar otro repositorio",
 	}
 
@@ -1141,7 +1144,7 @@ func (s *State) viewInstall() string {
 	}
 
 	output += "\n" + dimStyle.Render("Default URL:") + "\n"
-	output += dimStyle.Render("  https://dev.azure.com/elcuatro/Proyectos%20IT/_git/elcuatro-agentes") + "\n"
+	output += dimStyle.Render("  https://github.com/agallardo2802/Proyecto-Agentes.git") + "\n"
 	output += "\n" + dimStyle.Render("↑↓ select | Enter confirmar | Escape volver")
 	return output
 }
@@ -1171,7 +1174,11 @@ func (s *State) viewAgentTree() string {
 		output += titleStyle.Render("Archivo: "+s.SelectedAgent) + "\n\n"
 
 		// Leer el archivo con path absoluto
-		fullPath := "D:/workspace/elcuatro/projects/elcuatro-agentes/" + s.SelectedAgent
+		basePath, err := os.Getwd()
+		if err != nil {
+			basePath = "."
+		}
+		fullPath := filepath.Join(basePath, s.SelectedAgent)
 
 		// Ver si es directorio
 		info, err := os.Stat(fullPath)
@@ -1186,13 +1193,13 @@ func (s *State) viewAgentTree() string {
 				output += errorStyle.Render("Error al leer: "+err.Error()) + "\n"
 				output += dimStyle.Render("Path: "+fullPath) + "\n"
 			} else {
-// Mostrar primeras líneas
-			lines := strings.Split(string(content), "\n")
-			for i, line := range lines {
-				if i > s.MaxLines { // Usar MaxLines del estado
-					output += dimStyle.Render("\n... (presione 'm' para mas)")
-					break
-				}
+				// Mostrar primeras líneas
+				lines := strings.Split(string(content), "\n")
+				for i, line := range lines {
+					if i > s.MaxLines { // Usar MaxLines del estado
+						output += dimStyle.Render("\n... (presione 'm' para mas)")
+						break
+					}
 					if len(line) > 80 {
 						line = line[:80] + "..."
 					}

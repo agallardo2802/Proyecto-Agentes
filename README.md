@@ -275,7 +275,7 @@ GGS Agentes/
 │   ├── producto/               → Orquestador del área de Producto
 │   │   ├── pm/                 → Backlog, épicas, historias, bugs, prioridad
 │   │   ├── analista/           → AC en Gherkin, casos de uso, reglas de negocio
-│   │   └── arquitecto/         → Clean Arch, CQRS, ADR, C4, bounded contexts
+│   │   └── arquitecto/         → Clean Arch, CQRS, ADR, diagramas por nivel, bounded contexts
 │   │
 │   ├── diseno/                 → Orquestador del área de Diseño
 │   │   ├── ux/                 → Flujos de usuario, usabilidad, experiencia

@@ -34,6 +34,18 @@ function Write-Banner {
     Write-Host ""
 }
 
+function Write-GgsLogo {
+    Write-Host ""
+    Write-Host "  GGGGG   GGGGG   SSSSS        " -ForegroundColor Cyan
+    Write-Host "  G       G       S            " -ForegroundColor Cyan
+    Write-Host "  G  GG   G  GG   SSSSS        " -ForegroundColor Cyan
+    Write-Host "  G   G   G   G       S        " -ForegroundColor Cyan
+    Write-Host "  GGGGG   GGGGG   SSSSS        " -ForegroundColor Cyan
+    Write-Host "       GGSoluciones AI Agents v3.0" -ForegroundColor Purple
+    Write-Host "          Install Wizard" -ForegroundColor Purple
+    Write-Host ""
+}
+
 function Test-CommandExists {
     param([string]$Command)
     $null -ne (Get-Command $Command -ErrorAction SilentlyContinue)
@@ -54,106 +66,106 @@ function Get-VersionSafe {
 
 function Get-Dependencies {
     Write-Host ""
-    Write-Host "🔍 Detecting dependencies..." -ForegroundColor Cyan
+    Write-Host "[SEARCH] Detecting dependencies..." -ForegroundColor Cyan
     
     $deps = @{}
     
     # Git
-    $deps.git = @{
+    $deps["git"] = @{
         name = "Git"
         command = "git"
         required = $true
-        install = "winget install Git.Git --accept-source-agreements --accept-package-agreements"
+        "install" = "winget install Git.Git --accept-source-agreements --accept-package-agreements"
         minVersion = "2.30"
     }
     if (Test-CommandExists "git") {
         $version = git --version 2>$null
-        if ($version -match '\d+\.\d+') { $deps.git.version = $Matches[0] }
-        $deps.git.installed = $true
+        if ($version -match '\d+\.\d+') { $deps["git"].version = $Matches[0] }
+        $deps["git"].installed = $true
     }
     
     # Go
-    $deps.go = @{
+    $deps["go"] = @{
         name = "Go"
         command = "go"
         required = $false
-        install = "winget install GoLang.Go.1.24"
+        "install" = "winget install GoLang.Go.1.24"
         minVersion = "1.21"
     }
     if (Test-CommandExists "go") {
         $version = go version 2>$null
-        if ($version -match 'go(\d+\.\d+)') { $deps.go.version = $Matches[1] }
-        $deps.go.installed = $true
+        if ($version -match 'go(\d+\.\d+)') { $deps["go"].version = $Matches[1] }
+        $deps["go"].installed = $true
     }
     
     # Python
-    $deps.python = @{
+    $deps["python"] = @{
         name = "Python"
         command = "python"
         required = $false
-        install = "winget install Python.Python.3.12"
+        "install" = "winget install Python.Python.3.12"
         minVersion = "3.10"
     }
     if (Test-CommandExists "python") {
         $version = python --version 2>$null
-        if ($version -match '(\d+\.\d+)') { $deps.python.version = $Matches[1] }
-        $deps.python.installed = $true
+        if ($version -match '(\d+\.\d+)') { $deps["python"].version = $Matches[1] }
+        $deps["python"].installed = $true
     }
     
     # Node.js
-    $deps.node = @{
+    $deps["node"] = @{
         name = "Node.js"
         command = "node"
         required = $true
-        install = "winget install OpenJS.NodeJS.LTS"
+        "install" = "winget install OpenJS.NodeJS.LTS"
         minVersion = "18"
     }
     if (Test-CommandExists "node") {
         $version = node --version 2>$null
-        if ($version -match 'v(\d+)') { $deps.node.version = $Matches[1] }
-        $deps.node.installed = $true
+        if ($version -match 'v(\d+)') { $deps["node"].version = $Matches[1] }
+        $deps["node"].installed = $true
     }
     
     # NPM
-    $deps.npm = @{
+    $deps["npm"] = @{
         name = "NPM"
         command = "npm"
         required = $true
-        install = "Included with Node.js"
+        "install" = "Included with Node.js"
         minVersion = "8"
     }
     if (Test-CommandExists "npm") {
         $version = npm --version 2>$null
-        $deps.npm.version = $version
-        $deps.npm.installed = $true
+        $deps["npm"].version = $version
+        $deps["npm"].installed = $true
     }
     
     # OpenCode
-    $deps.opencode = @{
+    $deps["opencode"] = @{
         name = "OpenCode"
         command = "opencode"
         required = $true
-        install = "Download from https://opencode.ai"
+        "install" = "Download from https://opencode.ai"
         minVersion = "1.0"
     }
     if (Test-CommandExists "opencode") {
         $version = opencode --version 2>$null
-        $deps.opencode.version = $version
-        $deps.opencode.installed = $true
+        $deps["opencode"].version = $version
+        $deps["opencode"].installed = $true
     }
     
     # Engram
-    $deps.engram = @{
+    $deps["engram"] = @{
         name = "Engram"
         command = "engram"
         required = $false
-        install = "go install github.com/gentleman-programming/engram/cmd/engram@latest"
+        "install" = 'go install github.com/gentleman-programming/engram/cmd/engram@latest'
         minVersion = "1.0"
     }
     if (Test-CommandExists "engram") {
         $version = engram --version 2>$null
-        $deps.engram.version = $version
-        $deps.engram.installed = $true
+        $deps["engram"].version = $version
+        $deps["engram"].installed = $true
     }
     
     return $deps
@@ -163,12 +175,12 @@ function Show-DependencyTable {
     param($deps)
     
     Write-Host ""
-    Write-Host "📦 Dependency Status:" -ForegroundColor Cyan
+    Write-Host "[DEPS] Dependency Status:" -ForegroundColor Cyan
     Write-Host ("=" * 50) -ForegroundColor Gray
     
     foreach ($key in $deps.Keys | Sort-Object) {
         $dep = $deps[$key]
-        $status = if ($dep.installed) { "✅" } else { "❌" }
+        $status = if ($dep.installed) { "[OK]" } else { "[MISSING]" }
         $version = if ($dep.version) { "v$($dep.version)" } else { "" }
         
         $line = "  $status $($dep.name.PadRight(12)) $version"
@@ -186,37 +198,37 @@ function Install-MissingDependencies {
     param($deps)
     
     Write-Host ""
-    Write-Host "🔧 Installing missing dependencies..." -ForegroundColor Cyan
+    Write-Host "[INSTALL] Installing missing dependencies..." -ForegroundColor Cyan
     
     $toInstall = $deps.Values | Where-Object { -not $_.installed -and $_.required }
     
     if ($toInstall.Count -eq 0) {
-        Write-Host "  ✅ All required dependencies already installed" -ForegroundColor Green
+        Write-Host "  [OK] All required dependencies already installed" -ForegroundColor Green
         return
     }
     
     foreach ($dep in $toInstall) {
-        Write-Host "  📥 Installing $($dep.name)..." -ForegroundColor Yellow
+        Write-Host "  [DOWNLOAD] Installing $($dep.name)..." -ForegroundColor Yellow
         
         if ($dep.command -eq "opencode") {
-            Write-Host "     → Manual download required: https://opencode.ai" -ForegroundColor Yellow
+            Write-Host "     -> Manual download required: https://opencode.ai" -ForegroundColor Yellow
         } else {
             try {
                 # Try winget first
                 if (Test-CommandExists "winget") {
                     $result = Invoke-Expression $dep.install 2>&1
                     if ($LASTEXITCODE -eq 0) {
-                        Write-Host "     ✅ Installed via winget" -ForegroundColor Green
+                        Write-Host "     [OK] Installed via winget" -ForegroundColor Green
                     }
                 }
             } catch {
-                Write-Host "     ⚠️ Manual install required: $($dep.install)" -ForegroundColor Yellow
+                Write-Host "     [WARN] Manual install required: $($dep.install)" -ForegroundColor Yellow
             }
         }
     }
     
     Write-Host ""
-    Write-Host "⚠️ Please restart PowerShell after installing dependencies" -ForegroundColor Yellow
+    Write-Host "[WARN] Please restart PowerShell after installing dependencies" -ForegroundColor Yellow
 }
 
 # ============================================
@@ -225,7 +237,7 @@ function Install-MissingDependencies {
 
 function Show-AgentSelector {
     Write-Host ""
-    Write-Host "🤖 Select AI Agent(s):" -ForegroundColor Cyan
+    Write-Host "[AGENTS] Select AI Agent(s):" -ForegroundColor Cyan
     Write-Host ("=" * 50) -ForegroundColor Gray
     Write-Host "  1. opencode  (Default - Multi-model per phase)"
     Write-Host "  2. claude    (Claude Code - Sub-agents)"
@@ -248,9 +260,7 @@ function Show-AgentSelector {
 }
 
 function Show-InstallWizard {
-    Write-Host ""
-    Write-Host "🔧 GGS Agents Install Wizard v3.0" -ForegroundColor Cyan
-    Write-Host ("=" * 50) -ForegroundColor Gray
+    Write-GgsLogo
     
     # Step 1: Deps
     $deps = Get-Dependencies
@@ -272,7 +282,7 @@ function Show-InstallWizard {
     
     # Step 4: Confirm
     Write-Host ""
-    Write-Host "📋 Installation Summary:" -ForegroundColor Cyan
+    Write-Host "[SUMMARY] Installation Summary:" -ForegroundColor Cyan
     Write-Host "  Agents: $($agents -join ', ')"
     Write-Host "  Repo: $RepoUrl"
     Write-Host ""
@@ -300,7 +310,7 @@ function Install-GgsAgents {
     
     foreach ($Agent in $Agents) {
         Write-Host ""
-        Write-Host "📦 Installing for: $Agent" -ForegroundColor Cyan
+        Write-Host "[INSTALL] Installing for: $Agent" -ForegroundColor Cyan
         
         # Determine config directory
         $ConfigDir = switch ($Agent.ToLower()) {
@@ -322,11 +332,11 @@ function Install-GgsAgents {
         
         # Clone or update
         if (Test-Path $SkillsDir) {
-            Write-Host "  📥 Updating..." -ForegroundColor Yellow
+            Write-Host "  [DOWNLOAD] Updating..." -ForegroundColor Yellow
             Set-Location $SkillsDir
             git pull origin main 2>$null
         } else {
-            Write-Host "  📥 Cloning..." -ForegroundColor Yellow
+            Write-Host "  [DOWNLOAD] Cloning..." -ForegroundColor Yellow
             git clone $RepoUrl $SkillsDir
         }
         
@@ -339,7 +349,7 @@ function Install-GgsAgents {
         
         # Register in OpenCode
         if ($Agent.ToLower() -eq "opencode") {
-            Write-Host "  �� Registering in OpenCode..." -ForegroundColor Cyan
+            Write-Host "  [REGISTER] Registering in OpenCode..." -ForegroundColor Cyan
             
             $OpenCodeConfig = "$env:USERPROFILE\.config\opencode"
             $OpenCodeJson = Join-Path $OpenCodeConfig "opencode.json"
@@ -404,11 +414,11 @@ function Install-GgsAgents {
                 } -Force
                 
                 $json | ConvertTo-Json -Depth 10 | Set-Content -Path $OpenCodeJson
-                Write-Host "  ✅ Registered 4 agents in OpenCode" -ForegroundColor Green
+                Write-Host "  [OK] Registered 4 agents in OpenCode" -ForegroundColor Green
             }
         }
         
-        Write-Host "  ✅ $Agent ready!" -ForegroundColor Green
+        Write-Host "  [OK] $Agent ready!" -ForegroundColor Green
     }
     
     Write-Host ""
