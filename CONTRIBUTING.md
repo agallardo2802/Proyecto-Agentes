@@ -20,10 +20,11 @@ Gracias por querer aportar. Este proyecto crece con la experiencia de quienes us
 
 Para adaptar este proyecto a tu equipo:
 
-1. Configurá tu stack en `config/proyectos/tu-proyecto.config.md`
-2. Seleccioná los guilds que correspondan a tu tecnología
-3. Personalizá las reglas según tus estándares
-4. Leé los agentes en `equipo/` para entender el flujo
+1. Leé la [Capacitación - GGS Agentes](CAPACITACION.md) para entender el flujo completo
+2. Configurá tu stack en `config/proyectos/tu-proyecto.config.md`
+3. Seleccioná los guilds que correspondan a tu tecnología
+4. Personalizá las reglas según tus estándares
+5. Leé los agentes en `equipo/` para entender el flujo
 
 ---
 
@@ -130,5 +131,6 @@ Abrí un issue con el tag `question` o `discussion`. Todo feedback es bienvenido
 ## Recursos
 
 - README principal: [README.md](README.md)
+- Capacitación inicial: [CAPACITACION.md](CAPACITACION.md)
 - Guía del equipo: [equipo/](equipo/)
-- Índice de agentes: [.atl/skill-registry.md](.atl%2Fskill-registry.md)
+- Índice de agentes: [.atl/skill-registry.md](.atl/skill-registry.md)

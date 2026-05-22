@@ -10,6 +10,8 @@ Funciona en Claude Code, OpenCode y Gentle.ai. Compatible con cualquier proyecto
 - Bajar costos al usar el agente correcto para cada tarea
 - Lograr equipos más consistentes y predecibles, sin importar quién ejecuta la tarea
 
+**¿Sos nuevo en el proyecto?** Empezá por la [Capacitación - GGS Agentes](CAPACITACION.md). Ahí tenés el recorrido recomendado para entender el sistema, instalarlo, elegir el modo correcto y hacer la primera prueba.
+
 ---
 
 ## ¿Por qué usar SDD, TDD y OpenSpec?
@@ -62,7 +64,7 @@ Sin TDD: escribís código → después test → "me olvidé"
 
 ### OpenSpec (Persistencia)
 
-OpenSpec guarda todo el proceso en archivos. Elegí el modo según tu needs:
+OpenSpec guarda todo el proceso en archivos. Elegí el modo según tus necesidades:
 
 | Modo | Cuándo usarlo | Pros | Contras |
 |-----|--------------|------|---------|
@@ -111,8 +113,10 @@ irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/script
 **El instalador:**
 - Detecta: Git, Go, Python, Node.js, OpenCode, Engram
 - Permite seleccionar plataforma objetivo (OpenCode, Claude Code, Cursor, Windsurf)
-- Registra los 4 agentes en el dropdown automáticamente
+- Intenta registrar los 4 agentes en el dropdown automáticamente
 - Limpia duplicados de instalaciones anteriores
+
+**Nota para OpenCode**: el registro automático requiere que exista `~/.config/opencode/opencode.json`. Si instalás OpenCode por primera vez y los agentes no aparecen, inicializá OpenCode, verificá que ese archivo exista y reejecutá el instalador.
 
 ### TUI Interactiva (Go)
 
@@ -140,9 +144,9 @@ git clone https://github.com/agallardo2802/Proyecto-Agentes.git ~/.config/openco
 
 ## Uso
 
-### Tres modos disponibles
+### Modos disponibles
 
-Al instalar tenés **tres opciones** en el dropdown de OpenCode:
+Al instalar tenés **cuatro opciones** en el dropdown de OpenCode:
 
 | Modo |Nombre| Cuándo usarlo |
 |------|--------|-------------|
@@ -183,7 +187,7 @@ Elegilo del dropdown y el agente:
 
 #### Sdd-GGS-Plan (Solo Análisis)
 
-Elegilo cuando **no necesitás código**: solo аналитографиico, diseño o carga de tablero. El agentehace todo el workflow SDD **excepto** implementación.
+Elegilo cuando **no necesitás código**: solo análisis, diseño o carga de tablero. El agente hace todo el workflow SDD **excepto** implementación.
 
 ```
 > Elegí "Sdd-GGS-Plan" del dropdown
@@ -191,7 +195,7 @@ Elegilo cuando **no necesitás código**: solo аналитографиico, dise
 > Escribir las specs en Gherkin
 ```
 
-El agente propone, disena y crea specs. Al final, deriva a Orchestrator o Skills para implementar.
+El agente propone, diseña y crea specs. Al final, deriva a Orchestrator o Skills para implementar.
 
 ---
 
@@ -237,7 +241,7 @@ Cada fase es controlada por vos.
 
 ---
 
-### invoke manual de agents
+### Invocación manual de agentes
 
 ```
 @equipo/desarrollo/dev
@@ -586,7 +590,7 @@ Los siguientes guilds aplican a este proyecto. Cargarlos junto al dev agent:
 
 ## Uso en OpenCode (terminal)
 
-[OpenCode](https://opencode.ai) es el cliente de consola de IA para desarrollo creado por SST. Se ejecuta como TUI (terminal UI) dentro del proyecto y carga instrucciones desde un archivo de configuración y desde el directorio `.opencode/`.
+[OpenCode](https://opencode.ai) es un cliente de consola de IA para desarrollo. Se ejecuta como TUI (terminal UI) dentro del proyecto y carga instrucciones desde su configuración global y desde los archivos de instrucciones del proyecto.
 
 ### Cómo funciona la carga de instrucciones
 
@@ -594,23 +598,15 @@ OpenCode carga instrucciones en este orden al iniciar:
 
 | Nivel | Archivo | Cuándo aplica |
 |-------|---------|---------------|
-| Config global | `~/.config/opencode/config.json` | Siempre |
-| Config proyecto | `./opencode.json` (raíz del repo) | Al abrir ese directorio |
-| Instrucciones | `./.opencode/` (directorio) | Archivos `.md` dentro de esa carpeta |
+| Config global | `~/.config/opencode/opencode.json` | Siempre |
+| Instrucciones del proyecto | `AGENTS.md` | Al abrir ese repositorio |
+| Agentes GGS instalados | `~/.config/opencode/skills/ggs/` | Cuando los referencia la configuración de OpenCode |
 
 ### Paso a paso
 
 **1. Instalar OpenCode**
 
-```bash
-# Con npm
-npm install -g opencode-ai
-
-# Con brew (macOS)
-brew install sst/tap/opencode
-```
-
-Ver documentación actualizada en [opencode.ai/docs](https://opencode.ai/docs).
+Seguí la documentación actualizada en [opencode.ai/docs](https://opencode.ai/docs). Después de instalar, verificá que el comando `opencode` esté disponible en la terminal.
 
 **2. Inicializar en el repositorio**
 
@@ -619,11 +615,11 @@ cd /ruta/al/proyecto
 opencode
 ```
 
-Al primer arranque, OpenCode crea `.opencode/` en la raíz del repo.
+Si es la primera vez que usás OpenCode, ejecutá el flujo de inicialización de la herramienta para crear las instrucciones del proyecto.
 
 **3. Crear la instrucción principal del sistema de agentes**
 
-Crear `.opencode/agents.md` con el contenido del orchestrator y la config del proyecto:
+Crear o actualizar `AGENTS.md` con el contenido del orchestrator y la config del proyecto:
 
 ```markdown
 # Sistema de agentes — {PROYECTO}
