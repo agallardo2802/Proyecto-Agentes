@@ -72,7 +72,8 @@ El pipeline es secuencial. Si una etapa falla, las siguientes no se ejecutan.
 
 - **`deploy-staging` corre desde `develop`**, nunca desde una branch hija.
 - **`deploy-prod` corre solo desde `master`**, y `master` solo se actualiza con un merge `develop → master` tras validar staging.
-- Nunca se despliega a prod una branch hija ni se saltea staging.
+- **Excepción hotfix de emergencia**: `master` también puede recibir un merge `hotfix → master` ante un incidente crítico de prod. Dispara `deploy-prod` + release (patch) y exige back-merge `master → develop` inmediato. Es el único atajo permitido y solo por emergencia real.
+- Nunca se despliega a prod una branch hija normal ni se saltea staging fuera del carril de hotfix.
 
 ## Release automático (etapa 12)
 
