@@ -47,6 +47,89 @@ Cuando cambia la metodología, se revisan los agentes de este repo para mantener
 
 ---
 
+## 🚀 Guía de Instalación y primeros pasos
+
+El instalador deja todo listo: herramientas base, OpenCode, Engram, `uv`, los agentes GGS y los MCPs. Guía completa en [`INSTALL.md`](INSTALL.md).
+
+### Instalación rápida
+
+| Sistema | Comando |
+|---------|---------|
+| **Windows** | `.\scripts\install.ps1` (o doble clic en `install-windows.cmd`) |
+| **Linux / macOS** | `bash scripts/install.sh` |
+
+> Probá primero en seco con `-DryRun` (Windows) o `--dry-run` (Linux/macOS): muestra qué haría sin tocar nada.
+
+### Primeros pasos
+
+1. **Reiniciá la terminal** (para refrescar el `PATH`).
+2. Ejecutá `opencode`.
+3. En el dropdown, elegí el agente según lo que necesités:
+
+   | Agente | Para qué |
+   |--------|----------|
+   | **Arquitecto** | Flujo completo: orquesta análisis, diseño e implementación |
+   | **Planificador** | Solo análisis y carga de tablero, sin escribir código |
+   | **Revisor** | Revisión adversarial antes de mergear |
+
+4. Escribí `sdd` para iniciar el flujo Spec-Driven Development.
+
+### MCPs incluidos
+
+| MCP | Estado | Para qué |
+|-----|--------|----------|
+| `engram` | ✅ activo | Memoria persistente entre sesiones |
+| `markitdown` | ✅ activo | Convierte PDF/Word/Excel/imágenes a Markdown (ahorra tokens) |
+| `azure-devops` | opcional | Boards, Repos, Pipelines |
+| `notion` | opcional | Requiere `NOTION_TOKEN` |
+| `notebooklm` | opcional | Investigación sobre fuentes propias |
+| `playwright` | opcional | Automatización de browser |
+
+> Los opcionales se activan con `GGS_ENABLE_OPTIONAL_MCPS=1` o editando `~/.config/opencode/opencode.json`.
+
+---
+
+## 📚 Capacitación de uso con ejemplos
+
+Curso completo paso a paso en [`capacitacion/00-indice.md`](capacitacion/00-indice.md) (~11 horas, 4 módulos). Resumen:
+
+| Módulo | Contenido |
+|--------|-----------|
+| **1 · Fundamentos** | Sistema de agentes, SDD, TDD, OpenSpec, Gherkin |
+| **2 · Desarrollo con estándares** | TDD en práctica, code review, naming, Git avanzado, debugging |
+| **3 · Despliegue** | Deploy a VM Linux, pipelines CI/CD |
+| **4 · Proyecto real** | Board workflow, PR workflow, seguridad web, onboarding |
+
+### Ejemplos rápidos
+
+**Arreglar un bug con el Arquitecto:**
+```
+> Elegís "Arquitecto"
+> Fix el bug de login que no valida la contraseña
+
+El agente explora → propone → escribe la spec → diseña → implementa con TDD → verifica.
+```
+
+**Cargar trabajo al tablero con el Planificador:**
+```
+> Elegís "Planificador"
+> Necesito cargar al tablero la nueva feature de reportes
+
+El agente explora → propone → specs → diseño → tareas → carga Épica/Feature/Stories/Tasks.
+> No escribe código: deja todo listo para que el Arquitecto implemente.
+```
+
+**Revisar antes de mergear con el Revisor:**
+```
+> Elegís "Revisor"
+> Revisá estos cambios antes de mergear
+
+Lanza dos revisiones independientes (arquitectura + edge cases), consolida hallazgos
+y recomienda fixes o aprueba.
+```
+
+---
+
 ## ¿Por qué usar SDD, TDD y OpenSpec?
 
 ### SDD (Spec-Driven Development)
