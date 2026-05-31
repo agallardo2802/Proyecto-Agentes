@@ -1,94 +1,202 @@
 ---
 name: guild-backend-dotnet
 description: >
-  Guild .NET / C#. Valida que el trabajo del dev agent cumpla los estándares
-  de desarrollo backend con .NET: arquitectura, errores, logging, seguridad,
-  performance y testing.
+  Guild Backend .NET / C#. Valida que el trabajo del dev agent cumpla los estándares
+  de arquitectura, errores, logging, seguridad, performance y testing.
+  Aplica a cualquier versión de .NET Core soportada — hoy .NET 8 LTS.
   Trigger: cuando el agente de desarrollo trabaja con esta tecnología.
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.0"
+  version: "2.0"
   type: guild
+  stack: .NET 8 LTS, CQRS, MediatR, EF Core, SQL Server, RabbitMQ, YARP
   adapt:
-    - Ajustar versiones de frameworks según el proyecto
+    - Ajustar versión de .NET al LTS vigente del proyecto
 ---
 
 # Guild Backend .NET / C#
 
 Un guild NO ejecuta tareas — valida que el trabajo del dev agent cumpla los estándares. Cada regla es binaria: cumple o no cumple.
 
-## Cuándo inyectar este guild
+Este guild aplica a todo proyecto .NET Core del equipo. La versión evoluciona (8 → 9 → 10…) pero los patrones y convenciones se mantienen. Si el proyecto no usa la versión LTS vigente, escalar a arquitectura.
 
-Inyectar JUNTO al `equipo/desarrollo/dev/` cuando el stack incluye:
-- Proyectos .NET 6 / 7 / 8 / 9 con C#
-- APIs Web con ASP.NET Core
-- Proyectos con Entity Framework Core
-- Aplicaciones con Serilog como logger
+## Stack vigente
 
-## Cuándo NO inyectar este guild
+| Tecnología | Versión actual | Notas |
+|------------|----------------|-------|
+| .NET | 8 LTS | Versión soportada del equipo |
+| C# | 12+ | nullable reference types siempre |
+| SQL Server | 2022 | Ver `guilds/sql-server-2022` |
+| RabbitMQ | 3.12+ | Colas asíncronas |
+| MediatR | 12.x | Mediator pattern |
+| EF Core | 8.x | ORM |
+| YARP | 1.x | API Gateway — ver `reglas/yarp-gateway` |
 
-| Situación | Guild correcto |
-|-----------|---------------|
-| El proyecto es Frontend Angular | `guilds/frontend-angular` |
-| El trabajo es solo SQL / queries | `guilds/data-sqlserver` |
-| El trabajo es integración con APIs externas | `guilds/integraciones` |
-| La tarea es solo infraestructura / CI/CD | No requiere guild de stack |
+## Patrones obligatorios
 
-## Dependencias
+### 1. CQRS (Command Query Responsibility Segregation)
 
-Este guild asume que el dev agent también tiene cargado:
-- `reglas/error-handling` — para el manejo correcto de excepciones
-- `reglas/seguridad-web` — para validación de input y secretos
-- `reglas/naming-conventions` — para nombres consistentes en C#
+```
+├── Commands (escriben) → Mutan estado → Retornan void o result
+└── Queries (leen)      → Solo leen    → Retornan DTOs
+```
 
-## Estructura y capas
+Regla: NUNCA usar el mismo modelo para lectura y escritura.
 
-Clean Architecture obligatoria. Capas: API → Application → Domain → Infrastructure. Las dependencias apuntan hacia adentro. Sin lógica de negocio en controllers.
+### 2. MediatR Pattern
 
-## Manejo de errores
+Todo request pasa por MediatR:
 
-- Sin excepciones genéricas (`catch Exception`). Excepciones de dominio tipadas.
-- Middleware global de manejo de errores.
-- ProblemDetails para respuestas de error (RFC 7807).
-- Sin swallow de excepciones.
+```csharp
+public record CreatePedidoCommand(DateTime fecha, int clienteId) : IRequest<PedidoResult>;
 
-## Logging
+public class CreatePedidoHandler : IRequestHandler<CreatePedidoCommand, PedidoResult>
+{
+    public async Task<PedidoResult> Handle(CreatePedidoCommand request, CancellationToken ct)
+    {
+        // lógica aquí
+    }
+}
+```
 
-- Serilog con structured logging.
-- Sin string interpolation en logs — forma correcta: `Log.Information("User {UserId}", id)`, no `$"User {id}"`.
-- Niveles correctos: `Debug` para desarrollo, `Information` para eventos de negocio, `Warning` para situaciones inesperadas pero manejadas, `Error` para fallos.
+### 3. Clean Architecture
 
-## Seguridad
+```
+├── src/
+│   ├── Api/              # Controllers, minimal APIs
+│   ├── Application/      # Commands, Queries, Handlers, DTOs
+│   ├── Domain/           # Entities, Value Objects, Interfaces
+│   ├── Infrastructure/   # EF Core, Repositories, External Services
+│   └── Workers/          # Background services, RabbitMQ consumers
+```
 
-- Sin secretos en código o appsettings commiteados.
-- Validación de input con FluentValidation.
-- Autenticación JWT con validación de claims.
-- Sin SQL concatenado — siempre parámetros o EF Core.
+### 4. API Conventions
 
-## Performance
+- Minimal APIs sobre controllers tradicionales.
+- OpenAPI/Swagger siempre habilitado en entornos no productivos.
+- JWT authentication obligatoria.
+- Rate limiting por defecto.
 
-- Async/await en toda la cadena de I/O.
-- Sin `.Result` o `.Wait()` — causa deadlock.
-- Paginación obligatoria en endpoints de lista.
-- Caché con `IMemoryCache` o `IDistributedCache` cuando aplica.
+## Estructura de proyecto
 
-## Testing
+```
+MiProyecto/
+├── src/
+│   ├── MiProyecto.Api/
+│   │   ├── Program.cs
+│   │   ├── appsettings.json
+│   │   └── Properties/launchSettings.json
+│   ├── MiProyecto.Application/
+│   │   ├── Commands/
+│   │   ├── Queries/
+│   │   ├── DTOs/
+│   │   └── Interfaces/
+│   ├── MiProyecto.Domain/
+│   │   ├── Entities/
+│   │   ├── ValueObjects/
+│   │   └── Enums/
+│   ├── MiProyecto.Infrastructure/
+│   │   ├── Data/
+│   │   ├── Repositories/
+│   │   └── Services/
+│   └── MiProyecto.Workers/
+│       └── Consumers/
+├── tests/
+│   └── MiProyecto.Tests/
+├── docker-compose.yml
+└── README.md
+```
 
-- xUnit + Moq.
-- Naming: `Metodo_Escenario_ResultadoEsperado`.
-- Sin lógica en tests (no ifs, no loops).
-- Cobertura mínima 80% en Application layer.
+## Naming conventions
 
-## Checklist de validación
+| Elemento | Convención | Ejemplo |
+|----------|------------|---------|
+| Entity | PascalCase singular | `Pedido` |
+| Command | {Entity}{Action}Command | `CreatePedidoCommand` |
+| Query | {Entity}{Action}Query | `GetPedidosQuery` |
+| Handler | {Command/Query}Handler | `CreatePedidoHandler` |
+| DTO | {Entity}{Response/Request}Dto | `PedidoDto` |
+| Repository | I{Entity}Repository | `IPedidoRepository` |
 
-- [ ] Sin lógica de negocio en controllers
-- [ ] Excepciones tipadas, sin catch genérico
-- [ ] Logs estructurados con niveles correctos
-- [ ] Sin secretos en código
-- [ ] Input validado con FluentValidation
-- [ ] Todos los métodos I/O son async
-- [ ] Sin `.Result` ni `.Wait()`
-- [ ] Endpoints de lista tienen paginación
-- [ ] Tests con naming correcto
-- [ ] Cobertura ≥ 80% en Application layer
+## RabbitMQ Integration
+
+Todo proceso largo pasa por cola. El handler solo encola, no procesa.
+
+```csharp
+public record ProcessPaymentCommand : IRequest
+{
+    public int PedidoId { get; init; }
+}
+
+public class ProcessPaymentHandler : IRequestHandler<ProcessPaymentCommand>
+{
+    private readonly IPublisher _publisher;
+
+    public async Task Handle(ProcessPaymentCommand request, CancellationToken ct)
+    {
+        await _publisher.PublishAsync(new PaymentProcessingJob(request.PedidoId), ct);
+    }
+}
+```
+
+## Tests obligatorios
+
+| Tipo | Cobertura mínima |
+|------|------------------|
+| Unit tests | 80% de la lógica de dominio |
+| Integration | 100% de los endpoints de API |
+| E2E | Flujos críticos de negocio |
+
+## Errores comunes a evitar
+
+1. NUNCA hacer queries en el handler de un Command → violación de CQRS.
+2. NUNCA retornar entity desde la API → usar siempre DTOs.
+3. NUNCA usar I/O sincrónico → async/await en todos lados.
+4. NUNCA hardcodear connection strings → `appsettings.json` + override por entorno.
+5. NUNCA dejar Swagger habilitado en PROD → deshabilitar por configuración.
+
+## Registro de dependencias
+
+```csharp
+public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+{
+    services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(config.GetConnectionString("Default")));
+
+    services.AddScoped<IPedidoRepository, PedidoRepository>();
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreatePedidoCommand).Assembly));
+
+    return services;
+}
+```
+
+## Logging y observabilidad
+
+Todo servicio registra con Serilog en formato estructurado, nunca strings interpolados.
+
+```csharp
+_log.LogInformation("Pedido {PedidoId} creado por usuario {UsuarioId}",
+    request.PedidoId, currentUser.Id);
+```
+
+## Integración con ERP sistema externo crítico
+
+**Regla crítica** (principio #13 de la Metodología IT): ninguna app accede directamente a la base de sistema externo crítico. Siempre vía API propia del equipo.
+
+```
+ERP sistema externo crítico → Warehouse API → Mi API → App
+```
+
+## Validación
+
+- FluentValidation para commands y queries.
+- DataAnnotations para DTOs simples.
+- Validación en la capa Application, no en la API.
+
+## Recursos
+
+- [Minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/)
+- [MediatR](https://github.com/jbogard/MediatR)
+- [EF Core](https://learn.microsoft.com/en-us/ef/core/)
+- [YARP](https://microsoft.github.io/reverse-proxy/)

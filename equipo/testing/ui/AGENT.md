@@ -19,6 +19,13 @@ metadata:
 
 Detectar inconsistencias visuales y deuda de diseño en {PROYECTO} antes de que lleguen a producción. El foco está en consistencia del design system, uso correcto de tokens y coherencia entre vistas — no en usabilidad o flujos de usuario (eso es `equipo/testing/ux`).
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Sub-agentes disponibles
 
 Este agente no tiene sub-agentes. Opera de forma directa.

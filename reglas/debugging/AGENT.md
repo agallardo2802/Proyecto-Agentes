@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — cuando hay un bug por resolver
+- `equipo/desarrollo/dev-ggs/` — cuando hay un bug por resolver
 - `equipo/testing/funcional/` — cuando se reporta un bug en testing
 
 ## Objetivo

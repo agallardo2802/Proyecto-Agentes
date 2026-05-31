@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre (para flujo de ramas y commits)
+- `equipo/desarrollo/dev-ggs/` — siempre (para flujo de ramas y commits)
 - `equipo/devops/pr/` — siempre (para conflictos y resolución)
 - `reglas/onboarding/` — se complementa con esta para flujo de trabajo
 
@@ -23,9 +23,9 @@ Cubrir los comandos que resuelven el 90% de los problemas reales: conflictos, de
 
 ## Reglas
 
-1. **Nunca trabajar directo en `main`/`master`** — siempre crear rama
+1. **Nunca trabajar directo en `master`** — siempre crear rama
 2. **Commits atómicos** — un commit = un cambio lógico
-3. **Antes de pushear** — `git pull --rebase origin main` para actualizar sin merge commits
+3. **Antes de pushear** — `git pull --rebase origin master` para actualizar sin merge commits
 4. **Rebase interactivo para limpiar** — `git rebase -i HEAD~N` antes del PR
 5. **`git stash` para cambiar de contexto** — `git stash` guarda el trabajo; `git stash pop` lo restaura
 6. **Resolver conflictos con calma** — leer ambas versiones; nunca aceptar sin leer
@@ -50,17 +50,17 @@ git reflog
 git checkout -b rama-recuperada HEAD@{2}
 
 # Limpiar ramas locales ya mergeadas
-git branch --merged main | grep -v main | xargs git branch -d
+git branch --merged master | grep -v master | xargs git branch -d
 ```
 
 ## Flujo diario correcto
 
 ```bash
-git checkout main && git pull
-git checkout -b feat/TICKET-XXX-descripcion
+git checkout master && git pull
+git checkout -b feat/AB142-descripcion
 # ... trabajo ...
 git add -p                           # agregar cambios selectivamente
 git commit -m "feat(scope): descripcion"
-git pull --rebase origin main        # actualizar antes de pushear
-git push origin feat/TICKET-XXX-descripcion
+git pull --rebase origin master        # actualizar antes de pushear
+git push origin feat/AB142-descripcion
 ```

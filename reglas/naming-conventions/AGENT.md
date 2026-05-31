@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre
+- `equipo/desarrollo/dev-ggs/` — siempre
 - `equipo/diseno/ui/` — siempre (para CSS)
 - `guilds/backend-dotnet/` — siempre
 - `guilds/frontend-angular/` — siempre
@@ -31,6 +31,7 @@ Los nombres son la primera forma de documentación. Un buen nombre elimina la ne
 | Constantes globales | `UPPER_SNAKE_CASE` | `MAX_REINTENTOS`, `API_BASE_URL` |
 | Clases y componentes | `PascalCase` | `VentaCard`, `useVentas` |
 | Archivos JS/TS | `kebab-case` | `venta-service.js`, `use-ventas.ts` |
+| Carpetas | sin espacios, preferir `kebab-case` o nombre simple minúscula | `arquitecto/ecosistema`, `sql-server-2022` |
 | Clases CSS | `kebab-case` + BEM | `venta-card`, `venta-card__titulo` |
 | Booleanos | prefijo `is`/`has`/`can`/`should` | `isLoading`, `hasError`, `canEdit` |
 | Event handlers | prefijo `on` o `handle` | `onClick`, `handleSubmit` |
@@ -44,6 +45,7 @@ Los nombres son la primera forma de documentación. Un buen nombre elimina la ne
 4. **Sin números en nombres**: `datos2` > `datosActualizados`
 5. **Verbos para funciones**: `obtenerVentas()`, `guardarCliente()`, `validarFormulario()`
 6. **Sustantivos para variables**: `ventaActual`, `listaClientes`
+7. **Carpetas sin espacios**: evitar problemas de lectura por CLI, scripts y agentes. Usar `kebab-case` o nombres simples en minúscula.
 
 ## Ejemplos
 

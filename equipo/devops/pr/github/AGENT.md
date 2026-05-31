@@ -14,17 +14,23 @@ metadata:
     - Configurar la URL base en config/proyectos/{proyecto}.config.md
 ---
 
+## Política GGS — integración con Azure Boards
+
+- Vincular PRs con AB# de Task o Bug, no con User Story como unidad genérica.
+- El merge aprobado de PR permite cerrar Task; para Bug además requiere validación.
+- No cerrar User Story desde el PR: queda pendiente deploy + sign-off funcional del Analista Funcional.
+
 ## Herencia
 
 Este agente hereda todas las reglas de `equipo/devops/pr/AGENT.md`. Las reglas de esa capa son obligatorias y no se repiten acá. Este archivo solo define lo específico de GitHub.
 
 ## Configuración recomendada del repo
 
-Branch protection en `main`/`master`. Configurar en **Settings → Branches → Branch protection rules**.
+Branch protection en `master`/`master`. Configurar en **Settings → Branches → Branch protection rules**.
 
 | Regla | Valor recomendado | Motivo |
 |-------|-------------------|--------|
-| Require a pull request before merging | ✅ ON | Nadie pushea directo a main |
+| Require a pull request before merging | ✅ ON | Nadie pushea directo a master |
 | Required approvals | Mínimo 1 | Al menos un par revisa |
 | Dismiss stale pull request approvals | ✅ ON | Nuevo commit invalida aprobaciones previas |
 | Require status checks to pass | ✅ ON | GitHub Actions en verde antes de merge |
@@ -43,7 +49,7 @@ Crear estos labels en **Settings → Labels**. Son obligatorios para poder filtr
 | `chore` | `#cfd3d7` | Infraestructura, deps, configuración, sin cambio funcional |
 | `breaking-change` | `#b60205` | El PR rompe compatibilidad hacia atrás |
 | `needs-review` | `#fbca04` | PR listo para revisión humana |
-| `wip` | `#f9d0c4` | Trabajo en progreso, no está listo para merge |
+| `wip` | `#f9d0ggs` | Trabajo en progreso, no está listo para merge |
 
 Regla: todo PR tiene exactamente un label de tipo (`feat`, `fix`, `chore`) y puede tener labels adicionales de estado.
 

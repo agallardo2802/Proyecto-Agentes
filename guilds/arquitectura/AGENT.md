@@ -19,7 +19,7 @@ Un guild NO ejecuta tareas — valida que el trabajo del dev agent cumpla los es
 
 ## Cuándo inyectar este guild
 
-Inyectar JUNTO al `equipo/desarrollo/dev/` cuando el trabajo involucra:
+Inyectar JUNTO al `equipo/desarrollo/dev-ggs/` cuando el trabajo involucra:
 - Nuevo módulo o bounded context
 - Nueva integración entre servicios
 - Cambio en el modelo de datos

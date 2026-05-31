@@ -18,19 +18,41 @@ idioma: es-AR
 ## Convenciones globales
 
 ```
-rama_principal: main
+rama_produccion: master       ← Producción. Solo recibe merges desde develop.
+rama_integracion: develop     ← Staging. Origen y destino de todas las branches hijas.
 merge_strategy: squash
 commit_format: conventional-commits
-branch_naming: "{tipo}/{TICKET-XXX}-{descripcion-corta}"
+branch_naming: "{tipo}/AB{ID}-{descripcion-corta}"
 cobertura_minima: 80
 ```
+
+## Política de ramas (GitFlow GGS)
+
+```
+master  ──────────●───────────────────●──────────►  (Producción)
+                  ▲                    ▲
+                  │ merge release       │ merge release
+                  │ (solo desde develop)│
+develop ●───●────●────●───●────●───────●──────────►  (Staging)
+         ▲       ▲         ▲
+         │       │         │  feature/fix branches salen de develop
+     feat/AB123 fix/AB456 feat/AB789  y vuelven a develop vía PR
+```
+
+Reglas no negociables:
+
+- **`master` = Producción.** Solo recibe merges **desde `develop`**, nunca desde una branch hija.
+- **`develop` = Staging.** Es el origen Y el destino de toda branch hija (feature, fix, etc.).
+- **Toda branch hija sale de `develop`** y se mergea de vuelta a `develop` vía PR. NUNCA apunta a `master`.
+- **`master` se actualiza solo cuando develop está validado en staging** (pipeline verde + smoke-test) — el merge develop→master dispara el release a prod.
+- **Si un proyecto no tiene `develop`, el agente la crea** desde `master` antes de empezar a trabajar, y configura `develop` como branch por defecto del repo.
 
 ## Herramientas por defecto
 
 ```
-board: jira
-vcs: github
-cicd: github-actions
+board: azure-boards
+vcs: repo-privado
+cicd: azure-devops
 ```
 
 ## Credenciales
@@ -67,6 +89,6 @@ Reglas de uso:
 
 ## Notas
 
-- Este archivo define los defaults. Si un proyecto usa Bitbucket en lugar de GitHub, sobreescribí `vcs: bitbucket` en su config específica.
+- Este archivo define los defaults para GGSoluciones. Si un proyecto usa GitHub o Bitbucket en lugar de el repositorio privado, sobreescribí `vcs` en su config específica.
 - Los placeholders `{...}` deben reemplazarse al adaptar a un proyecto concreto.
 - Las credenciales y tokens van SIEMPRE en variables de entorno — nunca en este archivo.

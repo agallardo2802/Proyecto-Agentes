@@ -106,7 +106,7 @@ cp "Agentes base/fundamentos/error-handling/AGENT.md" \
 - Agregar los casos de prueba específicos del proyecto
 
 **Proceso (pr, testing, cicd):**
-- Ajustar el nombre de la rama principal (main vs master)
+- Ajustar el nombre de la rama principal (master vs master)
 - Actualizar los comandos de npm/yarn/pnpm
 - Agregar variables de entorno reales en onboarding
 

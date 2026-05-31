@@ -15,7 +15,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — cuando se trabaja con CSS/estilos
+- `equipo/desarrollo/dev-ggs/` — cuando se trabaja con CSS/estilos
 - `equipo/diseno/ui/` — siempre
 - `equipo/testing/ui/` — para auditoría visual
 - `guilds/frontend-angular/` — siempre
@@ -23,6 +23,10 @@ Esta regla se carga automáticamente con:
 ## Objetivo
 
 CSS sin arquitectura se convierte en un archivo de 3.000 líneas que nadie quiere tocar. Este agente define cómo organizar, nombrar y escribir estilos para que escalen sin romperse.
+
+## Reportes GGSoluciones
+
+Si se escribe CSS para informes HTML, dashboards o reportes ejecutivos de GGSoluciones, aplicar `reglas/diseno-reportes-ggs/AGENT.md` como fuente visual antes de diseñar componentes.
 
 ## Reglas
 

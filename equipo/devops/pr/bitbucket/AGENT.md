@@ -14,6 +14,12 @@ metadata:
     - Configurar la URL base en config/proyectos/{proyecto}.config.md
 ---
 
+## Política GGS — integración con Azure Boards
+
+- Vincular PRs con AB# de Task o Bug, no con User Story como unidad genérica.
+- El merge aprobado de PR permite cerrar Task; para Bug además requiere validación.
+- No cerrar User Story desde el PR: queda pendiente deploy + sign-off funcional del Analista Funcional.
+
 ## Herencia
 
 Este agente hereda todas las reglas de `equipo/devops/pr/AGENT.md`. Las reglas de esa capa son obligatorias y no se repiten acá. Este archivo solo define lo específico de Bitbucket Cloud.
@@ -24,10 +30,10 @@ Configurar en **Repository settings → Branch permissions**.
 
 | Branch | Permiso | Valor |
 |--------|---------|-------|
-| `main` / `master` | Write access | Solo vía PR (nadie pushea directo) |
-| `main` / `master` | Merge via | Pull request required |
-| `main` / `master` | Minimum approvals | 1 (mínimo) |
-| `main` / `master` | Reset approvals on change | ✅ ON |
+| `master` / `master` | Write access | Solo vía PR (nadie pushea directo) |
+| `master` / `master` | Merge via | Pull request required |
+| `master` / `master` | Minimum approvals | 1 (mínimo) |
+| `master` / `master` | Reset approvals on change | ✅ ON |
 | `develop` | Write access | Solo vía PR |
 | `release/*` | Write access | Solo el release manager |
 
@@ -107,11 +113,11 @@ Configurar la estrategia default en **Repository settings → Pull requests → 
 
 | Estrategia | Cuándo usarla | Historial resultante |
 |-----------|---------------|---------------------|
-| **Merge commit** | Feature branches largos con múltiples desarrolladores. Preserva la historia completa de la rama. | Muestra el merge como un commit explícito en main |
-| **Squash** | Feature branches de un solo developer. Historial limpio en main. | Un único commit en main con todos los cambios |
-| **Fast-forward** | Solo si la rama no divergió de main. Sin commits de merge. | Historia lineal, como si los commits fueran directos en main |
+| **Merge commit** | Feature branches largos con múltiples desarrolladores. Preserva la historia completa de la rama. | Muestra el merge como un commit explícito en master |
+| **Squash** | Feature branches de un solo developer. Historial limpio en master. | Un único commit en master con todos los cambios |
+| **Fast-forward** | Solo si la rama no divergió de master. Sin commits de merge. | Historia lineal, como si los commits fueran directos en master |
 
-**Recomendación del equipo**: Squash como default. Un PR = un commit en main. Si necesitás ver el historial detallado, está en la rama antes del merge.
+**Recomendación del equipo**: Squash como default. Un PR = un commit en master. Si necesitás ver el historial detallado, está en la rama antes del merge.
 
 Cómo forzar squash para el proyecto:
 **Repository settings → Pull requests → Default merge strategy → Squash**.

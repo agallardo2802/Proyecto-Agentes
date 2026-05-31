@@ -24,7 +24,7 @@ Este agente hereda todas las reglas de `equipo/devops/cicd/AGENT.md`. Las etapas
 .github/
   workflows/
     ci.yml          # lint + test + build (en cada PR y push)
-    deploy.yml      # deploy-staging y deploy-prod (solo en main)
+    deploy.yml      # deploy-staging y deploy-prod (solo en master)
 ```
 
 Campos obligatorios de todo workflow:
@@ -41,14 +41,14 @@ Campos obligatorios de todo workflow:
 ```yaml
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:      # permite ejecución manual desde la UI
 ```
 
 - `pull_request`: corre CI en cada PR. No deploya.
-- `push` a `main`: corre CI y dispara el deploy.
+- `push` a `master`: corre CI y dispara el deploy.
 - `workflow_dispatch`: útil para re-deploy manual o rollback sin tener que pushear código.
 
 ## Workflow base completo
@@ -58,9 +58,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -114,7 +114,7 @@ jobs:
     name: Deploy Staging
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'   # solo en main, no en PRs
+    if: github.ref == 'refs/heads/master'   # solo en master, no en PRs
     environment: staging
     steps:
       - uses: actions/download-artifact@v4
@@ -130,7 +130,7 @@ jobs:
     name: Deploy Production
     runs-on: ubuntu-latest
     needs: deploy-staging
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     environment: production              # este environment tiene required reviewers
     steps:
       - uses: actions/download-artifact@v4
@@ -158,7 +158,7 @@ env:
 
 # Incorrecto — nunca esto
 env:
-  API_KEY: "sk-1234abcd"
+  API_KEY: "<NON_REAL_API_KEY_EXAMPLE>"
 ```
 
 ## Caché de dependencias
@@ -305,11 +305,11 @@ steps:
 
 ## Patrones comunes
 
-### Deploy condicional solo en main
+### Deploy condicional solo en master
 
 ```yaml
 deploy-prod:
-  if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  if: github.ref == 'refs/heads/master' && github.event_name == 'push'
 ```
 
 ### Cancelar runs anteriores en el mismo PR

@@ -14,15 +14,17 @@ metadata:
 
 ### Estilo de Comunicación
 
-**Tono**: Cercano pero profesional, directo, orientado a solución.  
+**Estilo de Comunicación**
+
+**Tono**: Cercano pero profesional, directo, orientado a solución.
 **Estructura obligatoria**:
 1. Contexto — lectura del problema
 2. Validación — aprobar o corregir el enfoque
 3. Propuesta — solución concreta
 4. Siguiente paso — qué hacer después
 
-**Aperturas típicas**: "A ver, vamos por partes...", "Mirá, hay algo para ajustar..."  
-**Corrección**: "No es por ahí...", "Le falta una vuelta de rosca"  
+**Aperturas típicas**: "A ver, vamos por partes...", "Mirá, hay algo para ajustar..."
+**Corrección**: "No es por ahí...", "Le falta una vuelta de rosca"
 **Mejora**: "Dale una vuelta de rosca...", "Pensalo un paso más..."
 
 ### Siempre validar antes de implementar
@@ -51,8 +53,8 @@ Opciones:
 
 ### Idioma
 
-- Español neutro, sin modismos regionales extremos
-- «vos» para el usuario, tono profesional pero accesible
+- Español neutro, sin modismos argentinos
+- "vos" para el usuario, tono profesional pero accesible
 
 ## Propósito
 
@@ -73,33 +75,14 @@ a menos que hits un blocker real que debe reportarse upstream.
 
 ## Modo de Persistencia
 
-Este skill soporta múltiples modos de persistencia. Elegí el que mejor se adapte a tu needs:
+Este skill soporta múltiples modos de persistencia (igual que gentle-ai):
 
-| Modo | Cuándo usarlo | Pros | Contras |
-|-----|--------------|------|---------|
-| **`engram`** | Desarrollo solo, sin compartir | Rápido, sin archivos | No compartible |
-| **`openspec`** | Equipo, git-friendly | Trail completo, compartible | Más archivos |
-| **`hybrid`** | Ambos mundos | Compartible + recovery | Costo en tokens |
-| **`none`** | Solo prueba, sin guardar | Ligero | Se pierde todo |
+- **`engram`**: Rápido, sin archivos. Artefactos vivos en Engram. Ideal para desarrollo solo.
+- **`openspec`**: Basado en archivos. Carpeta `openspec/` con trail completo. Compartible, git-friendly.
+- **`hybrid`**: Ambos — archivos para compartir + Engram para recovery. Mayor costo en tokens.
+- **`none`**: Solo retorna inline, sin persistencia.
 
-### Cómo elegir
-
-Al correr `/sdd-init`, el sistema detecta automáticamente. Para elegir manualmente:
-
-```
-> /sdd-init
-> Quiero usar openspec para compartir con el equipo
-```
-
-O en el archivo `openspec/config.yaml`:
-
-```yaml
-persistence_mode: openspec
-```
-
-### Engram Cloud (futuro)
-
-Próximamente: sincronización cross-device via Engram cloud.
+El modo se resuelve en tiempo de inicialización (`/sdd-init`).
 
 ## Flujo Integrado
 
@@ -134,7 +117,7 @@ Próximamente: sincronización cross-device via Engram cloud.
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Pasos de Ejecución
+## Pasos de Ejecución (igual que gentle-ai)
 
 ### Step 1: Detect Project Context
 
@@ -353,7 +336,7 @@ Retornar un summary estructurado adaptado al modo resuelto:
 #### Modo engram
 
 ```
-## SDD Initialized (v2.0 - GGS)
+## SDD Initialized (v2.0 - ggs)
 
 **Project**: {project name}
 **Stack**: {detected stack}
@@ -396,7 +379,7 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 #### Modo openspec
 
 ```
-## SDD Initialized (v2.0 - GGS)
+## SDD Initialized (v2.0)
 
 **Project**: {project name}
 **Stack**: {detected stack}
@@ -421,7 +404,7 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 ## Tus Agentes Disponibles (para todas las fases)
 
 ### Equipo
-- `equipo/desarrollo/dev` → Entender código, dominio
+- `equipo/desarrollo/dev-ggs` → Entender código, dominio
 - `equipo/testing/funcional` → Testing funcional
 - `equipo/testing/unitario` → Testing unitario
 - `equipo/devops/cicd/` → CI/CD
@@ -458,7 +441,7 @@ Ready for /sdd-explore <topic> or /sdd-new <change-name>.
 > /sdd-apply [tarea]
 ```
 Esto activa:
-- `equipo/desarrollo/dev` ← implementación con TDD
+- `equipo/desarrollo/dev-ggs` ← implementación con TDD
 - `guilds/backend-dotnet` ← estándares .NET
 - `reglas/code-review` ← review
 - `reglas/error-handling` ← manejo de errores
@@ -473,6 +456,7 @@ Esto activa:
 6. /sdd-apply          → Implementar con TDD
 7. /sdd-verify         → Verificar
 8. /sdd-archive        → Archivar
+9. actualizar tablero  → Sincronizar Épica > Feature > User Story > Task/Bug con evidencia GGS
 ```
 
 ## Reglas
@@ -481,6 +465,8 @@ Esto activa:
 - **Tus agentes se activan** cuando el trigger coincide con lo que decís
 - **Si no sabés qué fase**, simplemente decí qué necesitás y el agente guía
 - **Podés saltar fases** si ya tenés la info (ej: si ya tenés specs, pasá a design)
+- **Todo SDD terminado actualiza tablero**: al cerrar `sdd-verify`/`sdd-archive`, sincronizá Azure Boards/Jira con modelo GGS, evidencia de PR/build/deploy/verificación y estados reales.
+- **Si falta parent de tablero**, preguntá al usuario antes de crear Épica, Feature, User Story, Task o Bug. No inventes jerarquía.
 - **NUNCA crees placeholder specs** - specs se crean vía sdd-spec durante un cambio
 - **SIEMPRE detectá el tech stack real**, no guesses
 - **NUNCA te comportes como el orchestrator** - ejecutá directamente y retorná resultados

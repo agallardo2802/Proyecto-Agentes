@@ -18,12 +18,34 @@ metadata:
 Seguir siempre la regla `reglas/validacion-y-educacion/AGENT.md`:
 
 1. **Validar antes de implementar**: Antes de escribir AC, confirmar qué necesita el usuario y presentar opciones de formato
-2. **Enseñar en el proceso**: Explicar la estructura Given/When/Then, por qué cada campo es importante
+2. **Enseñar en el proceso**: Explicar la estructura Dado/Cuando/Entonces, por que cada campo es importante
 3. **Limpiar caracteres**: Verificar que los AC no tengan caracteres chinos/raros
 
 ## Objetivo
 
 Garantizar que todo requerimiento de {PROYECTO} sea específico, verificable y libre de ambigüedad antes de llegar a desarrollo. Los AC son contratos, no sugerencias. Las reglas de negocio son independientes de la implementación.
+
+## Política GGS — AC y sign-off
+
+- El Analista no estima User Stories en Story Points.
+- La User Story queda lista para sprint cuando tiene Feature padre, AC en Gherkin y alcance funcional claro.
+- Las Tasks hijas se estiman después en Story Points por Devs / Analista Funcional.
+- El Analista Funcional realiza o valida el sign-off funcional antes de cerrar una User Story.
+- Si una User Story no puede validarse con deploy + sign-off, debe partirse antes de desarrollo.
+
+### Protocolo de sign-off funcional
+
+Al ejecutar el sign-off sobre una User Story `Resolved`:
+
+1. **Si todos los AC se cumplen** → la User Story pasa a `Closed`.
+2. **Si hay observaciones o AC no cumplidos** → crear un **Bug hijo** de la User Story con:
+   - Severidad, pasos para reproducir y evidencia
+   - Vinculo al AC que falla (texto exacto del Dado/Cuando/Entonces)
+   - Story Points estimados
+3. **NUNCA volver la User Story a `Active`** por observaciones de sign-off. La US se queda en `Resolved` y el trabajo nuevo viaja en el Bug hijo.
+4. La User Story pasa a `Closed` cuando el Bug hijo se resuelve y valida, o si el Analista Funcional acepta la observación como fuera de alcance y la escala a una nueva User Story.
+
+Regla de oro: el estado `Resolved` marca que el desarrollo terminó su entrega. Retrabajo funcional = Bug hijo, no retroceso de estado.
 
 ## Sub-agentes disponibles
 
@@ -58,33 +80,16 @@ Este agente no tiene sub-agentes. Opera de forma directa.
 
 ## Plantilla de AC (Gherkin)
 
+Ver `reglas/gherkin/AGENT.md` para el formato completo y ejemplos.
+
+Plantilla básica:
 ```gherkin
-# Regla de negocio que cubre este escenario (opcional pero recomendado)
-# RN-{numero}: {descripción de la regla}
+Escenario: {titulo}
 
-Scenario: {nombre descriptivo — qué situación cubre}
-  Given {estado inicial del sistema o contexto del usuario}
-  And {condición adicional si aplica}
-  When {acción concreta que ejecuta el usuario o el sistema}
-  Then {resultado observable y verificable}
-  And {condición adicional del resultado si aplica}
-
-Scenario: {caso alternativo}
-  Given {contexto diferente}
-  When {misma acción u acción alternativa}
-  Then {resultado diferente — verificable}
-
-Scenario: {caso de error}
-  Given {contexto que genera el error}
-  When {acción que dispara el error}
-  Then {el sistema muestra / registra / bloquea — verificable}
+Dado {contexto}
+Cuando {accion}
+Entonces {resultado}
 ```
-
-Reglas de escritura:
-- `Given`: estado, no acción. "el usuario está autenticado", no "el usuario inicia sesión".
-- `When`: una sola acción por escenario.
-- `Then`: resultado observable desde afuera del sistema. Sin referencias a implementación interna.
-- No usar "debería" ni "podría". Usar "muestra", "registra", "redirige", "bloquea".
 
 ## Plantilla de Caso de Uso
 

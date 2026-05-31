@@ -21,7 +21,7 @@
 @equipo/producto/pm              → Crear épica/historia
 @equipo/producto/analista        → Escribir AC en Gherkin
 @equipo/producto/arquitecto      → Diseñar arquitectura
-@equipo/desarrollo/dev           → Implementar con TDD
+@equipo/desarrollo/dev-ggs           → Implementar con TDD
 @equipo/testing/unitario         → tests unitarios
 @equipo/devops/pr/github         → Revisar PR
 @reglas/code-review              → Code review
@@ -32,11 +32,40 @@
 
 ##Workflows pre-armados
 
+###Administración y finanzas
+```
+Métricas financieras  → finanzas-metricas
+Asientos/balances     → finanzas-contabilidad
+Cashflow/tesorería    → finanzas-cashflow
+Reporte ejecutivo     → reportes-ggs + skill financiera
+```
+
+Prompts útiles:
+
+```
+Analizá este cashflow semanal. Moneda ARS. Marcá riesgos P1/P2/P3 y no inventes datos faltantes.
+Revisá este asiento contra el plan de cuentas. Debe balancear Debe/Haber y quedar pendiente de validación.
+Armá KPIs de cobranzas vencidas por aging, fuente y fecha de corte.
+```
+
+###UAT y feedback de usuarios
+```
+Feedback formal      → feedback-uat
+Manual de uso        → portal-user-manual
+Canal operativo      → Slack #feedback-sites
+```
+
+Prompt útil:
+
+```
+Agregá feedback UAT al portal: botón "Dejar feedback" en vistas principales, modal formal con nombre de contacto, endpoint de feedback del proyecto y documentación en el manual.
+```
+
 ###Nueva feature (completo)
 ```
 1. @equipo/producto/pm → crear historia "module de pagos"
 2. @equipo/producto/analista → escribir AC
-3. @equipo/desarrollo/dev → implementar con TDD
+3. @equipo/desarrollo/dev-ggs → implementar con TDD
 4. @equipo/devops/pr/github → PR
 ```
 
@@ -44,7 +73,7 @@
 ```
 1. @reglas/debugging → investigar causa raíz
 2. @equipo/testing/unitario → test que reproduce
-3. @equipo/desarrollo/dev → fix mínimo
+3. @equipo/desarrollo/dev-ggs → fix mínimo
 4. @equipo/devops/pr/github → PR vinculado al bug
 ```
 
@@ -64,26 +93,13 @@
 
 ---
 
-##Teclas útiles (TUI)
-
-| Tecla | Acción |
-|-----|--------|
-| `↑↓` | Navegar |
-| `Enter` | Seleccionar |
-| `Espacio` | Toggle |
-| `c` | Confirmar |
-| `q` | Salir |
-| `Esc` | Volver |
-
----
-
 ##Quick config
 
 En `config/proyectos/{mi-proyecto}.config.md`:
 
 ```yaml
 board: jira             # o azure-boards
-vcs: github            # o bitbucket, azure-repos
+vcs: github            # o bitbucket, repo-privado
 cicd: github-actions  # o azure-devops
 stack: dotnet-8
 db: sql-server-2022
@@ -104,8 +120,8 @@ db: sql-server-2022
 
 ##Contactos
 
-- equipo/desarrollo/dev → Implementación
-- equipo/producto/arquitecto → Arquitectura  
+- equipo/desarrollo/dev-ggs → Implementación
+- equipo/producto/arquitecto → Arquitectura
 - equipo/seguridad/appsec → Seguridad
 
 **Más**: consultá `equipo/`, `guilds/`, `reglas/` para todos los agentes disponibles.

@@ -19,6 +19,13 @@ metadata:
 
 Verificar que los flujos de negocio de {PROYECTO} operen correctamente de extremo a extremo. El testing funcional no verifica implementación interna — verifica que el sistema hace lo que el negocio espera, desde la perspectiva del usuario final.
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Sub-agentes disponibles
 
 Este agente no tiene sub-agentes. Opera de forma directa.
@@ -50,7 +57,7 @@ Este agente no tiene sub-agentes. Opera de forma directa.
 
 | Situación | Acción |
 |-----------|--------|
-| El flujo falla por lógica de negocio incorrecta | Escalar a `equipo/desarrollo/dev` con el bug documentado |
+| El flujo falla por lógica de negocio incorrecta | Escalar a `equipo/desarrollo/dev-ggs` con el bug documentado |
 | El flujo falla por un contrato de API roto | Escalar a `equipo/testing/apis` para diagnóstico |
 | El flujo falla por problema de UX (confusión, fricción) | Escalar a `equipo/testing/ux` |
 | El flujo falla por inconsistencia visual | Escalar a `equipo/testing/ui` |

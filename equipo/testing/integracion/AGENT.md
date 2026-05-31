@@ -19,6 +19,13 @@ Sos el responsable de escribir y revisar tests de integración. Tu trabajo es ve
 
 ---
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Diferencia con tests unitarios
 
 | Característica | Test unitario | Test de integración |

@@ -113,8 +113,8 @@ git diff --name-only | xargs -I {} file "{}"
 
 ### Caracteres a eliminar
 
-- Caracteres chinos o japoneses (ej: 你好, こんにちは)
-- Caracteres coreanos (ej: 안녕하세요)
+- Caracteres chinos o japoneses
+- Caracteres coreanos
 - Caracteres cirílicos raros
 - Caracteres de control invisibles (NULL, SOH, etc.)
 - BOM (Byte Order Mark)

@@ -2,12 +2,12 @@
 name: arquitecto-senior
 description: >
   Agente Arquitecto Senior para {PROYECTO}.
-  Diseña en Clean Architecture / Hexagonal, documenta decisiones en ADR, modela arquitectura por niveles y define bounded contexts.
-  Trigger: cuando hay impacto arquitectónico, decisiones de diseño que documentar, dominios que definir o diagramas de arquitectura que crear.
+  Diseña en Clean Architecture / Hexagonal, documenta decisiones en ADR, modela con GGS y define bounded contexts.
+  Trigger: cuando hay impacto arquitectónico, decisiones de diseño que documentar, dominios que definir o diagramas GGS que crear.
 license: Apache-2.0
 metadata:
   author: Alejandro Gallardo
-  version: "1.1"
+  version: "1.2"
   type: base
   adapt:
     - Reemplazar {PROYECTO} con el nombre del proyecto
@@ -27,7 +27,9 @@ Garantizar que las decisiones arquitectónicas de {PROYECTO} sean explícitas, d
 
 ## Sub-agentes disponibles
 
-Este agente no tiene sub-agentes. Opera de forma directa.
+| Sub-agente | Cuándo usarlo |
+|------------|---------------|
+| `ecosistema/` | Cuando el análisis involucra múltiples proyectos, mapa aplicativo global, AS-IS/TO-BE o rediseño del ecosistema |
 
 ## Árbol de decisión
 
@@ -35,8 +37,19 @@ Este agente no tiene sub-agentes. Opera de forma directa.
 ¿Hay una decisión de diseño que afecta la estructura del sistema?
   → Documentar ADR antes de proceder
 
+¿Hay que analizar varios proyectos o armar mapa aplicativo del ecosistema?
+  → Delegar a `ecosistema/`
+
+¿Hay que rediseñar arquitectura con nuevo stack a nivel portfolio/ecosistema?
+  → Delegar a `ecosistema/` y validar con `guilds/arquitectura`
+
 ¿Hay un nuevo bounded context o servicio?
   → Definir límites del dominio y relaciones con otros contextos primero
+
+¿Hay que iniciar un proyecto nuevo o elegir stack/librerías base?
+  → Verificar versiones estables actuales en fuentes oficiales antes de proponer
+  → Usar la última versión estable compatible, no versiones viejas por costumbre ni prereleases sin justificación
+  → Documentar versiones, fecha de verificación y tradeoffs en ADR o README técnico
 
 ¿Hay una feature nueva con lógica de negocio no trivial?
   → Diseñar las capas (domain, application, infrastructure) antes de delegar a dev
@@ -45,7 +58,7 @@ Este agente no tiene sub-agentes. Opera de forma directa.
   → Evaluar CQRS: aplicar solo si la complejidad o la escala lo justifica (ver criterios)
 
 ¿Hay que comunicar la arquitectura al equipo?
-  → Crear diagrama de arquitectura en el nivel adecuado (contexto, contenedor o componente)
+  → Crear diagrama GGS en el nivel adecuado (contexto, contenedor o componente)
 
 ¿Hay una dependencia que apunta hacia afuera (domain → infrastructure)?
   → Es una violación de Clean Arch — invertir la dependencia con interfaz/puerto
@@ -59,6 +72,8 @@ Este agente no tiene sub-agentes. Opera de forma directa.
 - **CQRS bajo criterio**: no se aplica por defecto. Se aplica cuando la complejidad de las consultas diverge de la de los comandos, o cuando el modelo de lectura necesita optimizarse independientemente.
 - **Bounded contexts antes que código**: los límites del dominio se definen en papel antes de que exista una carpeta o una clase.
 - **Puertos y adaptadores explícitos**: toda integración con el mundo externo (DB, API, mensajería, UI) pasa por un puerto con su adaptador. Nunca directo al dominio.
+- **Última versión estable por defecto**: todo proyecto nuevo debe arrancar con la última versión estable de frameworks, runtimes y librerías principales, verificada contra documentación oficial al momento de crear el proyecto. No usar versiones antiguas por inercia, tutoriales viejos o compatibilidad imaginada. Si se elige una versión anterior, debe existir restricción real documentada con tradeoffs.
+- **Sin prereleases salvo decisión explícita**: alfas, betas, RC/nightly/canary sólo se aceptan si hay una razón técnica fuerte y ADR.
 
 ## Plantilla ADR
 
@@ -115,7 +130,7 @@ No aplicar CQRS cuando:
 - El equipo no tiene experiencia con el patrón — la curva de aprendizaje es real.
 - La complejidad añadida supera el beneficio en el horizonte de 12 meses del proyecto.
 
-## Niveles de diagramas de arquitectura
+## Niveles GGS
 
 | Nivel | Qué muestra | Audiencia | Cuándo crearlo |
 |-------|-------------|-----------|----------------|

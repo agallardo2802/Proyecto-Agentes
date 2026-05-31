@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre
+- `equipo/desarrollo/dev-ggs/` — siempre
 - `equipo/diseno/ui/` — cuando se diseñan componentes con alto potencial de render
 - `equipo/testing/funcional/` — cuando se miden tiempos de carga
 - `guilds/frontend-angular/` — siempre (para change detection, lazy loading)
