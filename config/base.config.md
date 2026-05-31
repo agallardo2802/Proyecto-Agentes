@@ -46,7 +46,12 @@ Reglas no negociables:
 - **Toda branch hija sale de `develop`** y se mergea de vuelta a `develop` vía PR. NUNCA apunta a `master`.
 - **`master` se actualiza solo cuando develop está validado en staging** (pipeline verde + smoke-test) — el merge develop→master dispara el release a prod.
 - **Si un proyecto no tiene `develop`, el agente la crea** desde `master` antes de empezar a trabajar, y configura `develop` como branch por defecto del repo.
-- **Sin excepción de hotfix.** Un arreglo urgente de producción TAMBIÉN sale de `develop`, se valida en staging y sube por `develop → master`. NUNCA hay merge directo a `master`, ni siquiera en emergencia.
+- **Carril de hotfix de emergencia (única excepción).** Cuando hay un incidente crítico en producción y no se puede esperar el ciclo por `develop`:
+  - La branch `hotfix/AB{ID}-{desc}` sale de **`master`** (estado exacto de prod), no de `develop`.
+  - Se arregla, se valida (tests + smoke) y su PR apunta a **`master`** con aprobación obligatoria (+ AppSec si toca paths sensibles).
+  - El merge a `master` dispara `deploy-prod` + release (bump **patch**).
+  - **Back-merge obligatorio `master → develop`** inmediatamente después, para que el fix no se pierda en la próxima release.
+  - Es el ÚNICO caso donde un branch toca `master` directo, y solo se justifica por emergencia real de prod. Todo lo demás pasa por `develop`.
 
 ## Herramientas por defecto
 
