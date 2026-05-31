@@ -23,6 +23,7 @@ Garantizar que cada Pull Request sea legible, trazable y revisable en minutos. E
 - **`master` = Producción, `develop` = Staging.**
 - **Toda branch hija sale de `develop`** (`feature/`, `fix/`, etc.) y su PR apunta **SIEMPRE a `develop`**. NUNCA a `master`.
 - **El único PR hacia `master` es `develop → master`**, y solo cuando develop está validado en staging (pipeline verde + smoke-test). Ese merge dispara `deploy-prod` + release.
+- **Sin excepción de hotfix.** Un fix urgente de prod también sale de `develop` (branch `fix/`/`hotfix/`), su PR apunta a `develop`, se valida en staging y sube por `develop → master`. NUNCA un PR de hotfix apunta directo a `master`.
 - **Si el proyecto no tiene `develop`, crearla desde `master`** antes de abrir el primer PR y configurarla como branch por defecto del repo.
 
 ## Política GGS — PR y tablero

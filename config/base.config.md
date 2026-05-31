@@ -46,6 +46,7 @@ Reglas no negociables:
 - **Toda branch hija sale de `develop`** y se mergea de vuelta a `develop` vía PR. NUNCA apunta a `master`.
 - **`master` se actualiza solo cuando develop está validado en staging** (pipeline verde + smoke-test) — el merge develop→master dispara el release a prod.
 - **Si un proyecto no tiene `develop`, el agente la crea** desde `master` antes de empezar a trabajar, y configura `develop` como branch por defecto del repo.
+- **Sin excepción de hotfix.** Un arreglo urgente de producción TAMBIÉN sale de `develop`, se valida en staging y sube por `develop → master`. NUNCA hay merge directo a `master`, ni siquiera en emergencia.
 
 ## Herramientas por defecto
 
