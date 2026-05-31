@@ -369,11 +369,17 @@ function Install-Engram {
     $engramPath = "$env:LOCALAPPDATA\engram\bin\engram.exe"
     if (Test-Path $engramPath) {
         $version = & $engramPath version 2>$null
-        if ($version -match "engram\s+$requiredEngramVersion") {
-            Write-Success "Engram instalado: $version"
-            return $true
+        if ($version -match "engram\s+([\d]+\.[\d]+\.[\d]+)") {
+            $installedVersion = [version]$matches[1]
+            $minVersion = [version]$requiredEngramVersion
+            if ($installedVersion -ge $minVersion) {
+                Write-Success "Engram instalado: $version (>= $requiredEngramVersion)"
+                return $true
+            }
+            Write-Warn "Engram requiere actualizacion: $version -> $requiredEngramVersion"
+        } else {
+            Write-Warn "No se pudo leer la version de Engram; se reinstalara $requiredEngramVersion"
         }
-        Write-Warn "Engram requiere actualizacion: $version -> $requiredEngramVersion"
     } else {
         Write-Warn "Engram no encontrado. Instalando..."
     }
@@ -483,10 +489,15 @@ function Install-Agents {
     } elseif (Test-Path (Join-Path $SkillsDir ".git")) {
         Write-Info "Actualizando instalacin existente..."
         if ($DryRun) {
-            Write-Info "DryRun: se omitio git pull origin main en $SkillsDir"
+            Write-Info "DryRun: se omitio actualizar (fetch + pull de la rama por defecto) en $SkillsDir"
         } else {
-            $PullCommand = 'git -C "{0}" pull origin main >NUL 2>NUL' -f $SkillsDir
-            cmd.exe /d /c $PullCommand
+            # Detectar la rama por defecto del remoto (master) en vez de asumir main.
+            # Sirve para clones viejos que quedaron apuntando a la rama renombrada.
+            & git -C $SkillsDir fetch origin --prune 2>$null | Out-Null
+            & git -C $SkillsDir remote set-head origin -a 2>$null | Out-Null
+            $defRef = & git -C $SkillsDir symbolic-ref --short refs/remotes/origin/HEAD 2>$null
+            $defBranch = if ($defRef) { ($defRef -replace '^origin/', '').Trim() } else { 'master' }
+            & git -C $SkillsDir pull origin $defBranch 2>$null | Out-Null
             if ($LASTEXITCODE -ne 0) {
                 Write-Warn "No se pudo actualizar la instalacion existente en $SkillsDir. Se conserva sin modificar para proteger cambios locales."
             }
@@ -504,8 +515,13 @@ function Install-Agents {
             }
         }
     } else {
-        Write-Fatal "El directorio existe pero no es git: $SkillsDir"
-        Write-Warn "No se borra automaticamente para proteger skills/config local. Movelo o limpialo manualmente y reintenta."
+        Write-Fatal "El directorio existe pero no es un clon git: $SkillsDir"
+        Write-Warn "No se borra automaticamente para proteger skills/config local. Tenes dos opciones:"
+        Write-Info  "  1) Instalar desde un clon local (hace backup automatico y reemplaza):"
+        Write-Info  "       `$env:GGS_AGENTS_SOURCE_DIR = '`$env:USERPROFILE\Proyecto-Agentes'"
+        Write-Info  "       .\scripts\install.ps1"
+        Write-Info  "  2) Mover/borrar la carpeta manualmente y reintentar:"
+        Write-Info  "       Move-Item '$SkillsDir' '$SkillsDir.bak'"
         return $false
     }
 
