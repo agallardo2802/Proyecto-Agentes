@@ -264,9 +264,15 @@ sync_repo_to_dir() {
   elif [ -d "$target_dir/.git" ]; then
     echo "Updating existing installation: $target_dir"
     if [ "$DRY_RUN" = "1" ]; then
-      echo "DryRun: git -C '$target_dir' pull origin main"
+      echo "DryRun: fetch + pull de la rama por defecto del remoto en '$target_dir'"
     else
-      git -C "$target_dir" pull origin main
+      # Detectar la rama por defecto del remoto (master) en vez de asumir main.
+      # Sirve para clones viejos que quedaron apuntando a la rama renombrada.
+      git -C "$target_dir" fetch origin --prune >/dev/null 2>&1 || true
+      git -C "$target_dir" remote set-head origin -a >/dev/null 2>&1 || true
+      def_branch="$(git -C "$target_dir" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##')"
+      [ -n "$def_branch" ] || def_branch="master"
+      git -C "$target_dir" pull origin "$def_branch"
     fi
   elif [ ! -d "$target_dir" ]; then
     echo "Cloning repository into: $target_dir"
@@ -276,8 +282,12 @@ sync_repo_to_dir() {
       git clone "$REPO_URL" "$target_dir"
     fi
   else
-    echo "Target exists but is not a git installation: $target_dir"
-    echo "Move or clean that directory, then rerun installer."
+    echo "Target exists but is not a git clone: $target_dir"
+    echo "Not removed automatically to protect local skills/config. Two options:"
+    echo "  1) Install from a local clone (auto-backup + replace):"
+    echo "       GGS_AGENTS_SOURCE_DIR=\"\$HOME/Proyecto-Agentes\" bash scripts/install.sh"
+    echo "  2) Move/remove it manually and rerun:"
+    echo "       mv \"$target_dir\" \"$target_dir.bak\""
     exit 1
   fi
 }
