@@ -64,6 +64,7 @@ Si falta alguno, **preguntar antes de inventar** (especialmente montos, CUIT y f
 
 ## Reglas
 
+- **Ancho completo (obligatorio).** Las propuestas aprovechan todo el ancho de la página para mejor lectura. `.doc` y `.doc-hero .container` van con `max-width: 100%` — NUNCA limitar a un ancho fijo (ej. `920px`). Las tablas de precios, cronograma y pagos se leen mejor anchas.
 - Tono profesional, claro y orientado a valor; nada de jerga técnica innecesaria hacia el cliente.
 - Los importes se calculan: `horas × valor hora`. El total debe cuadrar con la suma de etapas y con las cuotas.
 - Incluir siempre la nota fiscal: "Los valores no contemplan impuestos que pudieran corresponder...".
@@ -73,6 +74,7 @@ Si falta alguno, **preguntar antes de inventar** (especialmente montos, CUIT y f
 
 ## Checklist de entrega
 
+- [ ] Ancho completo (`max-width: 100%`, sin restricción a 920px)
 - [ ] Hero con título y lead claros
 - [ ] Tabla meta completa (destinatario, oferente+CUIT, fecha, validez)
 - [ ] Secciones numeradas en orden
