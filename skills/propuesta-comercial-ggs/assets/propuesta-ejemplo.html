@@ -75,13 +75,16 @@
       color: var(--text);
       margin: 22px 0 10px;
     }
+    /* Texto corrido: ancho de lectura optimo (~72 caracteres) para no fatigar la vista.
+       Las tablas, el hero y el diagrama quedan a ancho completo (ver sus reglas). */
     .doc p {
       color: var(--muted);
       line-height: 1.7;
       margin-bottom: 14px;
       font-size: 1rem;
+      max-width: 72ch;
     }
-    .doc ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+    .doc ul { margin: 0 0 16px; padding-left: 0; list-style: none; max-width: 72ch; }
     .doc ul li {
       position: relative;
       padding-left: 26px;
