@@ -67,29 +67,36 @@ En Linux/macOS el instalador valida dependencias y usa el paquete local o el rep
 
 ### Instalación desde GitHub público
 
-Usar si querés revisar el instalador antes de ejecutarlo:
+Usar si querés revisar el instalador antes de ejecutarlo.
 
-```bash
-git clone https://github.com/agallardo2802/Proyecto-Agentes /tmp/Proyecto-Agentes
-bash /tmp/Proyecto-Agentes/scripts/install.sh
+> ⚠️ **Elegí el instalador según tu sistema:** Windows usa PowerShell (`install.ps1`), Linux/macOS usa bash (`install.sh`).
+> **No corras `install.sh` con `bash` en Windows**: ahí `bash` invoca WSL y, si no tenés una distro de Linux instalada, falla con `execvpe(/bin/bash) failed: No such file or directory`. En Windows usá siempre `install.ps1`.
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/agallardo2802/Proyecto-Agentes $env:USERPROFILE\Proyecto-Agentes
+cd $env:USERPROFILE\Proyecto-Agentes
+.\scripts\install.ps1 -DryRun   # quitar -DryRun para aplicar
 ```
 
-### Claude Code
+**Linux / macOS (bash):**
 ```bash
 git clone https://github.com/agallardo2802/Proyecto-Agentes /tmp/Proyecto-Agentes
-bash /tmp/Proyecto-Agentes/scripts/install.sh claude
+bash /tmp/Proyecto-Agentes/scripts/install.sh --dry-run   # quitar --dry-run para aplicar
 ```
 
-### Codex
-```bash
-git clone https://github.com/agallardo2802/Proyecto-Agentes /tmp/Proyecto-Agentes
-bash /tmp/Proyecto-Agentes/scripts/install.sh codex
+### Otros clientes (Claude Code, Codex, Antigravity)
+
+Pasá el cliente como argumento. Por defecto el instalador usa `opencode`.
+
+**Windows (PowerShell):**
+```powershell
+.\scripts\install.ps1 -Agent claude        # o: codex, antigravity, cursor, windsurf
 ```
 
-### Antigravity
+**Linux / macOS (bash):**
 ```bash
-git clone https://github.com/agallardo2802/Proyecto-Agentes /tmp/Proyecto-Agentes
-bash /tmp/Proyecto-Agentes/scripts/install.sh antigravity
+bash scripts/install.sh claude             # o: codex, antigravity, cursor, windsurf
 ```
 
 ## Update existing installation

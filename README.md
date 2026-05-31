@@ -228,12 +228,12 @@ Esta distribución se instala desde el repositorio público `https://github.com/
 
 ```powershell
 # Windows PowerShell
-irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.ps1 | iex
+irm https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/master/scripts/install.ps1 | iex
 ```
 
 ```bash
 # Linux / macOS
-curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/main/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/agallardo2802/Proyecto-Agentes/master/scripts/install.sh | bash
 ```
 
 Esto instala automáticamente:
@@ -314,6 +314,16 @@ Cuando se ejecuta con el modo por defecto `-Agent opencode`, el instalador tambi
 
 Usá este camino sólo si querés revisar o modificar el repositorio antes de instalar. Después de clonar, ejecutá el instalador para que registre agentes, comandos, perfiles y companion skills.
 
+> ⚠️ Windows usa PowerShell (`install.ps1`); Linux/macOS usa bash (`install.sh`). No corras `install.sh` con `bash` en Windows: invoca WSL y falla si no hay distro instalada.
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/agallardo2802/Proyecto-Agentes $env:USERPROFILE\Proyecto-Agentes
+cd $env:USERPROFILE\Proyecto-Agentes
+.\scripts\install.ps1
+```
+
+**Linux / macOS (bash):**
 ```bash
 git clone https://github.com/agallardo2802/Proyecto-Agentes /tmp/Proyecto-Agentes
 bash /tmp/Proyecto-Agentes/scripts/install.sh opencode
