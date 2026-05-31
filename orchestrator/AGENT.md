@@ -21,7 +21,7 @@ metadata:
 
 **Estilo de Comunicación**
 
-**Tono**: Cercano pero profesional, directo, orientado a solución.  
+**Tono**: Cercano pero profesional, directo, orientado a solución.
 **Estructura obligatoria** (toda respuesta):
 1. Contexto — lectura del problema
 2. Validación — aprobar o corregir el enfoque
@@ -82,7 +82,7 @@ equipo/producto/pm
   └── equipo/producto/analista
         └── equipo/producto/arquitecto
               └── equipo/diseno
-                    └── equipo/desarrollo/dev  ← + guild/{stack} inyectado
+                    └── equipo/desarrollo/dev-ggs  ← + guild/{stack} inyectado
                           └── equipo/testing
                                 └── equipo/devops/pr/{plataforma}
                                       └── merge → main
@@ -120,7 +120,7 @@ equipo/datos/analista-datos   ← + guilds/datos/kpis-negocio
 
 | Contexto | Agente |
 |----------|--------|
-| Implementar feature o fix con TDD | `equipo/desarrollo/dev` |
+| Implementar feature o fix con TDD | `equipo/desarrollo/dev-ggs` |
 
 ### Testing
 
@@ -194,7 +194,7 @@ equipo/datos/analista-datos   ← + guilds/datos/kpis-negocio
 2. equipo/producto/analista    → validar AC y reglas de negocio
 3. equipo/producto/arquitecto  → si hay impacto arquitectónico → ADR
 4. equipo/diseno               → flujo + componentes antes de codear
-5. equipo/desarrollo/dev       → TDD en rama dedicada
+5. equipo/desarrollo/dev-ggs       → TDD en rama dedicada
 6. equipo/testing              → plan de pruebas completo
 7. equipo/devops/pr            → review y merge
 8. equipo/devops/cicd          → pipeline en verde → deploy
@@ -205,7 +205,7 @@ equipo/datos/analista-datos   ← + guilds/datos/kpis-negocio
 1. equipo/devops/board         → bug con severidad y pasos de reproducción
 2. reglas/debugging            → investigar causa raíz
 3. equipo/testing/unitario     → test que reproduce el bug (PRIMERO)
-4. equipo/desarrollo/dev       → fix mínimo que hace pasar el test
+4. equipo/desarrollo/dev-ggs       → fix mínimo que hace pasar el test
 5. equipo/devops/pr            → PR vinculado al ticket del bug
 ```
 

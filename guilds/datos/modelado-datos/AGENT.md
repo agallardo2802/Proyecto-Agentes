@@ -27,7 +27,7 @@ Inyectar JUNTO a `equipo/datos/data-engineering/` cuando el trabajo involucra:
 
 | Situación | Guild correcto |
 |-----------|---------------|
-| El trabajo es solo queries de lectura | `guilds/data-sqlserver` |
+| El trabajo es solo queries de lectura | `guilds/sql-server-2022` |
 | El trabajo es solo dashboards | `guilds/datos/powerbi` |
 | El trabajo es solo definición de KPIs | `guilds/datos/kpis-negocio` |
 | El trabajo es desarrollo de código normal | No aplica — guild de datos |
@@ -35,7 +35,7 @@ Inyectar JUNTO a `equipo/datos/data-engineering/` cuando el trabajo involucra:
 ## Dependencias
 
 Este guild asume que también puede inyectarse con:
-- `guilds/data-sqlserver` — para modelado relacional
+- `guilds/sql-server-2022` — para modelado relacional
 - `guilds/datos/powerbi` — para el modelo tabular
 - `guilds/datos/data-governance` — para políticas de calidad
 

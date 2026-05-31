@@ -27,7 +27,7 @@ Inyectar JUNTO a `equipo/datos/bi-reporting/` cuando el trabajo involucra:
 
 | Situación | Guild correcto |
 |-----------|---------------|
-| El trabajo es solo modelado SQL | `guilds/data-sqlserver` |
+| El trabajo es solo modelado SQL | `guilds/sql-server-2022` |
 | El trabajo es solo arquitectura de datos | `guilds/datos/modelado-datos` |
 | El trabajo es definición de KPIs | `guilds/datos/kpis-negocio` |
 | El trabajo es código backend normal | No aplica |

@@ -18,6 +18,13 @@ metadata:
 
 Detectar y documentar problemas de usabilidad en {PROYECTO} antes de que lleguen al usuario final. El foco está en fricción, confusión y abandono — no en estética visual (eso es `equipo/testing/ui`).
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Sub-agentes disponibles
 
 Este agente no tiene sub-agentes. Opera de forma directa.

@@ -22,7 +22,7 @@ El test debe pasar actuales (mostrando el bug) antes del fix.
 
 **Paso 3: Fix**
 ```
-@equipo/desarrollo/dev
+@equipo/desarrollo/dev-ggs
 
 Implementar el fix utilizando TDD:
 1. El test ya está escrito (rojo)
@@ -89,7 +89,7 @@ Y es redirigido a /login
 
 **Paso 4: Implementación**
 ```
-@equipo/desarrollo/dev
+@equipo/desarrollo/dev-ggs
 
 TDD:
 1. Test: logout invalida token

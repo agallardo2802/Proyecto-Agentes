@@ -13,12 +13,12 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre
+- `equipo/desarrollo/dev-ggs/` — siempre
 - `equipo/diseno/ui/` — siempre (para innerHTML y sanitización)
 - `guilds/backend-dotnet/` — siempre
 - `guilds/frontend-angular/` — siempre
 - `guilds/integraciones/` — siempre
-- `guilds/data-sqlserver/` — siempre (SQL injection)
+- `guilds/sql-server-2022/` — siempre (SQL injection)
 
 ## Objetivo
 
@@ -53,8 +53,8 @@ div.innerHTML = DOMPurify.sanitize(usuarioInput);
 
 ```js
 // ❌ NUNCA — commitear una API key es como publicarla
-const API_KEY = 'sk-abc123xyz';
-const DB_URL = 'postgresql://user:password@host/db';
+const API_KEY = '<NON_REAL_API_KEY_EXAMPLE>';
+const DB_URL = '<NON_REAL_DATABASE_URL_EXAMPLE>';
 
 // ✅ Variables de entorno — nunca tocan el código
 const API_KEY = process.env.API_KEY;

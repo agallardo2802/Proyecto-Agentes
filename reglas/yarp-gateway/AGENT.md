@@ -30,7 +30,7 @@ YARP es el punto único de entrada:
         "Match": { "Path": "/portal/{**catch-all}" }
       },
       "api": {
-        "ClusterId": "api-cluster", 
+        "ClusterId": "api-cluster",
         "Match": { "Path": "/api/{**catch-all}" }
       }
     },

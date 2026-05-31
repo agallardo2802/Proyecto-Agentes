@@ -18,6 +18,13 @@ metadata:
 
 Verificar que la lógica de negocio aislada de {PROYECTO} funcione correctamente. Los tests unitarios prueban una sola unidad en aislamiento. Son el primer tipo de test que se escribe (TDD). Son los más rápidos y los más numerosos de la pirámide.
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Sub-agentes disponibles
 
 Este agente no tiene sub-agentes. Opera de forma directa.

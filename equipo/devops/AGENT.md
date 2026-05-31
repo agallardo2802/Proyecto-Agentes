@@ -48,7 +48,7 @@ Que todo cambio de código llegue a producción de forma trazable, automática y
 
 ## Principios irrenunciables
 
-1. **Sin merge a main sin pipeline en verde.** Branch protection activado, sin excepciones.
+1. **Sin merge a master sin pipeline en verde.** Branch protection activado, sin excepciones.
 2. **Sin deploy manual.** Todo pasa por CI/CD. Si no está en el pipeline, no existe.
 3. **Sin ticket sin AC definidos antes de empezar.** No se escribe código sobre aire.
 4. **Los pipelines fallan rápido (fail fast).** Lint primero; si falla, el pipeline se detiene. No se llega a build con código roto.

@@ -106,4 +106,3 @@ SECCIONES OPCIONALES según tipo:
 TAMAÑO IDEAL: 60-150 líneas. Si superás 150, considerá dividir en dos agentes.
 INYECCIONES:  Documentar qué reglas o guilds se inyectan con este agente y cuándo.
 -->
-

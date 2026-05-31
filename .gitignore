@@ -20,16 +20,23 @@ node_modules/
 dist/
 bin/
 obj/
+*.exe
+*.dll
+*.pdb
 
 # Temp
 tmp/
 temp/
 *.tmp
 
-# Generated caches
-.atl/.skill-registry.cache.json
-
 # Claudia/OpenCode agent files (if local config)
 .claude/settings.local.json
 .claude/launch.json
 .opencode/
+.claude/worktrees/
+# Generated root skill shortcut
+sdd-ggs/
+.system/
+
+# Generated skill registry cache
+.atl/.skill-registry.cache.json

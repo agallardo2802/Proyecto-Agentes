@@ -20,7 +20,7 @@ Un guild NO ejecuta tareas — valida que el trabajo del dev agent cumpla los es
 
 ## Cuándo inyectar este guild
 
-Inyectar JUNTO al `equipo/desarrollo/dev/` cuando el trabajo involucra:
+Inyectar JUNTO al `equipo/desarrollo/dev-ggs/` cuando el trabajo involucra:
 - Consumo de APIs de terceros (Stripe, Twilio, SendGrid, etc.)
 - webhooks o callbacks de sistemas externos
 - Integración con servicios de mensajería o notificación
@@ -31,7 +31,7 @@ Inyectar JUNTO al `equipo/desarrollo/dev/` cuando el trabajo involucra:
 |-----------|---------------|
 | El trabajo es solo frontend | `guilds/frontend-angular` |
 | El trabajo es solo backend sin integraciones externas | `guilds/backend-dotnet` |
-| La integración es con base de datos | `guilds/data-sqlserver` |
+| La integración es con base de datos | `guilds/sql-server-2022` |
 | La integración es con Power BI | `guilds/datos/powerbi` |
 
 ## Dependencias

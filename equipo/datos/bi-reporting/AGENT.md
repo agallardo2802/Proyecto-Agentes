@@ -57,6 +57,18 @@ Este agente no tiene sub-agentes. Opera de forma directa.
 - Asegurar performance de reportes (tiempo de carga < 3 segundos).
 - Estandarizar nomenclatura visual y de medidas DAX en el proyecto.
 
+## Diseño visual GGSoluciones
+
+Para reportes HTML, dashboards ejecutivos, tableros de métricas o presentaciones de GGSoluciones, aplicar obligatoriamente `reglas/diseno-reportes-ggs/AGENT.md` además de las reglas de KPIs.
+
+Base visual canónica:
+`{RUTA_REFERENCIA_VISUAL}`
+
+Logo obligatorio:
+`{URL_LOGO_EMPRESA}`
+
+Si el reporte tiene jerarquía natural, NO generar una sábana plana: usar agrupación, drill-down o secciones colapsables.
+
 ## Reglas
 
 - **Sin dashboard sin KPIs definidos por analista-datos.** Si los KPIs no están aprobados, el dashboard no empieza.

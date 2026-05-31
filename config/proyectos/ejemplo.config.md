@@ -29,7 +29,7 @@ sprint_naming: "Sprint {numero} — {YYYY-MM-DD}"
 ```
 herramienta: github
 repo: owner/nombre-repo
-rama_principal: main
+rama_principal: master
 rama_develop: develop
 ```
 
@@ -38,7 +38,7 @@ rama_develop: develop
 ```
 herramienta: github-actions
 deploy_staging: push a develop
-deploy_prod: push a main (con aprobación manual)
+deploy_prod: push a master (con aprobación manual)
 ```
 
 ## Ambientes

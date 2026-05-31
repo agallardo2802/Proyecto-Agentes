@@ -23,7 +23,7 @@ Un guild NO ejecuta tareas — valida que el trabajo del agente de desarrollo cu
 |---|---|
 | Backend .NET / C# | `guilds/backend-dotnet` |
 | Frontend Angular | `guilds/frontend-angular` |
-| Base de datos SQL Server | `guilds/data-sqlserver` |
+| Base de datos SQL Server 2022 | `guilds/sql-server-2022` |
 | APIs externas / integraciones | `guilds/integraciones` |
 | Decisiones arquitectónicas | `guilds/arquitectura` |
 | Power BI / DAX | `guilds/datos/powerbi` |
@@ -33,7 +33,7 @@ Un guild NO ejecuta tareas — valida que el trabajo del agente de desarrollo cu
 
 ## Regla de inyección
 
-Los guilds se cargan JUNTO al dev agent, no antes ni después. Son el "sombrero" de estándares que lleva puesto el dev mientras codea.
+Los guilds se cargan JUNTO al dev agent o al DBA agent, no antes ni después. Son el "sombrero" de estándares que lleva puesto el agente mientras trabaja.
 
 Ningún código llega a PR sin pasar por el checklist del guild correspondiente.
 
@@ -42,7 +42,7 @@ Ningún código llega a PR sin pasar por el checklist del guild correspondiente.
 Antes de cargar cualquier guild, verificar:
 
 ```
-¿El agente de desarrollo ya tiene los AC definidos?
+¿El agente de desarrollo/DBA ya tiene los AC definidos?
   → No → volver a equipo/producto/analista (el guild no puede operar sin AC)
 
 ¿Se conoce el stack tecnológico de la tarea?
@@ -51,6 +51,10 @@ Antes de cargar cualquier guild, verificar:
 ¿La tarea toca más de un stack (ej: frontend + backend)?
   → Inyectar ambos guilds simultáneamente
   → Aplicar ambos checklists antes del PR
+
+¿La tarea toca SQL Server 2022, migrations, índices, constraints o queries críticas?
+  → Inyectar `guilds/sql-server-2022`
+  → Usar `equipo/datos/dba/` como agente responsable de BD
 ```
 
 ## Conflictos entre guilds
@@ -60,7 +64,7 @@ Algunos guilds no deben coexistir porque cubren stacks mutuamente excluyentes:
 | Guild A | Guild B | Conflicto |
 |---------|---------|-----------|
 | `guilds/frontend-angular` | `guilds/backend-dotnet` | Solo si la tarea es fullstack — en ese caso inyectar ambos |
-| `guilds/data-sqlserver` | `guilds/datos/modelado-datos` | No son conflicto — pueden coexistir en tareas de datos |
+| `guilds/sql-server-2022` | `guilds/datos/modelado-datos` | No son conflicto — pueden coexistir en tareas de datos |
 
 ## Flujo de validación post-implementación
 

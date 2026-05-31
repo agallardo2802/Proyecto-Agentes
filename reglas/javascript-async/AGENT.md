@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre
+- `equipo/desarrollo/dev-ggs/` — siempre
 - `equipo/testing/unitario/` — cuando se testean funciones async
 - `equipo/testing/apis/` — siempre
 - `guilds/frontend-angular/` — siempre (para manejo de observables/subscriptions)

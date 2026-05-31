@@ -20,16 +20,16 @@ board:
   url: https://miempresa.atlassian.net
 
 vcs:
-  herramienta: github  # github, bitbucket, azure-repos
+  herramienta: github  # github, bitbucket, repo-privado
   url: https://github.com/mi-org/mi-proyecto
-  default_branch: main
+  default_branch: master
 
 cicd:
   herramienta: github-actions  # github-actions, azure-devops
   ambientes:
     - nombre: dev
       url: https://dev.miproyecto.com
-    - nombre: staging  
+    - nombre: staging
       url: https://staging.miproyecto.com
     - nombre: prod
       url: https://miproyecto.com
@@ -61,7 +61,7 @@ apis_externas:
 ```yaml
 convenciones:
   ramas:
-    main: main
+    master: master
     feature: feature/{ticket}-{descripcion-corta}
     bugfix: fix/{ticket}-{descripcion-corta}
   commits:
@@ -132,7 +132,7 @@ board:
 vcs:
   herramienta: github
   url: https://github.com/miempresa/portal-clientes
-  default_branch: main
+  default_branch: master
 
 cicd:
   herramienta: github-actions
@@ -156,7 +156,7 @@ apis_externas:
 
 convenciones:
   ramas:
-    main: main
+    master: master
     feature: feature/{AB}-{descripcion}
     bugfix: fix/{AB}-{descripcion}
   commits:

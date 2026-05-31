@@ -21,6 +21,13 @@ Los tests de API verifican el **contrato**, no la implementación interna. No te
 
 ---
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Checklist por endpoint
 
 Para cada endpoint, verificar:
@@ -185,7 +192,7 @@ describe('Users API', () => {
       const res = await request(app)
         .post('/users')
         .set('Authorization', `Bearer ${authToken}`)
-        .send({ email: 'nuevo@test.com', password: 'Passw0rd!', role: 'user' });
+        .send({ email: 'nuevo@example.test', password: '<valid-test-password>', role: 'user' });
 
       expect(res.status).toBe(201);
       expect(res.headers['location']).toMatch(/\/users\/.+/);
@@ -197,7 +204,7 @@ describe('Users API', () => {
       const res = await request(app)
         .post('/users')
         .set('Authorization', `Bearer ${authToken}`)
-        .send({ password: 'Passw0rd!' });
+        .send({ password: '<valid-test-password>' });
 
       expect(res.status).toBe(422);
       expect(res.body.errors).toEqual(
@@ -211,7 +218,7 @@ describe('Users API', () => {
       const res = await request(app)
         .post('/users')
         .set('Authorization', `Bearer ${authToken}`)
-        .send({ email: 'test@test.com', password: 'Passw0rd!', role: 'user' });
+        .send({ email: 'test@example.test', password: '<valid-test-password>', role: 'user' });
 
       expect(res.status).toBe(409);
       expect(res.body.message).toMatch(/already/i);
@@ -301,7 +308,7 @@ describe('Users GraphQL', () => {
   describe('mutation createUser', () => {
     it('crea el usuario y devuelve id y email', async () => {
       const data = await authedClient.request(CREATE_USER, {
-        input: { email: 'nuevo@test.com', password: 'Passw0rd!', role: 'USER' },
+        input: { email: 'nuevo@example.test', password: '<valid-test-password>', role: 'USER' },
       });
 
       expect(data.createUser.id).toBeDefined();

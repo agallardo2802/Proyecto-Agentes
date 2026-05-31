@@ -13,7 +13,7 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
-- `equipo/desarrollo/dev/` — siempre
+- `equipo/desarrollo/dev-ggs/` — siempre
 - `equipo/testing/unitario/` — cuando se testean casos de error
 - `guilds/backend-dotnet/` — siempre
 - `guilds/integraciones/` — siempre

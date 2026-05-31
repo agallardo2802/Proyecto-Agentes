@@ -47,12 +47,12 @@ Campos de alto nivel:
 trigger:
   branches:
     include:
-      - main
+      - master
 
 pr:
   branches:
     include:
-      - main
+      - master
 
 pool:
   vmImage: ubuntu-latest
@@ -110,7 +110,7 @@ stages:
   - stage: DeployStaging
     displayName: Deploy Staging
     dependsOn: CI
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - deployment: DeployToStaging
         displayName: Deploy a staging
@@ -127,7 +127,7 @@ stages:
   - stage: DeployProd
     displayName: Deploy Producción
     dependsOn: DeployStaging
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     jobs:
       - deployment: DeployToProd
         displayName: Deploy a producción

@@ -17,6 +17,13 @@ metadata:
 
 Garantizar que cada pieza de software tenga la cobertura correcta, con el tipo de test adecuado para lo que se está verificando. Cero tests redundantes, cero huecos en la cobertura crítica.
 
+## Política GGS — validación de cierre
+
+- Testing valida Bugs antes de cerrarlos definitivamente.
+- Una User Story no se considera cerrada solo por tests o merge: requiere deploy + sign-off funcional del Analista Funcional.
+- Si una validación falla, se crea o reabre Bug vinculado a la User Story o Feature afectada.
+- La evidencia de validación debe quedar en el work item correspondiente.
+
 ## Sub-agentes disponibles
 
 | Sub-agente | Cuándo usarlo |

@@ -31,7 +31,7 @@ Todo proyecto nuevo en frontend sigue estos patrones.
 
 ### 1. Componentes Presentacionales
 
-Separate UI de logica:
+// Separar UI de lógica:
 ```
 components/
 ├── ui/           # Buttons, Inputs, Cards (sin lógica de negocio)
@@ -189,7 +189,7 @@ interface PaginatedResponse<T> {
 
 ## Integración con APIs
 
-El frontend consume APIs propias, NO Calipso directo:
+El frontend consume APIs propias, NO sistema externo crítico directo:
 ```
 Frontend → API Gateway (.NET) → Warehouse → ERP
 ```

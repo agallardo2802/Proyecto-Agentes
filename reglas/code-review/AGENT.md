@@ -13,9 +13,10 @@ metadata:
 ## Inyección automática
 
 Esta regla se carga automáticamente con:
+- `equipo/devops/pr/repo-privado/` — siempre
 - `equipo/devops/pr/github/` — siempre
 - `equipo/devops/pr/bitbucket/` — siempre
-- `equipo/desarrollo/dev/` — cuando se abre o revisa un PR
+- `equipo/desarrollo/dev-ggs/` — cuando se abre o revisa un PR
 
 ## Objetivo
 
@@ -32,6 +33,7 @@ El code review es la herramienta más poderosa del equipo para mantener calidad 
 4. **Máximo 20 comentarios por PR** — si hay más problemas, rechazarlo y pedir refactor antes
 5. **Aprobar si pasa el estándar** — no bloquear por preferencias personales de estilo
 6. **Reconocer lo bueno** — si algo está bien hecho, decirlo
+7. **Validar trazabilidad GGS-TRACE** — si el PR declara cambios hechos por agentes, verificar que el archivo/bloque tenga marca `GGS-TRACE` sin ensuciar el código.
 
 ## Reglas para el AUTOR
 
@@ -50,6 +52,8 @@ El code review es la herramienta más poderosa del equipo para mantener calidad 
 - [ ] ¿Hay empty catch que silencian errores?
 - [ ] ¿Los nombres son claros y consistentes con el proyecto?
 - [ ] ¿Hay console.log de debug olvidados?
+- [ ] ¿Los cambios de agente tienen `GGS-TRACE` con actor, AB# y motivo?
+- [ ] ¿La marca `GGS-TRACE` está puesta a nivel archivo/bloque y no repetida línea por línea?
 
 ## Ejemplo de comentario correcto
 

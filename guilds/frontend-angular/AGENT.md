@@ -20,7 +20,7 @@ Un guild NO ejecuta tareas — valida que el trabajo del dev agent cumpla los es
 
 ## Cuándo inyectar este guild
 
-Inyectar JUNTO al `equipo/desarrollo/dev/` cuando el stack incluye:
+Inyectar JUNTO al `equipo/desarrollo/dev-ggs/` cuando el stack incluye:
 - Proyectos Angular 16+ (Standalone o módulos)
 - Componentes, servicios, guards o interceptors Angular
 - Estado con NgRx o Signals
