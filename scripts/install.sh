@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Directorio donde vive este script (para resolver assets como el logo TUI).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
+
 RED='\033[31m'
 NC='\033[0m'
 printf "${RED}Installing GGS Agents...${NC}\n"
@@ -583,63 +586,15 @@ PY
     TS="$(date +%Y%m%d-%H%M%S)"
     cp "$PLUGIN_PATH" "$BACKUP_DIR/gentle-logo.tsx.$TS.bak"
   fi
-  cat > "$PLUGIN_PATH" <<'TSX'
-// @ts-nocheck
-/** @jsxImportSource @opentui/solid */
-import type { TuiPlugin, TuiThemeCurrent } from "@opencode-ai/plugin/tui"
-import { useTerminalDimensions } from "@opentui/solid"
-import { createMemo } from "solid-js"
-
-const id = "gentle-logo"
-
-const ggsArt = [
-  "██████████              ██████████",
-  "  ████████████████        ████████████████",
-  " █████        █████      █████        █████",
-  " ████                    ████",
-  " ████                    ████",
-  " ████       ████████     ████       ████████",
-  " ████       ████████     ████       ████████",
-  " ████         █████      ████         █████",
-  "  ████████████████        ████████████████",
-  "    ██████████              ██████████",
-  "   S  O  L  U  C  I  O  N  E  S",
-]
-
-const compactArt = ["▣ GGSoluciones AI"]
-
-const Logo = (props: { theme: TuiThemeCurrent }) => {
-  const dim = useTerminalDimensions()
-  const lines = createMemo(() => {
-    const term = dim()
-    return term.height >= ggsArt.length + 6 && term.width >= 58 ? ggsArt : compactArt
-  })
-
-  return (
-    <box flexDirection="column" alignItems="center">
-      {lines().map((line) => (
-        <text fg="#E30613">{line}</text>
-      ))}
-    </box>
-  )
-}
-
-const tui: TuiPlugin = async (api) => {
-  api.slots.register({
-    id,
-    order: 100,
-    slots: {
-      home_logo(ctx) {
-        return <Logo theme={ctx.theme.current} />
-      },
-    },
-  })
-}
-
-const plugin = { id: "gentle-logo", tui }
-export default plugin
-TSX
-  echo "  - Installed GGSoluciones logo plugin: $PLUGIN_PATH"
+  # El contenido del logo (con bloques Unicode) vive en un archivo aparte para
+  # evitar problemas de codificacion. Se copia tal cual desde el repo/clon.
+  LOGO_ASSET="$SCRIPT_DIR/assets/gentle-logo.tsx"
+  if [ -f "$LOGO_ASSET" ]; then
+    cp "$LOGO_ASSET" "$PLUGIN_PATH"
+    echo "  - Installed GGSoluciones logo plugin: $PLUGIN_PATH"
+  else
+    echo "  - Logo asset not found at $LOGO_ASSET; skipping TUI logo"
+  fi
   echo "  - Agent files live in skills/agents/ (no Custom/ duplicates)"
 fi
 

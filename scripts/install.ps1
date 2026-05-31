@@ -112,18 +112,15 @@ function Install-GentleAI {
     }
 }
 
+# Banner en ASCII puro: robusto ante cualquier codificacion de consola.
+# El logo con bloques Unicode vive en el plugin TUI de OpenCode (gentle-logo.tsx).
 $logoLines = @(
-"   ██████████              ██████████   ",
-"     ████████████████        ████████████████ ",
-"    █████        █████      █████        █████",
-"    ████                    ████              ",
-"    ████                    ████              ",
-"    ████       ████████     ████       ████████",
-"    ████       ████████     ████       ████████",
-"    ████         █████      ████         █████ ",
-"     ████████████████        ████████████████ ",
-"       ██████████              ██████████     ",
-"      S  O  L  U  C  I  O  N  E  S           "
+"    ____   ____   ____  ",
+"   / ___| / ___| / ___| ",
+"  | |  _ | |  _  \___ \  ",
+"  | |_| || |_| |  ___) | ",
+"   \____| \____| |____/  ",
+"      S O L U C I O N E S"
 )
 
 Write-Host ""
@@ -891,71 +888,23 @@ function Install-OpenCodeLogoPlugin {
 
     $pluginDir = "$env:USERPROFILE\.config\opencode\tui-plugins"
     $pluginPath = Join-Path $pluginDir "gentle-logo.tsx"
-    $pluginContent = @'
-// @ts-nocheck
-/** @jsxImportSource @opentui/solid */
-import type { TuiPlugin, TuiThemeCurrent } from "@opencode-ai/plugin/tui"
-import { useTerminalDimensions } from "@opentui/solid"
-import { createMemo } from "solid-js"
+    # El contenido del logo (con bloques Unicode) vive en un archivo aparte para
+    # evitar problemas de codificacion al parsear este .ps1 en distintas consolas.
+    $assetPath = Join-Path $PSScriptRoot "assets\gentle-logo.tsx"
 
-const id = "gentle-logo"
-
-const ggsArt = [
-  "██████████              ██████████",
-  "  ████████████████        ████████████████",
-  " █████        █████      █████        █████",
-  " ████                    ████",
-  " ████                    ████",
-  " ████       ████████     ████       ████████",
-  " ████       ████████     ████       ████████",
-  " ████         █████      ████         █████",
-  "  ████████████████        ████████████████",
-  "    ██████████              ██████████",
-  "   S  O  L  U  C  I  O  N  E  S",
-]
-
-const compactArt = [" GGSoluciones AI"]
-
-const Logo = (props: { theme: TuiThemeCurrent }) => {
-  const dim = useTerminalDimensions()
-  const lines = createMemo(() => {
-    const term = dim()
-    return term.height >= ggsArt.length + 6 && term.width >= 76 ? ggsArt : compactArt
-  })
-
-  return (
-    <box flexDirection="column" alignItems="center">
-      {lines().map((line) => (
-        <text fg="#E30613">{line}</text>
-      ))}
-    </box>
-  )
-}
-
-const tui: TuiPlugin = async (api) => {
-  api.slots.register({
-    id,
-    order: 100,
-    slots: {
-      home_logo(ctx) {
-        return <Logo theme={ctx.theme.current} />
-      },
-    },
-  })
-}
-
-const plugin = { id: "gentle-logo", tui }
-export default plugin
-'@
+    if (-not (Test-Path -LiteralPath $assetPath)) {
+        Write-Warn "No se encontro el asset del logo en $assetPath; se omite el logo TUI."
+        return $true
+    }
 
     if ($DryRun) {
-        Write-Info "DryRun: se escribiria $pluginPath"
+        Write-Info "DryRun: se copiaria $assetPath a $pluginPath"
         return $true
     }
 
     if (!(Test-Path $pluginDir)) { New-Item -ItemType Directory -Path $pluginDir -Force | Out-Null }
     if (Test-Path $pluginPath) { Backup-File -Path $pluginPath -BackupRoot (Join-Path "$env:USERPROFILE\.config\opencode" "backups") | Out-Null }
-    $pluginContent | Set-Content -LiteralPath $pluginPath -Encoding UTF8
+    Copy-Item -LiteralPath $assetPath -Destination $pluginPath -Force
     Write-Success "Logo GGSoluciones instalado en: $pluginPath"
     return $true
 }
