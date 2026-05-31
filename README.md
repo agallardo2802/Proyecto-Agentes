@@ -14,6 +14,14 @@
    S  O  L  U  C  I  O  N  E  S
 ```
 
+<p align="center">
+  <a href="INSTALL.md"><img src="https://img.shields.io/badge/%F0%9F%9A%80%20Instalaci%C3%B3n%20y%20primeros%20pasos-E30613?style=for-the-badge&logoColor=white" alt="Instalación y primeros pasos"></a>
+  &nbsp;
+  <a href="capacitacion/00-indice.md"><img src="https://img.shields.io/badge/%F0%9F%93%9A%20Capacitaci%C3%B3n%20con%20ejemplos-1A1A1A?style=for-the-badge&logoColor=white" alt="Capacitación con ejemplos"></a>
+  &nbsp;
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/%F0%9F%A4%9D%20Contributing-555555?style=for-the-badge&logoColor=white" alt="Contributing"></a>
+</p>
+
 Un sistema open source de agentes especializados para equipos de desarrollo. En lugar de darle contexto a una IA cada vez que arrancás una tarea, tenés agentes pre-configurados con roles claros — PM, arquitecto, dev, tester, data engineer, BI — que ya saben cómo trabajar, qué estándares seguir y cuándo escalar.
 
 Funciona en OpenCode, Claude Code, Codex, Antigravity y Gentle.ai. Compatible con cualquier proyecto, independiente del stack.
