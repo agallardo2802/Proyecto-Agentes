@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Propuesta · Modernización y Migración del Sistema de Actas Digitales | GG Soluciones</title>
+  <meta name="description" content="Propuesta de modernización, organización y migración del Sistema de Actas Digitales del Registro Civil de la Provincia. GG Soluciones." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ── PAGE-SPECIFIC: PROPOSAL DOCUMENT ── */
+    .doc-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f1c2e 100%);
+      color: #fff;
+      padding: 64px 0 56px;
+    }
+    .doc-hero .container { max-width: 100%; }
+    .doc-eyebrow {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 16px;
+    }
+    .doc-hero h1 {
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+    .doc-hero .lead {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-style: italic;
+      max-width: 640px;
+    }
+
+    .doc-wrap { padding: 56px 0 72px; }
+    .doc { max-width: 100%; }
+
+    .doc-meta {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 0.95rem;
+    }
+    .doc-meta th,
+    .doc-meta td {
+      text-align: left;
+      padding: 12px 16px;
+      border: 1px solid var(--border2);
+      vertical-align: top;
+    }
+    .doc-meta th {
+      width: 200px;
+      background: var(--card);
+      color: var(--text);
+      font-weight: 700;
+    }
+    .doc-meta td { color: var(--muted); }
+
+    .doc h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+    }
+    .doc h3 {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 22px 0 10px;
+    }
+    .doc p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-size: 1rem;
+    }
+    .doc ul { margin: 0 0 16px; padding-left: 0; list-style: none; }
+    .doc ul li {
+      position: relative;
+      padding-left: 26px;
+      margin-bottom: 8px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .doc ul li::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 9px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 16px;
+      font-size: 0.95rem;
+    }
+    .doc-table th,
+    .doc-table td {
+      padding: 12px 16px;
+      border: 1px solid var(--border2);
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc-table td.label {
+      width: 240px;
+      background: var(--card);
+      color: var(--text);
+      font-weight: 700;
+    }
+    .doc-table td { color: var(--muted); }
+
+    /* Architecture diagram */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 8px 0 24px;
+    }
+    .arch-box {
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .arch-box-header {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 10px 16px;
+      text-align: center;
+    }
+    .arch-box-body {
+      background: var(--card);
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .arch-box-body strong { color: var(--text); display: block; margin-bottom: 4px; }
+    .arch-box-body span { color: var(--muted); font-size: 0.88rem; }
+    .arch-note {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 8px;
+    }
+
+    /* Price table */
+    .price-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 0.95rem; }
+    .price-table th,
+    .price-table td { padding: 12px 16px; border: 1px solid var(--border2); }
+    .price-table thead th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+    }
+    .price-table thead th.num { text-align: right; }
+    .price-table thead th.center { text-align: center; }
+    .price-table td.concept { font-weight: 700; color: var(--text); }
+    .price-table td.detail { color: var(--muted); }
+    .price-table td.num { text-align: right; font-weight: 700; color: var(--text); white-space: nowrap; }
+    .price-table td.center { text-align: center; color: var(--muted); }
+    .price-table tr:nth-child(even) td { background: var(--card); }
+    .price-table tr.total td { background: var(--primary); }
+    .price-table tr.total td.concept,
+    .price-table tr.total td.center,
+    .price-table tr.total td.num { color: #fff; }
+
+    /* Payment table */
+    .payment-table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 0.95rem; }
+    .payment-table th,
+    .payment-table td { padding: 14px 16px; border: 1px solid var(--border2); vertical-align: top; }
+    .payment-table thead th { background: var(--primary); color: #fff; font-weight: 700; text-align: left; }
+    .payment-table thead th.num { text-align: right; }
+    .payment-table td.cuota { font-weight: 700; color: var(--text); width: 100px; }
+    .payment-table td.desc { color: var(--muted); }
+    .payment-table td.num { text-align: right; font-weight: 700; color: var(--primary); white-space: nowrap; font-size: 1.05rem; }
+    .payment-table tr:nth-child(even) td { background: var(--card); }
+
+    /* Risk callout */
+    .doc-callout {
+      border-left: 4px solid var(--accent);
+      background: var(--card);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 16px 0 20px;
+    }
+    .doc-callout p { margin: 0; font-style: italic; }
+
+    /* Stage 2 banner */
+    .stage2-banner {
+      border: 1px solid var(--border2);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      background: var(--card);
+      padding: 20px 24px;
+      margin: 16px 0;
+    }
+    .stage2-banner h3 { margin: 0 0 10px; color: var(--primary); font-size: 1rem; }
+    .stage2-banner p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    .doc-note { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+    .doc-close { margin-top: 40px; }
+    .doc-close p { color: var(--text); }
+
+    .doc-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 600px) {
+      .arch-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      .header, .nav-mobile, .nav-toggle, .footer, .doc-actions { display: none !important; }
+      .doc-hero { background: #0f1c2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 32px 0; }
+      .doc-wrap { padding: 24px 0; }
+      .price-table thead th, .doc h2, .arch-box-header, .payment-table thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-logo">
+        <img src="logo.png" alt="GG Soluciones" style="height:40px;width:auto;" />
+      </div>
+      <div class="brand-text">
+        <span>Desarrollo &amp; Consultoría IT</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="agentes.html">Agentes IA</a>
+      <a href="consultoria.html">Consultoría</a>
+      <a href="capacitacion.html">Capacitación</a>
+      <a href="transformacion-tecnologica.html">Transformación</a>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a class="btn btn-accent" href="https://wa.me/5493885120704" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.098.546 4.07 1.504 5.786L.057 23.998l6.344-1.667A11.938 11.938 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.804 9.804 0 01-5.003-1.371l-.36-.213-3.761.989 1.004-3.666-.235-.376A9.797 9.797 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818 5.42 0 9.818 4.398 9.818 9.818 0 5.42-4.398 9.818-9.818 9.818z"/></svg>
+        WhatsApp
+      </a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav overlay -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Inicio</a>
+  <a href="agentes.html">Agentes IA</a>
+  <a href="consultoria.html">Consultoría</a>
+  <a href="capacitacion.html">Capacitación</a>
+  <a href="transformacion-tecnologica.html">Transformación</a>
+  <a class="btn btn-accent" href="https://wa.me/5493885120704" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="doc-hero">
+  <div class="container">
+    <span class="doc-eyebrow">Propuesta de servicios profesionales</span>
+    <h1>Modernización y Migración del Sistema de Actas Digitales</h1>
+    <p class="lead">Actualización técnica, organización y migración a infraestructura Linux — base estable para operar y crecer.</p>
+  </div>
+</section>
+
+<!-- ── DOCUMENT ── -->
+<section class="doc-wrap">
+  <div class="container doc">
+
+    <div class="doc-actions">
+      <button class="btn btn-primary" onclick="window.print()">Descargar / Imprimir PDF</button>
+      <a class="btn btn-secondary" href="https://wa.me/5493885120704?text=Hola,%20quiero%20coordinar%20una%20reuni%C3%B3n%20por%20la%20propuesta%20de%20Actas%20Digitales" target="_blank" rel="noopener">Coordinar reunión</a>
+    </div>
+
+    <table class="doc-meta">
+      <tr><th>Destinatario</th><td>Registro Civil de la Provincia</td></tr>
+      <tr><th>Atención</th><td>Octavio Rivas — Director</td></tr>
+      <tr><th>Oferente</th><td>GG Soluciones — CUIT 20-34005631-1</td></tr>
+      <tr><th>Lugar y fecha</th><td>San Salvador de Jujuy, 31 de mayo de 2026</td></tr>
+      <tr><th>Validez</th><td>10 días hábiles desde la fecha de emisión</td></tr>
+    </table>
+
+    <h2>1. Objetivo</h2>
+    <p>Modernizar, ordenar y migrar el sistema actual de Actas Digitales del Registro Civil, asegurando mayor estabilidad, mantenimiento ordenado y una infraestructura preparada para operar sobre servidores Linux.</p>
+    <p>El trabajo contempla la actualización técnica del sistema, la organización de los proyectos existentes y la separación de responsabilidades entre servidor de aplicaciones y servidor de base de datos.</p>
+
+    <h2>2. Situación actual y riesgos</h2>
+    <p>El sistema actual opera sobre una infraestructura de servidor único, sin redundancia ni plan de continuidad ante fallas. Ante una caída del servidor — ya sea por fallo de hardware, error de sistema operativo o problema de red — el Registro Civil queda sin operación hasta restablecer manualmente el servicio, sin garantía de tiempo de recuperación ni protección contra pérdida de datos recientes.</p>
+
+    <div class="doc-callout">
+      <p>Una interrupción del sistema obliga al Registro Civil a operar en papel, con el consecuente reingreso manual de datos, riesgo de errores en actas y demoras en la atención al público. El costo operativo de un día sin sistema — en horas de personal, reprocesos y atención al público afectada — supera ampliamente el costo diario de este proyecto.</p>
+    </div>
+
+    <p>La presente propuesta resuelve la base técnica necesaria para operar de forma estable. Una vez completada, se recomienda avanzar hacia una arquitectura con alta disponibilidad que elimine este punto único de falla.</p>
+
+    <h2>3. Alcance del trabajo</h2>
+
+    <h3>Modernización técnica del sistema</h3>
+    <ul>
+      <li>Migración y actualización de librerías</li>
+      <li>Revisión de versiones de backend, frontend y dependencias</li>
+      <li>Ajustes de compatibilidad para ejecución estable</li>
+      <li>Corrección de configuraciones técnicas heredadas</li>
+      <li>Validación funcional posterior a los cambios</li>
+    </ul>
+
+    <h3>Organización de proyectos</h3>
+    <ul>
+      <li>Ordenamiento de backend, frontend e integraciones</li>
+      <li>Revisión de estructura de configuración por ambiente</li>
+      <li>Separación clara entre código, configuración y archivos operativos</li>
+      <li>Preparación del sistema para despliegues más controlados</li>
+    </ul>
+
+    <h3>Migración a servidores Linux</h3>
+    <ul>
+      <li>Preparación del entorno productivo sobre Linux</li>
+      <li>Configuración de servidor para APIs y aplicación web</li>
+      <li>Configuración de servidor independiente para base de datos</li>
+      <li>Ajustes de conexión entre aplicación y base de datos</li>
+      <li>Configuración básica de seguridad, logs y respaldos</li>
+      <li>Puesta en marcha y prueba funcional del sistema migrado</li>
+    </ul>
+
+    <h2>4. Arquitectura propuesta</h2>
+    <div class="arch-grid">
+      <div class="arch-box">
+        <div class="arch-box-header">Servidor 1</div>
+        <div class="arch-box-body">
+          <strong>Aplicación web</strong>
+          <span>APIs e integraciones</span>
+        </div>
+      </div>
+      <div class="arch-box">
+        <div class="arch-box-header">Servidor 2</div>
+        <div class="arch-box-body">
+          <strong>Base de datos</strong>
+          <span>Acceso exclusivo desde Servidor 1</span>
+        </div>
+      </div>
+    </div>
+    <p class="arch-note">Comunicación interna controlada entre ambos servidores. Ambientes preparados para operación, mantenimiento y futuras mejoras.</p>
+
+    <h2>5. Estimación económica</h2>
+    <p>Valor hora de desarrollo: <strong>$40.000 ARS</strong></p>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th class="center">Horas</th>
+          <th class="num">Importe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="concept">Revisión y cierre de cambios críticos actuales</td>
+          <td class="center">24 hs</td>
+          <td class="num">$960.000</td>
+        </tr>
+        <tr>
+          <td class="concept">Migración de librerías y versiones</td>
+          <td class="center">36 hs</td>
+          <td class="num">$1.440.000</td>
+        </tr>
+        <tr>
+          <td class="concept">Organización técnica de proyectos</td>
+          <td class="center">16 hs</td>
+          <td class="num">$640.000</td>
+        </tr>
+        <tr>
+          <td class="concept">Preparación para servidores Linux</td>
+          <td class="center">20 hs</td>
+          <td class="num">$800.000</td>
+        </tr>
+        <tr>
+          <td class="concept">Migración a dos servidores</td>
+          <td class="center">26 hs</td>
+          <td class="num">$1.040.000</td>
+        </tr>
+        <tr>
+          <td class="concept">Pruebas, ajustes y puesta en marcha</td>
+          <td class="center">16 hs</td>
+          <td class="num">$640.000</td>
+        </tr>
+        <tr class="total">
+          <td class="concept">Total — 138 horas</td>
+          <td class="center">—</td>
+          <td class="num">$5.520.000 ARS</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>6. Cronograma estimado</h2>
+    <table class="doc-table">
+      <tr><td class="label">Semanas 1 – 2</td><td>Revisión y cierre de cambios críticos actuales</td></tr>
+      <tr><td class="label">Semanas 3 – 5</td><td>Migración de librerías y versiones</td></tr>
+      <tr><td class="label">Semana 6</td><td>Organización técnica de proyectos</td></tr>
+      <tr><td class="label">Semanas 7 – 8</td><td>Preparación y migración a servidores Linux</td></tr>
+      <tr><td class="label">Semana 9</td><td>Pruebas, ajustes y puesta en marcha</td></tr>
+    </table>
+
+    <h2>7. Entregables</h2>
+    <ul>
+      <li>Sistema funcionando en servidores Linux, separado por responsabilidades</li>
+      <li>Documentación técnica de la arquitectura implementada</li>
+      <li>Manual básico de operación, mantenimiento y respaldo</li>
+      <li>Configuración de seguridad base y política de logs activa</li>
+      <li>Sesión de transferencia de conocimiento al equipo técnico designado</li>
+    </ul>
+
+    <h2>8. Condiciones de pago</h2>
+    <p>El proyecto se abona en dos cuotas, contra entrega y validación por parte del Registro Civil:</p>
+    <table class="payment-table">
+      <thead>
+        <tr>
+          <th>Cuota</th>
+          <th>Condición</th>
+          <th class="num">Importe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cuota">Cuota 1</td>
+          <td class="desc">Al completar la modernización técnica y organización del sistema, validada por el Registro Civil.</td>
+          <td class="num">$3.040.000 ARS</td>
+        </tr>
+        <tr>
+          <td class="cuota">Cuota 2</td>
+          <td class="desc">Al completar la migración a servidores Linux y la puesta en marcha, validada por el Registro Civil.</td>
+          <td class="num">$2.480.000 ARS</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="doc-note">Los valores no contemplan impuestos que pudieran corresponder según la condición fiscal del oferente.</p>
+
+    <h2>9. No incluido</h2>
+    <ul>
+      <li>Costo mensual de servidores</li>
+      <li>Licencias de software o base de datos</li>
+      <li>Dominio, certificados pagos o servicios externos</li>
+      <li>Soporte mensual posterior a la puesta en marcha</li>
+    </ul>
+
+    <h2>10. Etapa 2 — Alta Disponibilidad (propuesta posterior)</h2>
+    <div class="stage2-banner">
+      <h3>Próximo paso recomendado una vez finalizada esta etapa</h3>
+      <p>Incorporación de servidor de respaldo activo, replicación de base de datos en tiempo real y política de failover automático o asistido, eliminando el punto único de falla actual. Esta etapa se cotizará por separado con el sistema ya estabilizado como base.</p>
+    </div>
+
+    <h2>11. Resultado esperado</h2>
+    <p>Sistema ordenado, actualizado y migrado a una infraestructura Linux separada por responsabilidades — APIs y aplicación en un servidor, base de datos en otro — dejando una base técnica estable para mantenimiento, crecimiento y la incorporación futura de alta disponibilidad.</p>
+
+    <div class="doc-close">
+      <p>Quedamos a disposición para ampliar cualquier punto de la presente propuesta y coordinar una reunión de presentación.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>Alejandro Gallardo · San Salvador de Jujuy, Argentina</span>
+    <span>© 2026 GG Soluciones · Todos los derechos reservados</span>
+  </div>
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  }
+
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  const navToggle = document.getElementById('navToggle');
+  const navMobile = document.getElementById('navMobile');
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navMobile.classList.toggle('open');
+    document.body.style.overflow = navMobile.classList.contains('open') ? 'hidden' : '';
+  });
+  navMobile.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      navMobile.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
+</body>
+</html>
