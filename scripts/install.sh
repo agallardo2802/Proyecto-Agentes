@@ -565,6 +565,10 @@ mcps["notion"] = {
 # NotebookLM: requiere login de browser (auth persistente) -> opcional.
 mcps["notebooklm"] = {"enabled": optional_mcp_enabled, "type": "local", "command": ["npx", "-y", "notebooklm-mcp@latest"]}
 skills_root = Path.home() / ".config" / "opencode" / "skills"
+commands["ggs-doctor"] = {
+    "description": "Diagnosticar la instalacion GGS/OpenCode (agentes, MCPs, logo, herramientas)",
+    "prompt": f"Ejecuta: bash '{skills_root}/scripts/doctor.sh'. Reporta el estado de herramientas, opencode.json, agentes, MCPs, skills y logo TUI. Resume los [WARN]/[FAIL] y sugiere como repararlos.",
+}
 commands["ggs-update"] = {
     "description": "Actualizar agentes GGS y refrescar OpenCode",
     "prompt": f"Ejecuta desde el clon instalado: GGS_AGENTS_SOURCE_DIR='{skills_root}' bash '{skills_root}/scripts/install.sh' --dry-run. Si el usuario confirma, repetir sin --dry-run. Luego resume cambios y recorda reiniciar OpenCode.",

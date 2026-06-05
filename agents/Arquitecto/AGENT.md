@@ -587,6 +587,7 @@ Merge a prod detectado
 
 | Fecha | Version gentle-ai | Changes integrados |
 |-------|-------------------|-----------------|
+| 2026-06-05 | v1.36.2 | Hardening del instalador GGS (UTF-8 `chcp 65001` + persistencia de PATH de usuario), comando `ggs-doctor` de diagnóstico, deny-list de paths sensibles. **Heredado del core gentle-ai** (al actualizar el CLI, no requiere cambios en GGS): Native SDD status engine + Dispatcher Guard, multi-agent SDD por defecto, TUI model picker de 3 tiers, model profiles `sdd-strong/mid/cheap`, phase-scoped interactive approval, Codex feature parity + Context7. |
 | 2026-05-11 | v1.27.5 | OpenCode SDD Profiles, Community Plugins, Backup & Rollback, MCP Servers |
 | 2026-04-23 | v3.x (current) | Testing capabilities detection, Strict TDD auto-resolve, skill registry, model assignments |
 
@@ -631,6 +632,7 @@ Merge a prod detectado
 30. Feature con `security-impact: alto` (auth, pagos, PII) requiere threat model STRIDE antes del ADR de arquitectura.
 31. Todo merge a prod (`master`/`main`/`prod`) dispara el workflow `merge-a-prod`: actualizar manual de usuario, README, mapa aplicativo y arquitectura/ADRs, publicar release versionado (SemVer automático desde conventional commits + tag + CHANGELOG), y sincronizar el tablero (Task/Bug, User Story, Feature y Épica) con PR, commits, build, deploy y tag de release vinculados. Un merge a prod sin este cierre NO se considera terminado.
 32. **Política de ramas GitFlow GGS.** `master` = Producción, `develop` = Staging. Toda branch hija sale de `develop` y se mergea de vuelta a `develop` vía PR — NUNCA apunta a `master`. `master` SOLO recibe merges desde `develop`, y solo cuando develop está validado en staging (pipeline verde + smoke-test). Si el proyecto no tiene `develop`, el Arquitecto la crea desde `master` antes de empezar y la configura como branch por defecto del repo. **Única excepción — hotfix de emergencia**: ante un incidente crítico en prod, la branch `hotfix/` sale de `master`, su PR va a `master` con aprobación obligatoria, el merge dispara `deploy-prod` + release (patch), y es OBLIGATORIO el back-merge `master → develop` inmediato para no perder el fix. Es el único caso donde un branch toca `master` directo y solo se justifica por emergencia real.
+33. **Deny-list de paths sensibles (acceso).** Los agentes NUNCA leen, imprimen, commitean ni exponen el contenido de: `.env*`, `**/secrets/**`, `**/*.pem`, `**/*.key`, `**/id_rsa*`, `~/.ssh/**`, `**/credentials*`, `**/*.pfx`, ni `appsettings.*.json` con secretos/tokens/connection strings. Si una tarea requiere uno de estos, referenciarlo por nombre de variable de entorno, nunca por su valor. Alinea con el security hardening de gentle-ai v1.33.0 y con `equipo/seguridad/appsec`.
 
 ---
 
