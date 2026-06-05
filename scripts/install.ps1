@@ -24,6 +24,27 @@ param(
 $ErrorActionPreference = "Stop"
 $ProgressPreference = "SilentlyContinue"
 
+# Forzar consola en UTF-8 para que los caracteres no-ASCII no se corrompan.
+# (try-catch: no romper en hosts sin consola como ISE o remoting)
+$null = & chcp 65001 2>$null
+try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch {}
+try { $OutputEncoding = [System.Text.Encoding]::UTF8 } catch {}
+
+# Persistir un directorio en el PATH del usuario (sobrevive a reinicios de terminal).
+function Add-ToUserPath {
+    param([Parameter(Mandatory=$true)][string]$Directory)
+    if ([string]::IsNullOrWhiteSpace($Directory)) { return }
+    $userPath = [Environment]::GetEnvironmentVariable("PATH", "User")
+    $entries = @()
+    if ($userPath) { $entries = $userPath -split ';' | Where-Object { $_ } }
+    $alreadyPresent = $entries | Where-Object { $_.TrimEnd('\') -ieq $Directory.TrimEnd('\') }
+    if (-not $alreadyPresent) {
+        $newUserPath = if ($userPath) { "$userPath;$Directory" } else { $Directory }
+        [Environment]::SetEnvironmentVariable("PATH", $newUserPath, "User")
+    }
+    if (($env:Path -split ';') -notcontains $Directory) { $env:Path = "$env:Path;$Directory" }
+}
+
 $CodexAvailable = [bool](Get-Command codex -ErrorAction SilentlyContinue)
 $DefaultOpenCodeModel = if ($env:GGS_OPENCODE_DEFAULT_MODEL) { $env:GGS_OPENCODE_DEFAULT_MODEL } elseif ($CodexAvailable) { "openai/gpt-5.5" } else { $null }
 $SddProfileModel = if ($env:GGS_OPENCODE_DEFAULT_MODEL) { $env:GGS_OPENCODE_DEFAULT_MODEL } else { "openai/gpt-5.5" }
@@ -394,6 +415,7 @@ function Install-Engram {
         Expand-Archive -Path $engramZip -DestinationPath $engramExtract -Force
         Copy-Item "$engramExtract\engram.exe" -Destination $engramDir -Force
         if ([System.IO.Directory]::Exists($engramWork)) { [System.IO.Directory]::Delete($engramWork, $true) }
+        Add-ToUserPath -Directory $engramDir
 
         $version = & $engramPath version 2>$null
         Write-Success "Engram instalado: $version"
@@ -421,7 +443,7 @@ function Install-Uv {
     if ($DryRun) { Write-Info "DryRun: irm https://astral.sh/uv/install.ps1 | iex"; return $true }
     try {
         Invoke-RestMethod https://astral.sh/uv/install.ps1 | Invoke-Expression
-        $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User") + ";$env:USERPROFILE\.local\bin"
+        Add-ToUserPath -Directory "$env:USERPROFILE\.local\bin"
         Write-Success "uv instalado (markitdown-mcp listo para usar)"
         return $true
     } catch {
@@ -857,6 +879,11 @@ function Configure-OpenCode {
 
     $installedRoot = "$env:USERPROFILE\.config\opencode\skills"
     $updateScript = Join-Path $installedRoot "scripts\update.ps1"
+    $doctorScript = Join-Path $installedRoot "scripts\doctor.ps1"
+    $config['command']['ggs-doctor'] = @{
+        description = "Diagnosticar la instalacion GGS/OpenCode (agentes, MCPs, logo, herramientas)"
+        template = "Ejecuta en PowerShell: `& '$doctorScript'`. Reporta el estado de herramientas, opencode.json, agentes, MCPs, skills y logo TUI. Resume los [WARN]/[FAIL] y sugiere como repararlos."
+    }
     $config['command']['ggs-update'] = @{
         description = "Actualizar Gentle AI CLI y agentes GGS, refrescando OpenCode"
         template = "Ejecuta en PowerShell: `& '$updateScript' -ConfigureOpenCode -UpdateGentleAI`. Luego resume version, cambios y si hace falta reiniciar OpenCode."
