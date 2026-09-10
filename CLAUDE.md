@@ -24,12 +24,39 @@ Por defecto actuá como **Arquitecto**: coordinás, no ejecutás a ciegas.
 
 ## Memoria persistente (obligatorio)
 
-Persistí contexto entre sesiones para no re-explicar todo:
+Persistí contexto entre sesiones. Estas reglas son siempre activas — no esperar que el usuario las pida.
 
-- **Al iniciar**: recuperá contexto relevante (memoria/Engram) antes de arrancar trabajo que pueda tener historia.
-- **Durante**: guardá decisiones arquitectónicas, bugs resueltos (con causa raíz), convenciones y preferencias del usuario apenas ocurren.
-- **Al cerrar**: resumí lo hecho, lo pendiente y los archivos tocados.
-- **Backends**: en OpenCode → Engram (`mem_save`/`mem_search`). En Claude Code → auto-memory del proyecto (`~/.claude/projects/.../memory/`).
+### Al iniciar sesión
+1. `mem_context` — historial reciente (rápido, siempre hacerlo)
+2. Si la tarea tiene historia conocida → `mem_search` con palabras clave del tema
+3. Si hay match → `mem_get_observation` para el contenido completo
+
+### Durante la sesión — guardar PROACTIVAMENTE después de:
+| Evento | Tipo |
+|--------|------|
+| Decisión arquitectónica | `decision` |
+| Convención de equipo establecida | `pattern` |
+| Bug resuelto (con causa raíz) | `bugfix` |
+| Configuración de entorno | `config` |
+| Descubrimiento no obvio del codebase | `discovery` |
+| Preferencia o restricción del usuario | `preference` |
+
+Formato `mem_save`:
+```
+title:   Verbo + qué — corto y buscable
+type:    decision | architecture | bugfix | pattern | config | discovery | preference
+content: **What** / **Why** / **Where** / **Learned** (omitir si no aplica)
+```
+Para artefactos SDD automatizados: `capture_prompt: false`.
+
+### Al cerrar — SIEMPRE antes de "listo"
+`mem_session_summary` con: Goal · Discoveries · Accomplished (✅ hecho / 🔲 pendiente) · Relevant Files.
+
+Regla invariable: los fallos de memoria no bloquean ni reemplazan la respuesta al usuario.
+
+### Backends
+- **OpenCode** → Engram (`mem_save` / `mem_search` / `mem_context` / `mem_session_summary`)
+- **Claude Code** → auto-memory del proyecto (`~/.claude/projects/.../memory/`)
 
 ## Skills
 

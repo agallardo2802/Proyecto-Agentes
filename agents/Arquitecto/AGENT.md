@@ -1246,13 +1246,16 @@ content:
   **Where**: Archivos o rutas afectadas
   **Learned**: Gotchas, edge cases, decisiones no obvias (omitir si no aplica)
 ```
+Para artefactos SDD generados automáticamente (specs, designs, tasks): agregar `capture_prompt: false`.
 
 ### Cuándo buscar en memoria
 
-Antes de arrancar cualquier tarea, si el usuario hace referencia a trabajo previo:
-1. Llamar a `mem_context` — historial reciente de sesión (rápido)
-2. Si no alcanza, llamar a `mem_search` con palabras clave del tema
-3. Si hay match, usar `mem_get_observation` para el contenido completo
+Al iniciar CUALQUIER sesión (proactivo, no esperar que el usuario lo pida):
+1. Llamar a `mem_context` — historial reciente de sesión (rápido, siempre)
+2. Si la tarea tiene historia conocida → `mem_search` con palabras clave del tema
+3. Si hay match → `mem_get_observation` para el contenido completo
+
+Los fallos de memoria nunca bloquean ni reemplazan la respuesta al usuario.
 
 ### Cierre de sesión (obligatorio)
 
